@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEditor.ShaderGraph;
 public class LevelUpManager : MonoBehaviour
 {
     public float LevelPoints; //op aktuele LevelPunkte
@@ -48,23 +49,33 @@ public class LevelUpManager : MonoBehaviour
         SkillTree.SetActive(true);
     }
 
-    public void DashSkillUnlock()
+    public void DashSkillUnlock(Button button)
     {
         if(SkillPoints > 0)
         {
+            Image image = GameObject.Find("Dash").GetComponent<Image>();
+            Color tempColor = image.color;
+            tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f; 
+            image.color = tempColor;
+            Destroy(button);
             SkillPoints--;
             player.SkillDash = true;
-            SkillTree.SetActive(false);
         }
     }
 
-    public void ShootSkillUnlock()
+    public void ShootSkillUnlock(Button button)
     {
         if (SkillPoints > 0)
         {
+            Image image = GameObject.Find("Shoot").GetComponent<Image>();
+            Color tempColor = image.color;
+            tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f;
+            image.color = tempColor;
+            Destroy (button);
             SkillPoints--;
             attack.SkillShoot = true;
-            SkillTree.SetActive(false);
         }
     }
 }
