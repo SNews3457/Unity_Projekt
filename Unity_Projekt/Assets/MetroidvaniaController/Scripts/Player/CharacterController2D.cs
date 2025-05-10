@@ -10,8 +10,9 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
-	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
+	[SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
 
+	public float lives = 5;
 	public Transform checkpoint; //SNews: Letzter Checkpoint
 	public bool CheckpointActive = false;
 
@@ -68,6 +69,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		life = 1;
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
@@ -344,30 +346,37 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	IEnumerator WaitToDead()
-{
-	animator.SetBool("IsDead", true);
-	canMove = false;
-	//invincible = true;  //ich habe das invincble_machen nach dem Tod erstmal ausgeschalten
-	GetComponent<Attack>().enabled = false;
-	yield return new WaitForSeconds(0.4f);
-	m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
-	yield return new WaitForSeconds(1.1f);
+    {
+        animator.SetBool("IsDead", true);
+        canMove = false;
+        invincible = true;  //ich habe das invincble_machen nach dem Tod erstmal ausgeschalten //dagobert ich habe es wieder angeschaltet für respawnen am gleichen ort
+        GetComponent<Attack>().enabled = false;
+        yield return new WaitForSeconds(0.4f);
+        m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
+        yield return new WaitForSeconds(1.1f);
+		lives--;
+        animator.SetBool("IsDead", false);
+		animator.SetBool("idle", true );
+        invincible = false;
+        canMove = true;
+        GetComponent<Attack>().enabled = true;
 
-	if (CheckpointActive && checkpoint != null)
-{
-	Debug.Log("Hat geklappt");
-	transform.position = checkpoint.position;
-	animator.SetBool("IsDead", false);
-	life = 10f; //SNews Reset der Leben
-	canMove = true;
-	invincible = false;
-	GetComponent<Attack>().enabled = true;
-}
-        else
+        if (CheckpointActive && checkpoint != null && lives < 1)
+        {
+            Debug.Log("Hat geklappt");
+            transform.position = checkpoint.position;
+            animator.SetBool("IsDead", false);
+            life = 10f; //SNews Reset der Leben
+            canMove = true;
+			lives = 5;
+            invincible = false;
+            GetComponent<Attack>().enabled = true;
+        }
+        else if(lives < 1) 
         {
             Debug.Log("Checkpoint nicht aktiv oder nicht vorhanden!");
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
         }
-}
+    }
 
 }
