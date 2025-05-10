@@ -24,44 +24,51 @@ public class Menu : MonoBehaviour
     {
         UpdateSelection();
     }
+    
+    public void StartGame()
+{
+    PlaySound(selectSound);
 
-    void Update()
+    if (sceneNames != null && currentIndex < sceneNames.Length)
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            currentIndex = (currentIndex - 1 + menuButtons.Length) % menuButtons.Length;
-            UpdateSelection();
-            PlaySound(navigateSound);
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            currentIndex = (currentIndex + 1) % menuButtons.Length;
-            UpdateSelection();
-            PlaySound(navigateSound);
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlaySound(selectSound);
+        string scene = sceneNames[currentIndex];
 
-            if (sceneNames != null && currentIndex < sceneNames.Length)
-            {
-                string scene = sceneNames[currentIndex];
-
-                if (scene == "QUIT")
-                {
-                    Application.Quit();
+        if (scene == "QUIT")
+        {
+            Application.Quit();
 
 #if UNITY_EDITOR
-                    UnityEditor.EditorApplication.isPlaying = false; // Beenden im Editor
+            UnityEditor.EditorApplication.isPlaying = false; // Beenden im Editor
 #endif
-                }
-                else
-                {
-                    SceneManager.LoadScene(scene);
-                }
-            }
+        }
+        else
+        {
+            SceneManager.LoadScene(scene);
         }
     }
+}
+
+
+    void Update()
+{
+    if (Input.GetKeyDown(KeyCode.UpArrow))
+    {
+        currentIndex = (currentIndex - 1 + menuButtons.Length) % menuButtons.Length;
+        UpdateSelection();
+        PlaySound(navigateSound);
+    }
+    else if (Input.GetKeyDown(KeyCode.DownArrow))
+    {
+        currentIndex = (currentIndex + 1) % menuButtons.Length;
+        UpdateSelection();
+        PlaySound(navigateSound);
+    }
+    else if (Input.GetKeyDown(KeyCode.Space))
+    {
+        StartGame(); // Diese Methode wird nun bei Leertaste aufgerufen
+    }
+}
+
 
     void UpdateSelection()
     {
