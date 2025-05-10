@@ -288,6 +288,7 @@ public class CharacterController2D : MonoBehaviour
 {
     if (other.CompareTag("Checkpoint"))
     {
+		Debug.Log("CheckPoint Active!");
         checkpoint = other.transform;
         CheckpointActive = true;
         Debug.Log("Checkpoint aktiviert!");
