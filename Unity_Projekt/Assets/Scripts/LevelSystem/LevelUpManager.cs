@@ -46,4 +46,6 @@ public class LevelUpManager : MonoBehaviour
         Debug.Log("OpenSkillTree");
         SkillTree.SetActive(true);
     }
+
+
 }
