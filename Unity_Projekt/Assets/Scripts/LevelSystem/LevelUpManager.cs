@@ -12,13 +12,19 @@ public class LevelUpManager : MonoBehaviour
 
 
     void Update()
-    {
-        Debug.Log(LevelPoints);
-        
+    { 
+        //op Aktualisierung der visuellen Anzeige
         LevelAmount.value = LevelPoints;
         LevelAmount.maxValue = PointsNeeded;
         Points.text = "LevelUp:         " + LevelPoints + "/" + PointsNeeded;
 
+        //op Levelaufstieg
+        if( LevelPoints >= PointsNeeded)
+        {
+            Level++;
+            PointsNeeded = PointsNeeded * 2;
+            LevelPoints = 0;
+        }
     }
 
 }
