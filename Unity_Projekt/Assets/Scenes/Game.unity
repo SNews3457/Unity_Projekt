@@ -2848,10 +2848,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1664808688}
         m_TargetAssemblyTypeName: LevelUpManager, Assembly-CSharp
         m_MethodName: DashSkillUnlock
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1564767235}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3541,10 +3541,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1664808688}
         m_TargetAssemblyTypeName: LevelUpManager, Assembly-CSharp
         m_MethodName: ShootSkillUnlock
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1849993302}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
