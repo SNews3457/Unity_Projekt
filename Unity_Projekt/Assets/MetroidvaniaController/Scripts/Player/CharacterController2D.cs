@@ -347,6 +347,7 @@ public class CharacterController2D : MonoBehaviour
 
 	IEnumerator WaitToDead()
     {
+        lives--;
         animator.SetBool("IsDead", true);
         canMove = false;
         invincible = true;  //ich habe das invincble_machen nach dem Tod erstmal ausgeschalten //dagobert ich habe es wieder angeschaltet für respawnen am gleichen ort
@@ -354,14 +355,13 @@ public class CharacterController2D : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
         yield return new WaitForSeconds(1.1f);
-		lives--;
         animator.SetBool("IsDead", false);
 		animator.SetBool("idle", true );
         invincible = false;
         canMove = true;
         GetComponent<Attack>().enabled = true;
 
-        if (CheckpointActive && checkpoint != null && lives < 1)
+        if (CheckpointActive && checkpoint != null && lives == 0)
         {
             Debug.Log("Hat geklappt");
             transform.position = checkpoint.position;
@@ -372,7 +372,7 @@ public class CharacterController2D : MonoBehaviour
             invincible = false;
             GetComponent<Attack>().enabled = true;
         }
-        else if(lives < 1) 
+        else if(lives == 0) 
         {
             Debug.Log("Checkpoint nicht aktiv oder nicht vorhanden!");
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
