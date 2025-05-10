@@ -2406,6 +2406,7 @@ MonoBehaviour:
     m_Bits: 53
   m_GroundCheck: {fileID: 6175661248910395334}
   m_WallCheck: {fileID: 6172978685624751226}
+  checkpoint: {fileID: 941582219}
   canDoubleJump: 0
   m_DashForce: 25
   life: 10

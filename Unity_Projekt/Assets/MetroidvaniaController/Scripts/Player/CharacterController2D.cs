@@ -12,7 +12,7 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
 
-	private Transform checkpoint; //SNews: Letzter Checkpoint
+	public Transform checkpoint; //SNews: Letzter Checkpoint
 
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded

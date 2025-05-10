@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 	public CharacterController2D controller;
-	public GameObject checkPoint; //SNews
+	
 	public Animator animator;
 
 	public float runSpeed = 40f;
