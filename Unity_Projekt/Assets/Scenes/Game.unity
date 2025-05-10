@@ -712,7 +712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 98592446}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: FallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1544,7 +1544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 443995087}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3639,7 +3639,7 @@ GameObject:
   - component: {fileID: 1321364826}
   - component: {fileID: 1321364825}
   - component: {fileID: 1321364824}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: EnemySimple (1)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -4694,7 +4694,7 @@ GameObject:
   - component: {fileID: 1583121725}
   - component: {fileID: 1583121724}
   - component: {fileID: 1583121723}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: EnemySimple (2)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -5095,7 +5095,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1652959852}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5263,7 +5263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1683324371}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: FallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6461,7 +6461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4921564630794353}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6477,7 +6477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4850398470744433}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: FallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6498,7 +6498,7 @@ GameObject:
   - component: {fileID: 70096547489199293}
   - component: {fileID: 50249041717507981}
   - component: {fileID: 95077899306668873}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: EnemySimple
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -6973,10 +6973,10 @@ CapsuleCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
