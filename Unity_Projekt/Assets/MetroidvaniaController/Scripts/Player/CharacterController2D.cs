@@ -347,9 +347,11 @@ public class CharacterController2D : MonoBehaviour
 
 	IEnumerator WaitToDead()
     {
+		invincible = true;
 		Rigidbody2D rb = GetComponent<Rigidbody2D>();
 		CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
-		collider.enabled = false;
+        yield return new WaitUntil(() => m_Grounded);
+        collider.enabled = false;
         rb.simulated = false;
         lives--;
         animator.SetBool("IsDead", true);
@@ -388,7 +390,7 @@ public class CharacterController2D : MonoBehaviour
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         invincible = false;
        
     }
