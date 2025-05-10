@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
 	float horizontalMove = 0f;
 	bool jump = false;
 	bool dash = false;
-	bool SkillDash = false; //Dagobert bool zum erlernen des Dashs 
-    
+	public bool SkillDash = false; //Dagobert bool zum erlernen des Dashs 
+	public Attack playerAttack;
                             //bool dashAxis = false;
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 			jump = true;
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftShift))
+		if (Input.GetKeyDown(KeyCode.LeftShift) && SkillDash)
 		{
 			dash = true;
 		}
@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         if(collision.CompareTag("LearnDash")) //Dagobert dashen erlernen wenn ber�hrt
 		{
 			SkillDash = true;
+			
 			Destroy(collision.gameObject);
 		}
 

@@ -10,7 +10,7 @@ public class Attack : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	public Animator animator;
 	public bool canAttack = true;
-    bool SkillShoot = false; //Dagobert bool zum erlernen des Schießens 
+    public bool SkillShoot = false; //Dagobert bool zum erlernen des Schießens 
     public bool isTimeToCheck = false;
 
 	public GameObject cam;
