@@ -42,9 +42,23 @@ public class Menu : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             PlaySound(selectSound);
+
             if (sceneNames != null && currentIndex < sceneNames.Length)
             {
-                SceneManager.LoadScene(sceneNames[currentIndex]);
+                string scene = sceneNames[currentIndex];
+
+                if (scene == "QUIT")
+                {
+                    Application.Quit();
+
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false; // Beenden im Editor
+#endif
+                }
+                else
+                {
+                    SceneManager.LoadScene(scene);
+                }
             }
         }
     }
