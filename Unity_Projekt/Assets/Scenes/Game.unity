@@ -2844,7 +2844,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1564767236}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1664808688}
+        m_TargetAssemblyTypeName: LevelUpManager, Assembly-CSharp
+        m_MethodName: DashSkillUnlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1564767236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3075,6 +3087,7 @@ MonoBehaviour:
   Points: {fileID: 1773439896}
   SkillPonts: {fileID: 857383777}
   SkillTree: {fileID: 211316775}
+  player: {fileID: 6066035845299097826}
 --- !u!1 &1728980872
 GameObject:
   m_ObjectHideFlags: 0
@@ -4171,6 +4184,7 @@ MonoBehaviour:
   controller: {fileID: 6065979891133354860}
   animator: {fileID: 6120282761430440994}
   runSpeed: 40
+  SkillDash: 0
 --- !u!82 &6097509748444533318
 AudioSource:
   m_ObjectHideFlags: 0

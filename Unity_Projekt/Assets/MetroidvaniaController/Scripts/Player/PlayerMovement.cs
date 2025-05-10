@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 	float horizontalMove = 0f;
 	bool jump = false;
 	bool dash = false;
-	bool SkillDash = false; //Dagobert bool zum erlernen des Dashs 
+	public bool SkillDash = false; //Dagobert bool zum erlernen des Dashs 
     
                             //bool dashAxis = false;
 
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 			jump = true;
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftShift))
+		if (Input.GetKeyDown(KeyCode.LeftShift) && SkillDash)
 		{
 			dash = true;
 		}
