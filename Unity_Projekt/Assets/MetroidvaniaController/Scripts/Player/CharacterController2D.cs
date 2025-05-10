@@ -347,6 +347,10 @@ public class CharacterController2D : MonoBehaviour
 
 	IEnumerator WaitToDead()
     {
+		Rigidbody2D rb = GetComponent<Rigidbody2D>();
+		CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
+		collider.enabled = false;
+        rb.simulated = false;
         lives--;
         animator.SetBool("IsDead", true);
         canMove = false;
@@ -360,9 +364,14 @@ public class CharacterController2D : MonoBehaviour
         invincible = false;
         canMove = true;
         GetComponent<Attack>().enabled = true;
+        collider.enabled = true;
+        rb.simulated = true;
 
         if (CheckpointActive && checkpoint != null && lives == 0)
         {
+            rb.simulated = true;
+
+            collider.enabled = true;
             Debug.Log("Hat geklappt");
             transform.position = checkpoint.position;
             animator.SetBool("IsDead", false);
@@ -374,6 +383,8 @@ public class CharacterController2D : MonoBehaviour
         }
         else if(lives == 0) 
         {
+            rb.simulated = true;
+            collider.enabled = true;
             Debug.Log("Checkpoint nicht aktiv oder nicht vorhanden!");
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
         }
