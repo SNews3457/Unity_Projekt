@@ -361,7 +361,6 @@ public class CharacterController2D : MonoBehaviour
         yield return new WaitForSeconds(1.1f);
         animator.SetBool("IsDead", false);
 		animator.SetBool("idle", true );
-        invincible = false;
         canMove = true;
         GetComponent<Attack>().enabled = true;
         collider.enabled = true;
@@ -377,17 +376,21 @@ public class CharacterController2D : MonoBehaviour
             animator.SetBool("IsDead", false);
             life = 10f; //SNews Reset der Leben
             canMove = true;
-			lives = 5;
+            lives = 5;
             invincible = false;
             GetComponent<Attack>().enabled = true;
         }
-        else if(lives == 0) 
+        else if (lives == 0)
         {
             rb.simulated = true;
             collider.enabled = true;
             Debug.Log("Checkpoint nicht aktiv oder nicht vorhanden!");
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
         }
+
+        yield return new WaitForSeconds(2);
+        invincible = false;
+       
     }
 
 }
