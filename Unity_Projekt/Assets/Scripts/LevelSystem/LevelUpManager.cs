@@ -16,6 +16,7 @@ public class LevelUpManager : MonoBehaviour
     public GameObject SkillTree;
     public PlayerMovement player;
     public Attack attack;
+    public CharacterController2D Character;
 
     void Update()
     {
@@ -55,12 +56,15 @@ public class LevelUpManager : MonoBehaviour
         {
             Image image = GameObject.Find("Dash").GetComponent<Image>();
             Color tempColor = image.color;
+            Image image2 = GameObject.Find("DashUpgrade").GetComponent<Image>();
+            image2.color = tempColor;
             tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
             tempColor.a = 0.7f; 
             image.color = tempColor;
             Destroy(button);
             SkillPoints--;
             player.SkillDash = true;
+
         }
     }
 
@@ -76,6 +80,21 @@ public class LevelUpManager : MonoBehaviour
             Destroy (button);
             SkillPoints--;
             attack.SkillShoot = true;
+        }
+    }
+
+    public void DashSkillUpgrade(Button button)
+    {
+        if (SkillPoints > 0 && player.SkillDash)
+        {
+            Image image = GameObject.Find("DashUpgrade").GetComponent<Image>();
+            Color tempColor = image.color;
+            tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f;
+            image.color = tempColor;
+            Destroy(button);
+            SkillPoints--;
+            Character.m_DashForce = 40;
         }
     }
 }
