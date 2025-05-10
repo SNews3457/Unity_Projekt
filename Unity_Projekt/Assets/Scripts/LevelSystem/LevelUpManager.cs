@@ -12,6 +12,6 @@ public class LevelUpManager : MonoBehaviour
     void Update()
     {
         LevelAmount.value = LevelPoints;
-        Points.text = "LevelUp:       " + LevelPoints + "/" + PointsNeeded;
+        Points.text = "LevelUp:         " + LevelPoints + "/" + PointsNeeded;
     }
 }
