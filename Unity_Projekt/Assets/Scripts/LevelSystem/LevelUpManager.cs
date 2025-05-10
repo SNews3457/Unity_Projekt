@@ -71,13 +71,14 @@ public class LevelUpManager : MonoBehaviour
     {
         Image image = GameObject.Find("Dash").GetComponent<Image>();
         if (SkillPoints > 0)
-        {     
+        {
             Color tempColor = image.color;
             Image image2 = GameObject.Find("DashUpgrade").GetComponent<Image>();
             image2.color = tempColor;
             tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
             tempColor.a = 0.7f; 
             image.color = tempColor;
+            StartCoroutine(PlayUnlockEffect(image));
             Destroy(button);
             SkillPoints--;
             player.SkillDash = true;
@@ -99,6 +100,7 @@ public class LevelUpManager : MonoBehaviour
             tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
             tempColor.a = 0.7f;
             image.color = tempColor;
+            StartCoroutine(PlayUnlockEffect(image));
             Destroy (button);
             SkillPoints--;
             attack.SkillShoot = true;
@@ -114,11 +116,12 @@ public class LevelUpManager : MonoBehaviour
     {
         Image image = GameObject.Find("DashUpgrade").GetComponent<Image>();
         if (SkillPoints > 0 && player.SkillDash)
-        {
+        {           
             Color tempColor = image.color;
             tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
             tempColor.a = 0.7f;
             image.color = tempColor;
+            StartCoroutine(PlayUnlockEffect(image));
             Destroy(button);
             SkillPoints--;
             Character.m_DashForce = 40;
@@ -153,6 +156,29 @@ public class LevelUpManager : MonoBehaviour
         //op Reset
         SkillPointBg.rectTransform.localScale = originalScale;
         SkillPointBg.color = originalColor;
+    }
+
+    IEnumerator PlayUnlockEffect(Image image)
+    {
+        Vector3 originalScale = image.rectTransform.localScale;
+        Color originalColor = image.color;
+
+        float time = 0f;
+        float duration = 0.3f;
+
+        while (time < duration)
+        {
+            float t = time / duration;
+            float scale = Mathf.Lerp(1f, 1.3f, Mathf.Sin(t * Mathf.PI));
+            image.rectTransform.localScale = new Vector3(scale, scale, 1f);
+            image.color = Color.Lerp(originalColor, Color.white, Mathf.Sin(t * Mathf.PI));
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        image.rectTransform.localScale = originalScale;
+        image.color = originalColor;
+
     }
 
 
