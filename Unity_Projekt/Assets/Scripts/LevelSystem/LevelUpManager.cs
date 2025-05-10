@@ -2,6 +2,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEditor.ShaderGraph;
 public class LevelUpManager : MonoBehaviour
@@ -52,9 +54,9 @@ public class LevelUpManager : MonoBehaviour
 
     public void DashSkillUnlock(Button button)
     {
-        if(SkillPoints > 0)
-        {
-            Image image = GameObject.Find("Dash").GetComponent<Image>();
+        Image image = GameObject.Find("Dash").GetComponent<Image>();
+        if (SkillPoints > 0)
+        {     
             Color tempColor = image.color;
             Image image2 = GameObject.Find("DashUpgrade").GetComponent<Image>();
             image2.color = tempColor;
@@ -66,13 +68,18 @@ public class LevelUpManager : MonoBehaviour
             player.SkillDash = true;
 
         }
+        else
+        {
+            // "Nein"-Wackeln
+            StartCoroutine(ShakeUI(image.rectTransform));
+        }
     }
 
     public void ShootSkillUnlock(Button button)
     {
+        Image image = GameObject.Find("Shoot").GetComponent<Image>();
         if (SkillPoints > 0)
         {
-            Image image = GameObject.Find("Shoot").GetComponent<Image>();
             Color tempColor = image.color;
             tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
             tempColor.a = 0.7f;
@@ -81,13 +88,18 @@ public class LevelUpManager : MonoBehaviour
             SkillPoints--;
             attack.SkillShoot = true;
         }
+        else
+        {
+            // "Nein"-Wackeln
+            StartCoroutine(ShakeUI(image.rectTransform));
+        }
     }
 
     public void DashSkillUpgrade(Button button)
     {
+        Image image = GameObject.Find("DashUpgrade").GetComponent<Image>();
         if (SkillPoints > 0 && player.SkillDash)
         {
-            Image image = GameObject.Find("DashUpgrade").GetComponent<Image>();
             Color tempColor = image.color;
             tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
             tempColor.a = 0.7f;
@@ -96,5 +108,27 @@ public class LevelUpManager : MonoBehaviour
             SkillPoints--;
             Character.m_DashForce = 40;
         }
+        else
+        {
+            // "Nein"-Wackeln
+            StartCoroutine(ShakeUI(image.rectTransform));
+        }
     }
+
+    IEnumerator ShakeUI(RectTransform target, float duration = 0.2f, float magnitude = 10f)
+    {
+        Vector3 originalPos = target.anchoredPosition;
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-1f, 1f) * magnitude;
+            target.anchoredPosition = originalPos + new Vector3(x, 0, 0);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        target.anchoredPosition = originalPos;
+    }
+
 }
