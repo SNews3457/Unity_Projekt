@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour 
+{
 
 	public CharacterController2D controller;
+	public GameObject checkPoint; //SNews
 	public Animator animator;
 
 	public float runSpeed = 40f;
@@ -69,7 +71,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("LearnDash")) //Dagobert dashen erlernen wenn berührt
+        if(collision.CompareTag("LearnDash")) //Dagobert dashen erlernen wenn berï¿½hrt
 		{
 			SkillDash = true;
 			Destroy(collision.gameObject);

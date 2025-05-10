@@ -12,6 +12,9 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
 
+	private Transform checkpoint; //SNews: Letzter Checkpoint
+
+
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	private Rigidbody2D m_Rigidbody2D;
@@ -329,14 +332,28 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	IEnumerator WaitToDead()
+{
+	animator.SetBool("IsDead", true);
+	canMove = false;
+	//invincible = true;  //ich habe das invincble_machen nach dem Tod erstmal ausgeschalten
+	GetComponent<Attack>().enabled = false;
+	yield return new WaitForSeconds(0.4f);
+	m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
+	yield return new WaitForSeconds(1.1f);
+
+	if (checkpoint != null)
 	{
-		animator.SetBool("IsDead", true);
-		canMove = false;
-		invincible = true;
-		GetComponent<Attack>().enabled = false;
-		yield return new WaitForSeconds(0.4f);
-		m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
-		yield return new WaitForSeconds(1.1f);
-		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+		transform.position = checkpoint.position;
+		animator.SetBool("IsDead", false);
+		life = 10f; //SNews Reset der Leben
+		canMove = true;
+		invincible = false;
+		GetComponent<Attack>().enabled = true;
 	}
+	else
+	{
+		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
+	}
+}
+
 }
