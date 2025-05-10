@@ -4,15 +4,21 @@ using TMPro;
 using UnityEngine.UI;
 public class LevelUpManager : MonoBehaviour
 {
-    public float LevelPoints = 0; //aktuele LevelPunkte
-    public float PointsNeeded = 2; //Punkte die für den Levelaufstieg benötigt werden
+    public float LevelPoints; //op aktuele LevelPunkte
+    public float PointsNeeded = 2; //op Punkte die für den Levelaufstieg benötigt werden
     public float Level = 0; //op aktuels Level
-    public Slider LevelAmount;
+    public Slider LevelAmount; //op Slider
     public TMPro.TMP_Text Points;
+
+
     void Update()
     {
-        LevelAmount.maxValue = PointsNeeded;
+        Debug.Log(LevelPoints);
+        
         LevelAmount.value = LevelPoints;
+        LevelAmount.maxValue = PointsNeeded;
         Points.text = "LevelUp:         " + LevelPoints + "/" + PointsNeeded;
+
     }
+
 }
