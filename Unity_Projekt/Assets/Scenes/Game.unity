@@ -3088,6 +3088,7 @@ MonoBehaviour:
   SkillPonts: {fileID: 857383777}
   SkillTree: {fileID: 211316775}
   player: {fileID: 6066035845299097826}
+  attack: {fileID: 6065761739328498938}
 --- !u!1 &1728980872
 GameObject:
   m_ObjectHideFlags: 0
@@ -3536,7 +3537,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1849993303}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1664808688}
+        m_TargetAssemblyTypeName: LevelUpManager, Assembly-CSharp
+        m_MethodName: ShootSkillUnlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1849993303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4109,6 +4122,7 @@ MonoBehaviour:
   attackCheck: {fileID: 6175811023249525250}
   animator: {fileID: 6120282761430440994}
   canAttack: 1
+  SkillShoot: 0
   isTimeToCheck: 0
   cam: {fileID: 519420028}
 --- !u!114 &6065979891133354860
@@ -4185,6 +4199,7 @@ MonoBehaviour:
   animator: {fileID: 6120282761430440994}
   runSpeed: 40
   SkillDash: 0
+  playerAttack: {fileID: 0}
 --- !u!82 &6097509748444533318
 AudioSource:
   m_ObjectHideFlags: 0

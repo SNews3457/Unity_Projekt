@@ -14,7 +14,7 @@ public class LevelUpManager : MonoBehaviour
     float SkillPoints;
     public GameObject SkillTree;
     public PlayerMovement player;
-
+    public Attack attack;
 
     void Update()
     {
@@ -54,6 +54,16 @@ public class LevelUpManager : MonoBehaviour
         {
             SkillPoints--;
             player.SkillDash = true;
+            SkillTree.SetActive(false);
+        }
+    }
+
+    public void ShootSkillUnlock()
+    {
+        if (SkillPoints > 0)
+        {
+            SkillPoints--;
+            attack.SkillShoot = true;
             SkillTree.SetActive(false);
         }
     }
