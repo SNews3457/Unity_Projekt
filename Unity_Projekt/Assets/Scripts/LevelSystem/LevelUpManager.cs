@@ -26,7 +26,7 @@ public class LevelUpManager : MonoBehaviour
         //op Aktualisierung der visuellen Anzeige
         LevelAmount.value = LevelPoints;
         LevelAmount.maxValue = PointsNeeded;
-        Points.text = "LevelUp:         " + LevelPoints + "/" + PointsNeeded;
+        Points.text = LevelPoints + "/" + PointsNeeded;
         SkillPonts.text = SkillPoints.ToString();
 
         //op Levelaufstieg
