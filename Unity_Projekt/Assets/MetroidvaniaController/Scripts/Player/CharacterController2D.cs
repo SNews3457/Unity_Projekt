@@ -343,6 +343,7 @@ public class CharacterController2D : MonoBehaviour
 
 	if (checkpoint != null)
 	{
+		Debug.Log("Hat geklappt");
 		transform.position = checkpoint.position;
 		animator.SetBool("IsDead", false);
 		life = 10f; //SNews Reset der Leben
@@ -352,6 +353,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 	else
 	{
+		Debug.Log("Checkpoint nd da!");
 		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
 	}
 }
