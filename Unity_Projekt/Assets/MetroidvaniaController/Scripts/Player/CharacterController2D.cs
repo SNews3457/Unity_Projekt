@@ -13,6 +13,7 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
 
 	public Transform checkpoint; //SNews: Letzter Checkpoint
+	public bool CheckpointActive = false;
 
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -283,6 +284,17 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 	}
+	private void OnTriggerEnter2D(Collider2D other)//SNews
+{
+    if (other.CompareTag("Checkpoint"))
+    {
+		Debug.Log("CheckPoint Active!");
+        checkpoint = other.transform;
+        CheckpointActive = true;
+        Debug.Log("Checkpoint aktiviert!");
+    }
+}
+
 
 	IEnumerator DashCooldown()
 	{
@@ -341,21 +353,21 @@ public class CharacterController2D : MonoBehaviour
 	m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
 	yield return new WaitForSeconds(1.1f);
 
-	if (checkpoint != null)
-	{
-		Debug.Log("Hat geklappt");
-		transform.position = checkpoint.position;
-		animator.SetBool("IsDead", false);
-		life = 10f; //SNews Reset der Leben
-		canMove = true;
-		invincible = false;
-		GetComponent<Attack>().enabled = true;
-	}
-	else
-	{
-		Debug.Log("Checkpoint nd da!");
-		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
-	}
+	if (CheckpointActive && checkpoint != null)
+{
+	Debug.Log("Hat geklappt");
+	transform.position = checkpoint.position;
+	animator.SetBool("IsDead", false);
+	life = 10f; //SNews Reset der Leben
+	canMove = true;
+	invincible = false;
+	GetComponent<Attack>().enabled = true;
+}
+        else
+        {
+            Debug.Log("Checkpoint nicht aktiv oder nicht vorhanden!");
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
+        }
 }
 
 }
