@@ -11,7 +11,8 @@ public class LevelUpManager : MonoBehaviour
     public TMPro.TMP_Text Points;
     void Update()
     {
+        LevelAmount.maxValue = PointsNeeded;
         LevelAmount.value = LevelPoints;
-        Points.text = "LevelUp:       " + LevelPoints + "/" + PointsNeeded;
+        Points.text = "LevelUp:         " + LevelPoints + "/" + PointsNeeded;
     }
 }
