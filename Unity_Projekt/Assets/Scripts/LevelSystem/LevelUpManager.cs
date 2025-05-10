@@ -9,6 +9,8 @@ public class LevelUpManager : MonoBehaviour
     public float Level = 0; //op aktuels Level
     public Slider LevelAmount; //op Slider
     public TMPro.TMP_Text Points;
+    public TMP_Text SkillPonts;
+    float SkillPoints;
 
 
     void Update()
@@ -17,10 +19,11 @@ public class LevelUpManager : MonoBehaviour
         LevelAmount.value = LevelPoints;
         LevelAmount.maxValue = PointsNeeded;
         Points.text = "LevelUp:         " + LevelPoints + "/" + PointsNeeded;
-
+        SkillPonts.text = SkillPoints.ToString();
         //op Levelaufstieg
-        if( LevelPoints >= PointsNeeded)
+        if ( LevelPoints >= PointsNeeded)
         {
+            SkillPoints++;
             Level++;
             PointsNeeded = PointsNeeded * 2;
             LevelPoints = 0;
