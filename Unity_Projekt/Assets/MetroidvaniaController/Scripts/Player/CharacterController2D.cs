@@ -24,6 +24,7 @@ public class CharacterController2D : MonoBehaviour
 	private Vector3 velocity = Vector3.zero;
 	private float limitFallSpeed = 25f; // Limit fall speed
 
+	public bool SkillDoubkeJump;
 	public bool canDoubleJump = true; //If player can double jump
 	public float m_DashForce = 25f;
 	private bool canDash = true;
@@ -69,6 +70,10 @@ public class CharacterController2D : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (!SkillDoubkeJump)
+		{
+			canDoubleJump = false;
+		}
 		life = 1;
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;

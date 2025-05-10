@@ -112,6 +112,27 @@ public class LevelUpManager : MonoBehaviour
         }
     }
 
+    public void DoubleJumpSkillUnlock(Button button)
+    {
+        Image image = GameObject.Find("DoubleJump").GetComponent<Image>();
+        if (SkillPoints > 0)
+        {
+            Color tempColor = image.color;
+            tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f;
+            image.color = tempColor;
+            StartCoroutine(PlayUnlockEffect(image));
+            Destroy(button);
+            SkillPoints--;
+            Character.SkillDoubkeJump = true;
+        }
+        else
+        {
+            //op "Nein"-Wackeln
+            StartCoroutine(ShakeUI(image.rectTransform));
+        }
+    }
+
     public void DashSkillUpgrade(Button button)
     {
         Image image = GameObject.Find("DashUpgrade").GetComponent<Image>();
