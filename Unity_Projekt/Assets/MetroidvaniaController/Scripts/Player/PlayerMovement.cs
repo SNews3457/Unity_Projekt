@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour {
 			jump = true;
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftShift) && SkillDash)
+		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			dash = true;
 		}
