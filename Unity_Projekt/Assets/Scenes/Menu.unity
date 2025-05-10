@@ -333,8 +333,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
---- !u!114 &53524192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -457,8 +455,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548743336}
   m_CullTransparentMesh: 1
-=======
->>>>>>> 90036993be41077b152652df41947e138eeccb7d
 --- !u!1 &651188660
 GameObject:
   m_ObjectHideFlags: 0
