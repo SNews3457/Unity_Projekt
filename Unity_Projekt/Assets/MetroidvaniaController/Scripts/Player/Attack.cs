@@ -10,7 +10,8 @@ public class Attack : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	public Animator animator;
 	public bool canAttack = true;
-	public bool isTimeToCheck = false;
+    bool SkillShoot = false; //Dagobert bool zum erlernen des Schießens 
+    public bool isTimeToCheck = false;
 
 	public GameObject cam;
 
@@ -35,7 +36,7 @@ public class Attack : MonoBehaviour
 			StartCoroutine(AttackCooldown());
 		}
 
-		if (Input.GetMouseButtonDown(1))
+		if (Input.GetMouseButtonDown(1) && SkillShoot)
 		{
 			GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f), Quaternion.identity) as GameObject; 
 			Vector2 direction = new Vector2(transform.localScale.x, 0);
@@ -67,4 +68,13 @@ public class Attack : MonoBehaviour
 			}
 		}
 	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("LearnShoot")) //Dagobert schießen erlernen wenn berührt
+        {
+            SkillShoot = true;
+            Destroy(collision.gameObject);
+        }
+    }
 }

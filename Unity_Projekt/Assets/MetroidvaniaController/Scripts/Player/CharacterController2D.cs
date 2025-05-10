@@ -40,7 +40,6 @@ public class CharacterController2D : MonoBehaviour
 	private float jumpWallStartX = 0;
 	private float jumpWallDistX = 0; //Distance between player and wall
 	private bool limitVelOnWallJump = false; //For limit wall jump distance with low fps
-
 	[Header("Events")]
 	[Space]
 

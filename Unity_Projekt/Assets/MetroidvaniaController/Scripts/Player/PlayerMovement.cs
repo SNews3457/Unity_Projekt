@@ -12,11 +12,12 @@ public class PlayerMovement : MonoBehaviour {
 	float horizontalMove = 0f;
 	bool jump = false;
 	bool dash = false;
+	bool SkillDash = false; //Dagobert bool zum erlernen des Dashs 
+    
+                            //bool dashAxis = false;
 
-	//bool dashAxis = false;
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour {
 			jump = true;
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftShift))
+		if (Input.GetKeyDown(KeyCode.LeftShift) && SkillDash)
 		{
 			dash = true;
 		}
@@ -65,4 +66,14 @@ public class PlayerMovement : MonoBehaviour {
 		jump = false;
 		dash = false;
 	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("LearnDash")) //Dagobert dashen erlernen wenn berührt
+		{
+			SkillDash = true;
+			Destroy(collision.gameObject);
+		}
+
+    }
 }
