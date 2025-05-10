@@ -53,10 +53,14 @@ public class LevelUpManager : MonoBehaviour
     {
         if(SkillPoints > 0)
         {
+            Image image = GameObject.Find("Dash").GetComponent<Image>();
+            Color tempColor = image.color;
+            tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f; 
+            image.color = tempColor;
             Destroy(button);
             SkillPoints--;
             player.SkillDash = true;
-            SkillTree.SetActive(false);
         }
     }
 
@@ -64,10 +68,14 @@ public class LevelUpManager : MonoBehaviour
     {
         if (SkillPoints > 0)
         {
+            Image image = GameObject.Find("Shoot").GetComponent<Image>();
+            Color tempColor = image.color;
+            tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f;
+            image.color = tempColor;
             Destroy (button);
             SkillPoints--;
             attack.SkillShoot = true;
-            SkillTree.SetActive(false);
         }
     }
 }
