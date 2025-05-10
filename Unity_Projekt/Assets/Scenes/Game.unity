@@ -131,8 +131,8 @@ GameObject:
   - component: {fileID: 75819708}
   - component: {fileID: 75819707}
   m_Layer: 0
-  m_Name: LearnDash
-  m_TagString: LearnDash
+  m_Name: LevelPoint
+  m_TagString: LevelPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1694,8 +1694,8 @@ GameObject:
   - component: {fileID: 1705416704}
   - component: {fileID: 1705416703}
   m_Layer: 0
-  m_Name: LearnShoot
-  m_TagString: LearnShoot
+  m_Name: LevelPoint
+  m_TagString: LevelPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2456,7 +2456,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 6065979891133354860}
-  checkPoint: {fileID: 941582217}
   animator: {fileID: 6120282761430440994}
   runSpeed: 40
 --- !u!82 &6097509748444533318
@@ -2822,6 +2821,7 @@ GameObject:
   - component: {fileID: 6129160293901440830}
   - component: {fileID: 6143267664215163402}
   - component: {fileID: 6097509748444533318}
+  - component: {fileID: 6291463151406707681}
   m_Layer: 1
   m_Name: Player
   m_TagString: Player
@@ -2900,6 +2900,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6291463151406707681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6178799007742266190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1628709075e37104a848efd0a96bf078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelUpManager: {fileID: 1664808688}
 --- !u!198 &6303275769694440020
 ParticleSystem:
   m_ObjectHideFlags: 0

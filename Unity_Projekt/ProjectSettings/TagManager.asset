@@ -7,11 +7,12 @@ TagManager:
   - Enemy
   - LearnDash
   - LearnShoot
+  - LevelPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LevelPoint
   - Water
   - UI
   - 
