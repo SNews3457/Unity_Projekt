@@ -17,8 +17,11 @@ public class LevelUpManager : MonoBehaviour
     float SkillPoints;
     public GameObject SkillTree;
     public PlayerMovement player;
+    public Image SkillPointBg;
     public Attack attack;
     public CharacterController2D Character;
+    Coroutine skillPointEffectRoutine;
+    bool skillPointAvailable = false;
 
     void Update()
     {
@@ -29,14 +32,26 @@ public class LevelUpManager : MonoBehaviour
         Points.text = LevelPoints + "/" + PointsNeeded;
         SkillPonts.text = SkillPoints.ToString();
 
+        //op Effekt dewaktivieren wenn keine skillpoint verfügbar sind
+        if (SkillPoints <= 0)
+            skillPointAvailable = false;
+
         //op Levelaufstieg
-        if ( LevelPoints >= PointsNeeded)
+        if (LevelPoints >= PointsNeeded)
         {
             SkillPoints++;
             Level++;
-            PointsNeeded = PointsNeeded * 2;
+            PointsNeeded *= 2;
             LevelPoints = 0;
+
+            // Starte Effekt
+            skillPointAvailable = true;
+            if (skillPointEffectRoutine != null)
+                StopCoroutine(skillPointEffectRoutine);
+
+            skillPointEffectRoutine = StartCoroutine(SkillPointEffectLoop());
         }
+
 
         //op mit escape wird der Skilltree wieder geschlossen
         if (Input.GetKey(KeyCode.Escape))
@@ -70,7 +85,7 @@ public class LevelUpManager : MonoBehaviour
         }
         else
         {
-            // "Nein"-Wackeln
+            //op "Nein"-Wackeln
             StartCoroutine(ShakeUI(image.rectTransform));
         }
     }
@@ -90,7 +105,7 @@ public class LevelUpManager : MonoBehaviour
         }
         else
         {
-            // "Nein"-Wackeln
+            //op "Nein"-Wackeln
             StartCoroutine(ShakeUI(image.rectTransform));
         }
     }
@@ -110,10 +125,36 @@ public class LevelUpManager : MonoBehaviour
         }
         else
         {
-            // "Nein"-Wackeln
+            //op "Nein"-Wackeln
             StartCoroutine(ShakeUI(image.rectTransform));
         }
     }
+
+    IEnumerator SkillPointEffectLoop()
+    {
+        Vector3 originalScale = SkillPointBg.rectTransform.localScale;
+        Color originalColor = SkillPointBg.color;
+
+        float time = 0;
+
+        while (skillPointAvailable)
+        {
+            float t = Mathf.PingPong(time * 2f, 1f); //op PingPong für Loop-Effekt
+
+            float scale = Mathf.Lerp(1f, 1.2f, t);
+            SkillPointBg.rectTransform.localScale = new Vector3(scale, scale, 1f);
+
+            SkillPointBg.color = Color.Lerp(originalColor, new Color(1f, 0.85f, 0.4f), t);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        //op Reset
+        SkillPointBg.rectTransform.localScale = originalScale;
+        SkillPointBg.color = originalColor;
+    }
+
 
     IEnumerator ShakeUI(RectTransform target, float duration = 0.2f, float magnitude = 10f)
     {
