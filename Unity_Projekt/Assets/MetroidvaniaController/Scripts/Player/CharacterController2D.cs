@@ -367,7 +367,6 @@ public class CharacterController2D : MonoBehaviour
         m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
         yield return new WaitForSeconds(1.1f);
         animator.SetBool("IsDead", false);
-		animator.SetBool("idle", true );
         canMove = true;
         GetComponent<Attack>().enabled = true;
         collider.enabled = true;
