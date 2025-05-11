@@ -11,7 +11,7 @@ public class AchievementManager : MonoBehaviour
         public string title;
         [Range(0, 1)] public float progress;
         public AchievementType type;
-        public float targetValue = 100f; // <-- Benutzerdefiniert im Inspector
+        public float targetValue = 100f; 
         public bool completed;
     }
 
@@ -27,6 +27,9 @@ public class AchievementManager : MonoBehaviour
     public int coinsCollected;
     public int enemiesKilled;
     public float playTimeInSeconds;
+    public float levelPoints = 0f; 
+    private float lastKnownSkillPoints = 0; // Zwischenspeicher
+
 
     [Header("UI References")]
     public GameObject achievementPrefab;
@@ -49,8 +52,27 @@ public class AchievementManager : MonoBehaviour
     {
         playTimeInSeconds += Time.deltaTime;
 
+        TrackLevelPoints();
         CheckAchievementProgress();
         UpdateUI();
+        playTimeInSeconds += Time.deltaTime;
+
+        CheckAchievementProgress();
+        UpdateUI();
+    }
+
+    void TrackLevelPoints()
+    {
+        if (levelUpManager != null)
+        {
+            float currentSkillPoints = levelUpManager.LevelPoints;
+            if (currentSkillPoints > lastKnownSkillPoints)
+            {
+                float delta = currentSkillPoints - lastKnownSkillPoints;
+                levelPoints += delta;
+                lastKnownSkillPoints = currentSkillPoints;
+            }
+        }
     }
 
     void CheckAchievementProgress()
@@ -62,7 +84,7 @@ public class AchievementManager : MonoBehaviour
             switch (achievement.type)
             {
                 case AchievementType.CollectCoins:
-                    currentValue = levelUpManager.SkillPoints;
+                    currentValue = levelPoints;
                     break;
                 case AchievementType.KillEnemies:
                     currentValue = enemiesKilled;
