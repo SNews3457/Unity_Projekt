@@ -14,7 +14,7 @@ public class LevelUpManager : MonoBehaviour
     public Slider LevelAmount; //op Slider
     public TMPro.TMP_Text Points;
     public TMP_Text SkillPonts;
-    float SkillPoints;
+    public float SkillPoints;
     public GameObject SkillTree;
     public PlayerMovement player;
     public Image SkillPointBg;
