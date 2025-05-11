@@ -26,6 +26,7 @@ public class Menu : MonoBehaviour
     bool isActiv = false;
     private int currentIndex = 0;
     public GameObject Option;
+    bool AchivementActiv = false; //dagobert überprüfe ob Achivements Aktiv sind
 
     void Start()
     {
@@ -58,6 +59,7 @@ public class Menu : MonoBehaviour
             {
                 menuPanel.SetActive(false); // Menü schließen
                 AchivementPanel.SetActive(true); //dagobert öffnen
+                AchivementActiv = true;
             }
             else
             {
@@ -77,11 +79,17 @@ public class Menu : MonoBehaviour
                 isActiv = true;
                 Option.SetActive(true);
             }
-            else if (isActiv)
+            else if (isActiv && !AchivementActiv)
             {
                 Time.timeScale = 1;
                 isActiv = false;
                 Option.SetActive(false);
+            }
+            else if (AchivementActiv) //Dagobert Achivement schließen
+            {
+                Option.SetActive(true);
+                AchivementActiv = false;
+                AchivementPanel.SetActive(false);
             }
 
         }
