@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour {
 	private Rigidbody2D rb;
 
 	private bool facingRight = true;
-	
+	public AchievementManager achievementManager;
 	public float speed = 5f;
 
 	public bool isInvincible = false;
@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour {
 
 		if (life <= 0) {
 			transform.GetComponent<Animator>().SetBool("IsDead", true);
+			achievementManager.enemiesKilled++;
 			StartCoroutine(DestroyEnemy());
 		}
 

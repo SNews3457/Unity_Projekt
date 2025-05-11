@@ -2784,7 +2784,7 @@ MonoBehaviour:
   - Menu
   leftIcon: {fileID: 1133919002}
   rightIcon: {fileID: 1528785713}
-  iconOffset: 119.8
+  iconOffset: 160
   navigateSound: {fileID: 8300000, guid: 9c88df50d822041ea84961b8038fa2a1, type: 3}
   selectSound: {fileID: 8300000, guid: 7a9cb4fd290c34156bfd8f3c5884a52a, type: 3}
   audioSource: {fileID: 573796748}
@@ -6665,6 +6665,7 @@ MonoBehaviour:
   turnLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  achievementManager: {fileID: 0}
   speed: 5
   isInvincible: 0
 --- !u!1 &1636277156
@@ -9323,6 +9324,7 @@ MonoBehaviour:
   turnLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  achievementManager: {fileID: 1810521208}
   speed: 5
   isInvincible: 0
 --- !u!212 &212746456284065567

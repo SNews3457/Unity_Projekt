@@ -16,7 +16,6 @@ public class CharacterController2D : MonoBehaviour
 	public Transform checkpoint; //SNews: Letzter Checkpoint
 	public bool CheckpointActive = false;
 
-
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	private Rigidbody2D m_Rigidbody2D;

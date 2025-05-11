@@ -1395,10 +1395,14 @@ MonoBehaviour:
   - QUIT
   leftIcon: {fileID: 1868169153}
   rightIcon: {fileID: 1993874153}
-  iconOffset: 100
+  iconOffset: 155.5
   navigateSound: {fileID: 8300000, guid: 9c88df50d822041ea84961b8038fa2a1, type: 3}
   selectSound: {fileID: 8300000, guid: 7a9cb4fd290c34156bfd8f3c5884a52a, type: 3}
   audioSource: {fileID: 1489519717}
+  menuPanel: {fileID: 0}
+  AchivementPanel: {fileID: 0}
+  LevelUpManager: {fileID: 0}
+  Option: {fileID: 0}
 --- !u!1 &1758174943
 GameObject:
   m_ObjectHideFlags: 0
