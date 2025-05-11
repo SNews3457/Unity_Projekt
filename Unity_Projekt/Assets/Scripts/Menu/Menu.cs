@@ -20,8 +20,12 @@ public class Menu : MonoBehaviour
 
     [Header("Optionales Menü-Panel")]
     public GameObject menuPanel; // Das Panel, das deaktiviert werden soll
+    public GameObject AchivementPanel;
 
+    public LevelUpManager LevelUpManager;
+    bool isActiv = false;
     private int currentIndex = 0;
+    public GameObject Option;
 
     void Start()
     {
@@ -46,8 +50,14 @@ public class Menu : MonoBehaviour
             }
             else if (scene == "Fortsetzen")
             {
+                Time.timeScale = 1.0f;  
                 if (menuPanel != null)
                     menuPanel.SetActive(false); // Menü schließen
+            }
+            else if (scene == "Achievements")
+            {
+                menuPanel.SetActive(false); // Menü schließen
+                AchivementPanel.SetActive(true); //dagobert öffnen
             }
             else
             {
@@ -58,6 +68,23 @@ public class Menu : MonoBehaviour
 
     void Update()
     {
+        //dagobert Menü öffnen bzw schließen
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isActiv && LevelUpManager.canOpenOptionMenu)
+            {
+                Time.timeScale = 0;
+                isActiv = true;
+                Option.SetActive(true);
+            }
+            else if (isActiv)
+            {
+                Time.timeScale = 1;
+                isActiv = false;
+                Option.SetActive(false);
+            }
+
+        }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentIndex = (currentIndex - 1 + menuButtons.Length) % menuButtons.Length;
