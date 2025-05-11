@@ -11,12 +11,15 @@ public class Enemy : MonoBehaviour {
 	public LayerMask turnLayerMask;
 	private Rigidbody2D rb;
 
+	public GameObject EXP;
+	public GameObject Orbs;
 	private bool facingRight = true;
 	public AchievementManager achievementManager;
 	public float speed = 5f;
 
 	public bool isInvincible = false;
 	private bool isHitted = false;
+	bool die = false;
 
 	void Awake () {
 		fallCheck = transform.Find("FallCheck");
@@ -27,7 +30,9 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		if (life <= 0) {
+		if (life <= 0 && !die)
+		{
+			die = true;
 			transform.GetComponent<Animator>().SetBool("IsDead", true);
 			
 			StartCoroutine(DestroyEnemy());
@@ -96,16 +101,49 @@ public class Enemy : MonoBehaviour {
 		isInvincible = false;
 	}
 
-	IEnumerator DestroyEnemy()
-	{
-		CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
-		capsule.size = new Vector2(1f, 0.25f);
-		capsule.offset = new Vector2(0f, -0.8f);
-		capsule.direction = CapsuleDirection2D.Horizontal;
-		yield return new WaitForSeconds(0.25f);
-		rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-		yield return new WaitForSeconds(3f);
-        achievementManager.enemiesKilled++;
-        Destroy(gameObject);
-	}
+    IEnumerator DestroyEnemy()
+    {
+        CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
+        capsule.size = new Vector2(1f, 0.25f);
+        capsule.offset = new Vector2(0f, -0.8f);
+        capsule.direction = CapsuleDirection2D.Horizontal;
+
+        yield return new WaitForSeconds(0.25f);
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+
+        // Zufällige Anzahl an EXP (1–5)
+        int expCount = Random.Range(1, 6);  // Zufällige Zahl zwischen 1 und 5
+        for (int i = 0; i < expCount; i++)
+        {
+            GameObject exp = Instantiate(EXP, transform.position, Quaternion.identity);  // EXP Instanz erstellen
+            Rigidbody2D expRb = exp.GetComponent<Rigidbody2D>();  // Rigidbody2D des EXP-Objekts holen
+            if (expRb != null)
+            {
+                // Kraft auf das EXP-Objekt anwenden
+                Vector2 force = new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 5f));
+                expRb.AddForce(force, ForceMode2D.Impulse);  // Force anwenden
+            }
+        }
+
+        // Zufällige Anzahl an Orbs (1–5)
+        int orbCount = Random.Range(1, 6);  // Zufällige Zahl zwischen 1 und 5
+        for (int i = 0; i < orbCount; i++)
+        {
+            GameObject orb = Instantiate(Orbs, transform.position, Quaternion.identity);  // Orb Instanz erstellen
+            Rigidbody2D orbRb = orb.GetComponent<Rigidbody2D>();  // Rigidbody2D des Orbs holen
+            if (orbRb != null)
+            {
+                // Kraft auf das Orb-Objekt anwenden
+                Vector2 force = new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 5f));
+                orbRb.AddForce(force, ForceMode2D.Impulse);  // Force anwenden
+            }
+        }
+
+        yield return new WaitForSeconds(3f);  // Warten bevor der Feind zerstört wird
+        achievementManager.enemiesKilled++;  // Feindeskill-Tracker erhöhen
+        Destroy(gameObject);  // Feind zerstören
+    }
+
+
+
 }

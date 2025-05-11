@@ -2875,6 +2875,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368185483}
     m_Modifications:
+    - target: {fileID: 1677160008656305920, guid: 30e909a542581f84a988177737d2a324, type: 3}
+      propertyPath: m_ForceSendLayers.m_Bits
+      value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677160008656305920, guid: 30e909a542581f84a988177737d2a324, type: 3}
+      propertyPath: m_ForceReceiveLayers.m_Bits
+      value: 123
+      objectReference: {fileID: 0}
     - target: {fileID: 3840925714036609677, guid: 30e909a542581f84a988177737d2a324, type: 3}
       propertyPath: m_LocalPosition.x
       value: -550.0119
@@ -6666,7 +6674,9 @@ MonoBehaviour:
   turnLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  achievementManager: {fileID: 0}
+  EXP: {fileID: 9093625181201485740, guid: 30e909a542581f84a988177737d2a324, type: 3}
+  Orbs: {fileID: 5655676853320744283, guid: f2b9b324a380a684aba787d8cd52e312, type: 3}
+  achievementManager: {fileID: 1810521208}
   speed: 5
   isInvincible: 0
 --- !u!1 &1636277156
@@ -9454,6 +9464,8 @@ MonoBehaviour:
   turnLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  EXP: {fileID: 9093625181201485740, guid: 30e909a542581f84a988177737d2a324, type: 3}
+  Orbs: {fileID: 5655676853320744283, guid: f2b9b324a380a684aba787d8cd52e312, type: 3}
   achievementManager: {fileID: 1810521208}
   speed: 5
   isInvincible: 0
@@ -19878,11 +19890,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6286271771346920259, guid: f2b9b324a380a684aba787d8cd52e312, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.650484
+      value: 18.53
       objectReference: {fileID: 0}
     - target: {fileID: 6286271771346920259, guid: f2b9b324a380a684aba787d8cd52e312, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.202012
+      value: -6.29
       objectReference: {fileID: 0}
     - target: {fileID: 6286271771346920259, guid: f2b9b324a380a684aba787d8cd52e312, type: 3}
       propertyPath: m_LocalPosition.z
