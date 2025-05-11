@@ -120,7 +120,7 @@ public class Enemy : MonoBehaviour {
             if (expRb != null)
             {
                 // Kraft auf das EXP-Objekt anwenden
-                Vector2 force = new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 5f));
+                Vector2 force = new Vector2(Random.Range(-3f, 3f), Random.Range(2f, 7f));
                 expRb.AddForce(force, ForceMode2D.Impulse);  // Force anwenden
             }
         }
