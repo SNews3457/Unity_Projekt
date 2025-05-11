@@ -11,25 +11,27 @@ public class AchievementManager : MonoBehaviour
         public string title;
         [Range(0, 1)] public float progress;
         public AchievementType type;
+        public float targetValue = 100f; // <-- Benutzerdefiniert im Inspector
         public bool completed;
     }
 
     public enum AchievementType
     {
-        Collect,
+        CollectCoins,
         KillEnemies,
         PlayTime,
-        Custom // Placeholder for anything else
+        Custom // Optional, kann ignoriert oder manuell gesteuert werden
     }
 
-    [Header("Game State Simulations")]
-    public LevelUpManager levelUpManager;
+    [Header("Game State")]
+    public int coinsCollected;
     public int enemiesKilled;
     public float playTimeInSeconds;
 
     [Header("UI References")]
     public GameObject achievementPrefab;
     public Transform achievementContainer;
+    public LevelUpManager levelUpManager;
 
     [Header("Achievements")]
     public List<Achievement> achievements = new List<Achievement>();
@@ -45,7 +47,6 @@ public class AchievementManager : MonoBehaviour
 
     void Update()
     {
-        // Simulate time passing
         playTimeInSeconds += Time.deltaTime;
 
         CheckAchievementProgress();
@@ -56,21 +57,24 @@ public class AchievementManager : MonoBehaviour
     {
         foreach (var achievement in achievements)
         {
+            float currentValue = 0f;
+
             switch (achievement.type)
             {
-                case AchievementType.Collect:
-                    achievement.progress = Mathf.Clamp01(levelUpManager.LevelPoints / 100f);
+                case AchievementType.CollectCoins:
+                    currentValue = levelUpManager.SkillPoints;
                     break;
                 case AchievementType.KillEnemies:
-                    achievement.progress = Mathf.Clamp01(enemiesKilled / 50f);
+                    currentValue = enemiesKilled;
                     break;
                 case AchievementType.PlayTime:
-                    achievement.progress = Mathf.Clamp01(playTimeInSeconds / 300f); // 5 min
+                    currentValue = playTimeInSeconds;
                     break;
                 case AchievementType.Custom:
-                    // Optional: allow manual progress update elsewhere
-                    break;
+                    continue; // Custom logik extern verwalten
             }
+
+            achievement.progress = Mathf.Clamp01(currentValue / Mathf.Max(achievement.targetValue, 0.01f));
 
             if (achievement.progress >= 1f && !achievement.completed)
             {
@@ -82,16 +86,14 @@ public class AchievementManager : MonoBehaviour
 
     void OnAchievementCompleted(Achievement a)
     {
-        Debug.Log($"Achievement unlocked: {a.title}");
-        //dagobert trigger sound, visual effect, save state
+        Debug.Log($" Achievement freigeschaltet: {a.title}");
+        // Hier z. B. Sound, Animation oder Popup einbauen
     }
 
     void InitializeUI()
     {
         foreach (GameObject go in instantiatedAchievements)
-        {
             Destroy(go);
-        }
 
         instantiatedAchievements.Clear();
         titleTexts.Clear();
@@ -103,21 +105,24 @@ public class AchievementManager : MonoBehaviour
             TMP_Text titleText = go.GetComponentInChildren<TMP_Text>();
             Slider progressBar = go.GetComponentInChildren<Slider>();
 
-            if (titleText != null) titleText.text = achievement.title;
-            if (progressBar != null) progressBar.value = achievement.progress;
-
-            instantiatedAchievements.Add(go);
             titleTexts.Add(titleText);
             progressBars.Add(progressBar);
+            instantiatedAchievements.Add(go);
+
+            if (titleText != null)
+                titleText.text = $"{achievement.title} (0%)";
+            if (progressBar != null)
+                progressBar.value = achievement.progress;
         }
     }
 
     void UpdateUI()
     {
-        for (int i = 0; i < achievements.Count && i < progressBars.Count; i++)
+        for (int i = 0; i < achievements.Count; i++)
         {
-            progressBars[i].value = achievements[i].progress;
-            titleTexts[i].text = $"{achievements[i].title} ({Mathf.RoundToInt(achievements[i].progress * 100)}%)";
+            var achievement = achievements[i];
+            progressBars[i].value = achievement.progress;
+            titleTexts[i].text = $"{achievement.title} ({Mathf.RoundToInt(achievement.progress * 100)}%)";
         }
     }
 }

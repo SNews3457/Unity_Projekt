@@ -22,6 +22,7 @@ public class LevelUpManager : MonoBehaviour
     public CharacterController2D Character;
     Coroutine skillPointEffectRoutine;
     bool skillPointAvailable = false;
+    AchievementManager AchievementManager;
     public bool canOpenOptionMenu = true;
     void Update()
     {
@@ -59,6 +60,7 @@ public class LevelUpManager : MonoBehaviour
             SkillTree.SetActive(false);
             canOpenOptionMenu = true;
         }
+        
     }
 
     //op Skilltree wird geöffnet wenn die Anzeige angeklickt wird
@@ -78,6 +80,7 @@ public class LevelUpManager : MonoBehaviour
             Image image2 = GameObject.Find("DashUpgrade").GetComponent<Image>();
             image2.color = tempColor;
             tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f; 
             tempColor.a = 0.7f; 
             image.color = tempColor;
             StartCoroutine(PlayUnlockEffect(image));

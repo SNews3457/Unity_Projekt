@@ -89,6 +89,7 @@ public class Menu : MonoBehaviour
             {
                 Option.SetActive(true);
                 AchivementActiv = false;
+                isActiv = true;
                 AchivementPanel.SetActive(false);
             }
 
@@ -105,7 +106,7 @@ public class Menu : MonoBehaviour
             UpdateSelection();
             PlaySound(navigateSound);
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) && isActiv)
         {
             StartGame();
         }
