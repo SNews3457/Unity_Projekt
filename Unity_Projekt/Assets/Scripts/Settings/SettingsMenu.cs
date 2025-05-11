@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
 {
     [Header("Menü-Elemente")]
     public Button[] menuButtons;
-    public GameObject[] panels; // Die Panels, die angezeigt werden sollen (gleiche Reihenfolge wie Buttons)
+    public GameObject[] panels; // Gleiche Reihenfolge wie Buttons
+    public Button backButton;   // Der Button, der zur "Menu"-Szene führt
 
     [Header("Auswahl-Icons")]
     public Image leftIcon;
@@ -51,7 +53,6 @@ public class SettingsMenu : MonoBehaviour
         }
         else
         {
-            // Wenn ein Panel aktiv ist, kann es mit Leertaste wieder geschlossen werden
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 activePanel.SetActive(false);
@@ -64,20 +65,27 @@ public class SettingsMenu : MonoBehaviour
     void HandleSelection()
     {
         PlaySound(selectSound);
+        Button selectedButton = menuButtons[currentIndex];
 
-        // Sonderfall "Fortsetzen"
-        if (menuButtons[currentIndex].name == "Fortsetzen")
+        if (selectedButton == backButton)
+        {
+            SceneManager.LoadScene("Menu");
+        }
+        else if (selectedButton.name == "Fortsetzen")
         {
             if (menuPanel != null)
                 menuPanel.SetActive(false);
         }
         else
         {
-            // Aktuelles Panel anzeigen
-            if (panels != null && currentIndex < panels.Length && panels[currentIndex] != null)
+            if (panels != null && currentIndex < panels.Length)
             {
-                panels[currentIndex].SetActive(true);
-                activePanel = panels[currentIndex];
+                GameObject panelToOpen = panels[currentIndex];
+                if (panelToOpen != null)
+                {
+                    panelToOpen.SetActive(true);
+                    activePanel = panelToOpen;
+                }
             }
         }
     }
