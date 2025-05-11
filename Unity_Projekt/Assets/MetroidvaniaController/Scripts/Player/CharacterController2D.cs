@@ -43,6 +43,7 @@ public class CharacterController2D : MonoBehaviour
 	public ParticleSystem particleJumpUp; //Trail particles
 	public ParticleSystem particleJumpDown; //Explosion particles
 
+	public CurrencyManager currencyManager;
 	private float jumpWallStartX = 0;
 	private float jumpWallDistX = 0; //Distance between player and wall
 	private bool limitVelOnWallJump = false; //For limit wall jump distance with low fps
@@ -300,6 +301,11 @@ public class CharacterController2D : MonoBehaviour
         CheckpointActive = true;
         Debug.Log("Checkpoint aktiviert!");
     }
+	if (other.CompareTag("Orb"))
+	{
+		currencyManager.Orbs++;
+		Destroy(other.gameObject);
+	}
 }
 
 

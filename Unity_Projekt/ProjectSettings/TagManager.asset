@@ -9,6 +9,7 @@ TagManager:
   - LearnShoot
   - LevelPoint
   - Checkpoint
+  - Orb
   layers:
   - Default
   - TransparentFX
