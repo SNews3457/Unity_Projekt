@@ -40,7 +40,7 @@ public class Menu : MonoBehaviour
         if (sceneNames != null && currentIndex < sceneNames.Length)
         {
             string scene = sceneNames[currentIndex];
-
+            string sceneName = SceneManager.GetActiveScene().name;
             if (scene == "QUIT")
             {
                 Application.Quit();
@@ -55,7 +55,7 @@ public class Menu : MonoBehaviour
                 if (menuPanel != null)
                     menuPanel.SetActive(false); // Menü schließen
             }
-            else if (scene == "Achievements")
+            else if (scene == "Achievements" && isActiv && sceneName != "Menu")
             {
                 menuPanel.SetActive(false); // Menü schließen
                 AchivementPanel.SetActive(true); //dagobert öffnen
@@ -64,7 +64,9 @@ public class Menu : MonoBehaviour
             else
             {
                 SceneManager.LoadScene(scene);
+                Debug.Log("Gut");
             }
+            Debug.Log(scene);
         }
     }
 
@@ -94,6 +96,7 @@ public class Menu : MonoBehaviour
             }
 
         }
+        string sceneName = SceneManager.GetActiveScene().name;
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentIndex = (currentIndex - 1 + menuButtons.Length) % menuButtons.Length;
@@ -107,6 +110,10 @@ public class Menu : MonoBehaviour
             PlaySound(navigateSound);
         }
         else if (Input.GetKeyDown(KeyCode.Space) && isActiv)
+        {
+            StartGame();
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && sceneName == "Menu")
         {
             StartGame();
         }
