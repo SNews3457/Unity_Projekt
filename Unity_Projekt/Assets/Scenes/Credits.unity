@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 192974932}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 371.60614, y: -329, z: -2.6352694}
+  m_LocalPosition: {x: 388, y: -145, z: -2.6352694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -220,20 +220,32 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'TKIN915
+  m_Text: 'CREDITS
 
+
+
+    TKIN915
 
 
     S_News
 
 
-
     Dagobert Duck
 
 
+    Milan
 
 
-    credits'
+    Zitrone
+
+
+    Colin
+
+
+    Magischer
+
+
+    rockrhead.com'
 --- !u!222 &898672465
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -253,6 +265,7 @@ GameObject:
   - component: {fileID: 1779175282}
   - component: {fileID: 1779175281}
   - component: {fileID: 1779175280}
+  - component: {fileID: 1779175283}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -334,6 +347,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1779175283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779175279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &1980949086
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,8 +422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creditsText: {fileID: 898672463}
   scrollSpeed: 50
-  startY: 360
-  endY: -330
+  startY: -400
+  endY: 500
 --- !u!4 &1980949088
 Transform:
   m_ObjectHideFlags: 0
@@ -376,7 +433,7 @@ Transform:
   m_GameObject: {fileID: 1980949086}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 408.36945, y: 207.20277, z: -3.1762776}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -477,9 +534,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9034157327309572776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -167}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -90, y: 16}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4342707391000049404
@@ -591,7 +648,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press Space to open menu
+  m_Text: Press Space
 --- !u!224 &9034157327309572776
 RectTransform:
   m_ObjectHideFlags: 0

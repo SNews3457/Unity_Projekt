@@ -1644,6 +1644,63 @@ Transform:
   - {fileID: 1789830388}
   m_Father: {fileID: 1160442881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &371148284
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6173285217856389316}
+    m_Modifications:
+    - target: {fileID: 1383418444051284, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_Name
+      value: Smoke Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710963
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071039
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
 --- !u!1 &376116552
 GameObject:
   m_ObjectHideFlags: 0
@@ -4866,6 +4923,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149269182}
   m_CullTransparentMesh: 1
+--- !u!4 &1160069414 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4683964150826710, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+  m_PrefabInstance: {fileID: 371148284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1160069416 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198668599249397950, guid: 213b323fc7518724c9f2273db93d333b, type: 3}
+  m_PrefabInstance: {fileID: 371148284}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1160442880
 GameObject:
   m_ObjectHideFlags: 0
@@ -5253,10 +5320,10 @@ RectTransform:
   - {fileID: 1298245200}
   m_Father: {fileID: 1472633006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.71759033, y: 0}
-  m_SizeDelta: {x: 15.7889, y: 17.2241}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 360, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1269626995
 MonoBehaviour:
@@ -5587,7 +5654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -167}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1298245201
@@ -10114,6 +10181,7 @@ MonoBehaviour:
   invincible: 0
   particleJumpUp: {fileID: 6303605172119255294}
   particleJumpDown: {fileID: 6303275769694440020}
+  particleJumpWall: {fileID: 1160069416}
   currencyManager: {fileID: 1275192955}
   OnFallEvent:
     m_PersistentCalls:
@@ -10393,6 +10461,7 @@ Transform:
   - {fileID: 6175811023249525250}
   - {fileID: 6175995260088219172}
   - {fileID: 6173123659874570138}
+  - {fileID: 1160069414}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &6175661248910395334
@@ -20228,7 +20297,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20306,7 +20374,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
