@@ -5,47 +5,69 @@ using UnityEngine.UI;
 
 public class AchievementManager : MonoBehaviour
 {
-    public GameObject achievementPrefab;
-    public Transform achievementContainer;
-
     [System.Serializable]
     public class Achievement
     {
-        public string name;
-        public float currentAmount;
-        public float requiredAmount;
+        public string title;
+        [Range(0, 1)] public float progress;
     }
 
-    public List<Achievement> achievements;
+    [Header("UI References")]
+    public GameObject achievementPrefab;
+    public Transform achievementContainer;
 
-    private List<GameObject> uiEntries = new List<GameObject>();
+    [Header("Achievements")]
+    public List<Achievement> achievements = new List<Achievement>();
+
+    private List<GameObject> instantiatedAchievements = new List<GameObject>();
+    private List<TMP_Text> titleTexts = new List<TMP_Text>();
+    private List<Slider> progressBars = new List<Slider>();
 
     void Start()
     {
-        // Einmalige UI-Erstellung
-        foreach (Achievement achievement in achievements)
-        {
-            GameObject entry = Instantiate(achievementPrefab, achievementContainer);
-            uiEntries.Add(entry);
-
-            TMP_Text text = entry.GetComponentInChildren<TMP_Text>();
-            Slider slider = entry.GetComponentInChildren<Slider>();
-
-            text.text = achievement.name;
-            slider.maxValue = achievement.requiredAmount;
-        }
+        InitializeUI();
     }
 
     void Update()
     {
-        // Nur Werte updaten
-        for (int i = 0; i < achievements.Count; i++)
-        {
-            Achievement achievement = achievements[i];
-            GameObject entry = uiEntries[i];
+        UpdateUI();
+    }
 
-            Slider slider = entry.GetComponentInChildren<Slider>();
-            slider.value = achievement.currentAmount;
+    void InitializeUI()
+    {
+        // Clear existing
+        foreach (GameObject go in instantiatedAchievements)
+        {
+            Destroy(go);
+        }
+
+        instantiatedAchievements.Clear();
+        titleTexts.Clear();
+        progressBars.Clear();
+
+        // Instantiate once
+        foreach (var achievement in achievements)
+        {
+            GameObject go = Instantiate(achievementPrefab, achievementContainer);
+            TMP_Text titleText = go.GetComponentInChildren<TMP_Text>();
+            Slider progressBar = go.GetComponentInChildren<Slider>();
+
+            if (titleText != null) titleText.text = achievement.title;
+            if (progressBar != null) progressBar.value = achievement.progress;
+
+            instantiatedAchievements.Add(go);
+            titleTexts.Add(titleText);
+            progressBars.Add(progressBar);
+        }
+    }
+
+    void UpdateUI()
+    {
+        for (int i = 0; i < achievements.Count && i < progressBars.Count; i++)
+        {
+            progressBars[i].value = achievements[i].progress;
+            // Optional: update title too (e.g., with percentage)
+            titleTexts[i].text = $"{achievements[i].title} ({Mathf.RoundToInt(achievements[i].progress * 100)}%)";
         }
     }
 }
