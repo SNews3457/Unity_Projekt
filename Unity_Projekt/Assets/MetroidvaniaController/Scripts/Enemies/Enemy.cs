@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour {
 
 		if (life <= 0) {
 			transform.GetComponent<Animator>().SetBool("IsDead", true);
-			achievementManager.enemiesKilled++;
+			
 			StartCoroutine(DestroyEnemy());
 		}
 
@@ -105,6 +105,7 @@ public class Enemy : MonoBehaviour {
 		yield return new WaitForSeconds(0.25f);
 		rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 		yield return new WaitForSeconds(3f);
-		Destroy(gameObject);
+        achievementManager.enemiesKilled++;
+        Destroy(gameObject);
 	}
 }
