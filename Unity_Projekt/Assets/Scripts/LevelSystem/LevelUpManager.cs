@@ -22,7 +22,7 @@ public class LevelUpManager : MonoBehaviour
     public CharacterController2D Character;
     Coroutine skillPointEffectRoutine;
     bool skillPointAvailable = false;
-
+    public bool canOpenOptionMenu = true;
     void Update()
     {
         Cursor.visible = true;
@@ -57,12 +57,14 @@ public class LevelUpManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Escape))
         {
             SkillTree.SetActive(false);
+            canOpenOptionMenu = true;
         }
     }
 
     //op Skilltree wird geöffnet wenn die Anzeige angeklickt wird
     public void GoToSkillTree()
     {
+        canOpenOptionMenu =false;
         Debug.Log("OpenSkillTree");
         SkillTree.SetActive(true);
     }
