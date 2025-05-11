@@ -14,6 +14,7 @@ public class Options : MonoBehaviour
     public Button settings;
     public Button MainMenu;
     bool isActiv = false;
+    public GameObject AchivementPanel;
     public LevelUpManager LevelUpManager;
 
 
@@ -47,6 +48,7 @@ public class Options : MonoBehaviour
     public void AchivmentOpen ()
     {
         OptionsObject.SetActive(false);
+        AchivementPanel.SetActive(true);
     }
 
     public void SettingsOpen()
