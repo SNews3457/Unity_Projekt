@@ -23,11 +23,13 @@ public class Options : MonoBehaviour
         {
             if (!isActiv && LevelUpManager.canOpenOptionMenu)
             {
+                Time.timeScale = 0;
                 isActiv = true;
                 OptionsObject.SetActive(true);
             }
             else if(isActiv )
             {
+                Time.timeScale = 1;
                 isActiv = false;
                 OptionsObject.SetActive(false);
             }
@@ -37,13 +39,14 @@ public class Options : MonoBehaviour
 
     public void Continues()
     {
+        Time.timeScale = 1;
         isActiv = false;
         OptionsObject.SetActive(false);
     }
 
     public void AchivmentOpen ()
     {
-
+        OptionsObject.SetActive(false);
     }
 
     public void SettingsOpen()
