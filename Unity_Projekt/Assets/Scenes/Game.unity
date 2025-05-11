@@ -3278,7 +3278,7 @@ MonoBehaviour:
   - {fileID: 1449389783}
   - {fileID: 1188258346}
   sceneNames:
-  - Game
+  - Fortsetzen
   - Achievements
   - Settings
   - Menu
@@ -3288,6 +3288,7 @@ MonoBehaviour:
   navigateSound: {fileID: 8300000, guid: 9c88df50d822041ea84961b8038fa2a1, type: 3}
   selectSound: {fileID: 8300000, guid: 7a9cb4fd290c34156bfd8f3c5884a52a, type: 3}
   audioSource: {fileID: 573796748}
+  menuPanel: {fileID: 573796746}
 --- !u!1 &593390105
 GameObject:
   m_ObjectHideFlags: 0
@@ -5144,7 +5145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 2935399040659132690, guid: f91d2a611e06f4d24bdd10a8d1e74726, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7446,7 +7447,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 9070332596397194911, guid: f91d2a611e06f4d24bdd10a8d1e74726, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

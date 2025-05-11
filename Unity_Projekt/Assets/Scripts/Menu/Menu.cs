@@ -18,57 +18,63 @@ public class Menu : MonoBehaviour
     public AudioClip selectSound;
     public AudioSource audioSource;
 
+    [Header("Optionales Menü-Panel")]
+    public GameObject menuPanel; // Das Panel, das deaktiviert werden soll
+
     private int currentIndex = 0;
 
     void Start()
     {
         UpdateSelection();
     }
-    
+
     public void StartGame()
-{
-    PlaySound(selectSound);
-
-    if (sceneNames != null && currentIndex < sceneNames.Length)
     {
-        string scene = sceneNames[currentIndex];
+        PlaySound(selectSound);
 
-        if (scene == "QUIT")
+        if (sceneNames != null && currentIndex < sceneNames.Length)
         {
-            Application.Quit();
+            string scene = sceneNames[currentIndex];
+
+            if (scene == "QUIT")
+            {
+                Application.Quit();
 
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false; // Beenden im Editor
+                UnityEditor.EditorApplication.isPlaying = false;
 #endif
-        }
-        else
-        {
-            SceneManager.LoadScene(scene);
+            }
+            else if (scene == "Fortsetzen")
+            {
+                if (menuPanel != null)
+                    menuPanel.SetActive(false); // Menü schließen
+            }
+            else
+            {
+                SceneManager.LoadScene(scene);
+            }
         }
     }
-}
-
 
     void Update()
-{
-    if (Input.GetKeyDown(KeyCode.UpArrow))
     {
-        currentIndex = (currentIndex - 1 + menuButtons.Length) % menuButtons.Length;
-        UpdateSelection();
-        PlaySound(navigateSound);
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            currentIndex = (currentIndex - 1 + menuButtons.Length) % menuButtons.Length;
+            UpdateSelection();
+            PlaySound(navigateSound);
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            currentIndex = (currentIndex + 1) % menuButtons.Length;
+            UpdateSelection();
+            PlaySound(navigateSound);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartGame();
+        }
     }
-    else if (Input.GetKeyDown(KeyCode.DownArrow))
-    {
-        currentIndex = (currentIndex + 1) % menuButtons.Length;
-        UpdateSelection();
-        PlaySound(navigateSound);
-    }
-    else if (Input.GetKeyDown(KeyCode.Space))
-    {
-        StartGame(); // Diese Methode wird nun bei Leertaste aufgerufen
-    }
-}
-
 
     void UpdateSelection()
     {
