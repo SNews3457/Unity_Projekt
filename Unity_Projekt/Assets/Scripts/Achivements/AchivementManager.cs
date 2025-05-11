@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class AchievementManager : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class AchievementManager : MonoBehaviour
     public float playTimeInSeconds;
     public float levelPoints = 0f; 
     private float lastKnownSkillPoints = 0; // Zwischenspeicher
-
+    public GameObject PopUp;
 
     [Header("UI References")]
     public GameObject achievementPrefab;
@@ -43,6 +44,11 @@ public class AchievementManager : MonoBehaviour
     private List<TMP_Text> titleTexts = new List<TMP_Text>();
     private List<Slider> progressBars = new List<Slider>();
 
+
+    [Header("Popup Settings")]
+    public GameObject popupPrefab; 
+    public Transform popupParent;  
+    public float popupDuration = 2f;
     void Start()
     {
         InitializeUI();
@@ -108,9 +114,57 @@ public class AchievementManager : MonoBehaviour
 
     void OnAchievementCompleted(Achievement a)
     {
-        Debug.Log($" Achievement freigeschaltet: {a.title}");
-        // Hier z. B. Sound, Animation oder Popup einbauen
+        Debug.Log($"✅ Achievement freigeschaltet: {a.title}");
+        StartCoroutine(ShowPopup($"Achievement freigeschaltet: {a.title}"));
     }
+    IEnumerator ShowPopup(string message)
+    {
+        GameObject popup = Instantiate(popupPrefab, popupParent);
+
+        RectTransform rect = popup.GetComponent<RectTransform>();
+        TMP_Text text = popup.GetComponentInChildren<TMP_Text>();
+        text.text = message;
+
+        // Größe ermitteln
+        float height = rect.rect.height;
+
+        // Startposition: außerhalb des oberen Rands
+        Vector2 startPos = new Vector2(0, height + 100);
+
+        // Zielposition: knapp unter oberem Rand (z. B. -10 bei top-anchored Element)
+        Vector2 endPos = new Vector2(0, -10); // anchoredPosition.y = -10 bedeutet: fast oben
+
+        rect.anchoredPosition = startPos;
+
+        float animTime = 0.4f;
+        float t = 0;
+
+        // Einblenden
+        while (t < animTime)
+        {
+            t += Time.deltaTime;
+            float p = Mathf.SmoothStep(0, 1, t / animTime);
+            rect.anchoredPosition = Vector2.Lerp(startPos, endPos, p);
+            yield return null;
+        }
+
+        rect.anchoredPosition = endPos;
+
+        yield return new WaitForSeconds(popupDuration);
+
+        // Ausblenden
+        t = 0;
+        while (t < animTime)
+        {
+            t += Time.deltaTime;
+            float p = Mathf.SmoothStep(0, 1, t / animTime);
+            rect.anchoredPosition = Vector2.Lerp(endPos, startPos, p);
+            yield return null;
+        }
+
+        Destroy(popup);
+    }
+
 
     void InitializeUI()
     {
