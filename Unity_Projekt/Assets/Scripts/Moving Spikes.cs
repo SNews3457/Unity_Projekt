@@ -5,8 +5,7 @@ public class MovingSpikes : MonoBehaviour
 {
     /*Das Script ist für eine Zacke, die sich von oben (der Decke) bis zur ersten Kolision bewegt.
      Nach der Kolision bewegt sie sich wieder nach oben.
-     Die Zacke bleibt durchgehend mit der Decke verbunden. 
-     Das Script wird auf die Zacke angelegt (Das Dreieck/der Spitze part) */
+     Die Zacke bleibt durchgehend mit der Decke verbunden. */
 
     [SerializeField] Transform yBottonMiddlePart; // Das ist der Wert wo die Zacke (Das Dreieck/der Spitze part) mit dem Mittelteil verbunden wird
     [SerializeField] Transform spikeConection; // Das ist der Wert von der Zacke, wo sie an den Mittel teil anheften muss    Die Zacke ist ein child Objekt, damit sie sich mit bewegt
