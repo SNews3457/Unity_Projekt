@@ -41,6 +41,8 @@ public class CharacterController2D : MonoBehaviour
 	private Animator animator;
 	public ParticleSystem particleJumpUp; //Trail particles
 	public ParticleSystem particleJumpDown; //Explosion particles
+	
+	public ParticleSystem particleJumpWall; 
 
 	public CurrencyManager currencyManager;
 	private float jumpWallStartX = 0;
@@ -70,6 +72,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		Cursor.visible = true;
 		if (!SkillDoubkeJump)
 		{
 			canDoubleJump = false;
@@ -237,6 +240,9 @@ public class CharacterController2D : MonoBehaviour
 					oldWallSlidding = false;
 					m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
 					canMove = false;
+					particleJumpWall.Play();
+					//particleJumpDown.Play();
+					//particleJumpUp.Play();
 				}
 				else if (dash && canDash)
 				{

@@ -24,10 +24,10 @@ public class CreditsScroller : MonoBehaviour
         if (creditsText == null) return;
 
         // Bewege den Text nach unten
-        creditsText.anchoredPosition -= new Vector2(0, scrollSpeed * Time.deltaTime);
+        creditsText.anchoredPosition += new Vector2(0, scrollSpeed * Time.deltaTime);
 
         // Wenn der Text unten ist, zurück zum Start
-        if (creditsText.anchoredPosition.y <= endY)
+        if (creditsText.anchoredPosition.y >= endY)
         {
             Vector2 pos = creditsText.anchoredPosition;
             pos.y = startY;

@@ -47,14 +47,14 @@ public class Attack : MonoBehaviour
 
 	IEnumerator AttackCooldown()
 	{
-		yield return new WaitForSeconds(0.25f);
+		yield return new WaitForSeconds(0.267f);
 		canAttack = true;
 	}
 
 	public void DoDashDamage()
 	{
 		dmgValue = Mathf.Abs(dmgValue);
-		Collider2D[] collidersEnemies = Physics2D.OverlapCircleAll(attackCheck.position, 0.9f);
+		Collider2D[] collidersEnemies = Physics2D.OverlapCircleAll(attackCheck.position, 1.25f);
 		for (int i = 0; i < collidersEnemies.Length; i++)
 		{
 			if (collidersEnemies[i].gameObject.tag == "Enemy")

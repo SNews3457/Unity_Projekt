@@ -9,7 +9,7 @@ using UnityEditor.ShaderGraph;
 public class LevelUpManager : MonoBehaviour
 {
     public float LevelPoints; //op aktuele LevelPunkte
-    public float PointsNeeded = 2; //op Punkte die für den Levelaufstieg benötigt werden
+    public float PointsNeeded = 2; //op Punkte die fï¿½r den Levelaufstieg benï¿½tigt werden
     public float Level = 0; //op aktuels Level
     public Slider LevelAmount; //op Slider
     public TMPro.TMP_Text Points;
@@ -33,7 +33,7 @@ public class LevelUpManager : MonoBehaviour
         Points.text = LevelPoints + "/" + PointsNeeded;
         SkillPonts.text = SkillPoints.ToString();
 
-        //op Effekt dewaktivieren wenn keine skillpoint verfügbar sind
+        //op Effekt dewaktivieren wenn keine skillpoint verfï¿½gbar sind
         if (SkillPoints <= 0)
             skillPointAvailable = false;
 
@@ -60,10 +60,15 @@ public class LevelUpManager : MonoBehaviour
             SkillTree.SetActive(false);
             canOpenOptionMenu = true;
         }
-        
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            GoToSkillTree();
+        }
+
     }
 
-    //op Skilltree wird geöffnet wenn die Anzeige angeklickt wird
+    //op Skilltree wird geï¿½ffnet wenn die Anzeige angeklickt wird
     public void GoToSkillTree()
     {
         canOpenOptionMenu =false;
@@ -168,7 +173,7 @@ public class LevelUpManager : MonoBehaviour
 
         while (skillPointAvailable)
         {
-            float t = Mathf.PingPong(time * 2f, 1f); //op PingPong für Loop-Effekt
+            float t = Mathf.PingPong(time * 2f, 1f); //op PingPong fï¿½r Loop-Effekt
 
             float scale = Mathf.Lerp(1f, 1.2f, t);
             SkillPointBg.rectTransform.localScale = new Vector3(scale, scale, 1f);
