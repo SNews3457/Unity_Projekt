@@ -60,7 +60,12 @@ public class LevelUpManager : MonoBehaviour
             SkillTree.SetActive(false);
             canOpenOptionMenu = true;
         }
-        
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            GoToSkillTree();
+        }
+
     }
 
     //op Skilltree wird ge�ffnet wenn die Anzeige angeklickt wird
