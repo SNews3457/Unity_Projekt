@@ -3,29 +3,32 @@ using UnityEngine.UI;
 
 public class AudioSettingsManager : MonoBehaviour
 {
-    [Header("UI")]
-    public Slider volumeSlider;
-
-    [Header("Einstellungen")]
-    public float defaultVolume = 1.0f;
-
-    private const string PlayerPrefsKey = "MasterVolume";
+    public Slider volumeSlider;        // Referenz zum UI-Slider
+    public AudioSource musicSource;    // Die Audioquelle mit Musik
+    private const string VolumeKey = "MusicVolume";
 
     void Start()
     {
-        float savedVolume = PlayerPrefs.GetFloat(PlayerPrefsKey, defaultVolume);
+        // Lautstärke aus PlayerPrefs laden, oder Standardwert 1.0f verwenden
+        float savedVolume = PlayerPrefs.GetFloat(VolumeKey, 1.0f);
         volumeSlider.value = savedVolume;
-        SetVolume(savedVolume);
+        musicSource.volume = savedVolume;
 
-        volumeSlider.onValueChanged.AddListener(SetVolume);
+        // Event hinzufügen
+        volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
     }
 
-    public void SetVolume(float volume)
+    void OnVolumeChanged(float newVolume)
     {
-        AudioListener.volume = volume;
+        musicSource.volume = newVolume;
+        PlayerPrefs.SetFloat(VolumeKey, newVolume);
+        PlayerPrefs.Save(); // Speichert sofort in Datei
+    }
 
-        // Speichern
-        PlayerPrefs.SetFloat(PlayerPrefsKey, volume);
-        PlayerPrefs.Save();
+    private void OnDestroy()
+    {
+        // Event entfernen, um Speicherlecks zu vermeiden
+        volumeSlider.onValueChanged.RemoveListener(OnVolumeChanged);
     }
 }
+
