@@ -22,11 +22,23 @@ public class InventoryManager : MonoBehaviour
         {
             inventory.SetActive(true);
             InventoryisActiv = true;
+
+
+            Time.timeScale = 0f;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
         }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             inventory.SetActive(false);
             InventoryisActiv = false;
+
+            
+            Time.timeScale = 1f;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
         }
     }
 
@@ -59,7 +71,7 @@ public class InventoryManager : MonoBehaviour
         grid.childAlignment = TextAnchor.UpperLeft;
 
 
-        // Alte Slots löschen
+        // Alte Slots lï¿½schen
         foreach (Transform child in panelParent)
         {
             Destroy(child.gameObject);
