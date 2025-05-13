@@ -2475,11 +2475,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67c189c9fa54f041bb91bd01ca9e5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToAdd: {fileID: 0}
+  slotHolder: {fileID: 745235999}
+  itemToAdd: {fileID: 11400000, guid: acc778be47cb8f744bf7ab0d156fff80, type: 2}
   inventory: {fileID: 1883401298}
   InventoryisActiv: 0
-  items: []
   itemToRemove: {fileID: 0}
+  items:
+  - item: {fileID: 11400000, guid: 732543c279567e547b1cee1aa9123c93, type: 2}
+    quantity: 5
+  - item: {fileID: 11400000, guid: acc778be47cb8f744bf7ab0d156fff80, type: 2}
+    quantity: 1
 --- !u!1 &417412118
 GameObject:
   m_ObjectHideFlags: 0
@@ -10073,24 +10078,24 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 570477474}
-  - {fileID: 509261680}
-  - {fileID: 164735613}
-  - {fileID: 134274227}
-  - {fileID: 1269758237}
-  - {fileID: 2044581946}
-  - {fileID: 1512800122}
-  - {fileID: 1340182939}
-  - {fileID: 1702553458}
-  - {fileID: 1461623165}
-  - {fileID: 1171919032}
-  - {fileID: 1135420320}
-  - {fileID: 885052125}
-  - {fileID: 1294725032}
-  - {fileID: 165802520}
   - {fileID: 1844665655}
+  - {fileID: 570477474}
+  - {fileID: 134274227}
+  - {fileID: 1512800122}
+  - {fileID: 1461623165}
+  - {fileID: 885052125}
   - {fileID: 1386575593}
+  - {fileID: 509261680}
+  - {fileID: 1269758237}
+  - {fileID: 1340182939}
+  - {fileID: 1171919032}
+  - {fileID: 1294725032}
   - {fileID: 320529055}
+  - {fileID: 164735613}
+  - {fileID: 2044581946}
+  - {fileID: 1702553458}
+  - {fileID: 1135420320}
+  - {fileID: 165802520}
   m_Father: {fileID: 1247968516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
