@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1c243eb8f1ed5004297310a94be683e3
+guid: 55e53a82b392e7d4d979e41b224ce82b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 270867796513690207
-    second: bowl_0
+      213: 6844922983435654669
+    second: ore_ruby_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bowl_0
+      name: ore_ruby_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 38
-        width: 89
-        height: 55
+        x: 32
+        y: 40
+        width: 72
+        height: 46
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f529a4863d052c300800000000000000
-      internalID: 270867796513690207
+      spriteID: d06d69eff2d0efe50800000000000000
+      internalID: 6844922983435654669
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bowl_0: 270867796513690207
+      ore_ruby_0: 6844922983435654669
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
