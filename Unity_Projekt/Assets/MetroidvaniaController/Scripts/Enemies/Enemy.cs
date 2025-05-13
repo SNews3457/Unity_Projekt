@@ -4,24 +4,24 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	public float life = 10;
-	private bool isPlat;
-	private bool isObstacle;
-	private Transform fallCheck;
-	private Transform wallCheck;
+    protected bool isPlat;
+    protected bool isObstacle;
+    protected Transform fallCheck;
+    protected Transform wallCheck;
 	public LayerMask turnLayerMask;
-	private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
 	public GameObject EXP;
 	public GameObject Orbs;
-	private bool facingRight = true;
+    protected bool facingRight = true;
 	public AchievementManager achievementManager;
 	public float speed = 5f;
 	public Attack Attack;
-    private bool isBurning = false;
+    protected bool isBurning = false;
     public bool isInvincible = false;
-	private bool isHitted = false;
-	bool die = false;
-    private SpriteRenderer spriteRenderer;
+    protected bool isHitted = false;
+    protected bool die = false;
+    protected SpriteRenderer spriteRenderer;
 
 
     void Awake()
@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour {
         wallCheck = transform.Find("WallCheck");
         rb = GetComponent<Rigidbody2D>();
 		Attack = FindAnyObjectByType<Attack>();
+		achievementManager = FindAnyObjectByType<AchievementManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
