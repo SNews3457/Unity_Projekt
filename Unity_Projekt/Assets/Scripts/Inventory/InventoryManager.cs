@@ -10,8 +10,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private ItemClass itemToAdd;
     public GameObject inventory;
     public bool InventoryisActiv;
-    [SerializeField] private List<ItemClass> items = new List<ItemClass>();
     [SerializeField] private ItemClass itemToRemove;
+
+    public List<SlotClass> items = new List<SlotClass>();
 
     private GameObject[] slots;
 
@@ -35,26 +36,59 @@ public class InventoryManager : MonoBehaviour
             try
             {
                 slots[i].transform.GetChild(0).GetComponent<Image>().enabled = true;
-                slots[i].transform.GetChild(0).GetComponent<Image>().sprite = items[i].itemIcon;
+                slots[i].transform.GetChild(0).GetComponent<Image>().sprite = items[i].GetItem().itemIcon;
+                slots[i].transform.GetChild(1).GetComponent<Text>().text = items[i].GetQuantity() + "";
             }
             catch
             {
                 slots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
                 slots[i].transform.GetChild(0).GetComponent<Image>().enabled = false;
+                slots[i].transform.GetChild(1).GetComponent<Text>().text = "";
             }
         }
     }
 
     public void Add(ItemClass item)
     {
-        items.Add(item);
+        //items.Add(item);
+        //ist im Inventar das Item bereits
+        SlotClass slot = Contains(item);
+        if (slot != null)
+            slot.AddQuantity(1);
+        else
+        {
+            items.Add(new SlotClass(item, 1));
+        }
+
         RefreshUI();
     }
 
     public void Remove(ItemClass item)
     {
-        items.Remove(item);
+        SlotClass slotToRemove =  new SlotClass();
+        //items.Remove(item);
+        foreach (SlotClass slot in items)
+        {
+            if(slot.GetItem() == item)
+            {
+                slotToRemove = slot;
+                break;
+            }
+        }
+        items.Remove(slotToRemove);
+
         RefreshUI();
+    }
+
+    public SlotClass Contains(ItemClass item)
+    {
+        foreach (SlotClass slot in items)
+        {
+            if(slot.GetItem() == item) 
+                return slot;
+        }
+           
+        return null;
     }
 
     private void Update()
