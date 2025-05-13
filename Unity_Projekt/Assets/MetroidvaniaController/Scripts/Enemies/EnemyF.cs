@@ -1,25 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyF : MonoBehaviour
+public class EnemyF : Enemy
 {
-    public float life = 10;
-    private bool isPlat;
-    private bool isObstacle;
-    private Transform fallCheck;
-    private Transform wallCheck;
-    public LayerMask turnLayerMask;
-    private Rigidbody2D rb;
-
-    public GameObject EXP;
-    public GameObject Orbs;
-    private bool facingRight = true;
-    public AchievementManager achievementManager;
-    public float speed = 5f;
-
-    public bool isInvincible = false;
-    private bool isHitted = false;
-    bool die = false;
 
     // == Fernkampf ==
     public Transform firePoint; // Abschusspunkt für Projektil
@@ -35,6 +18,9 @@ public class EnemyF : MonoBehaviour
         wallCheck = transform.Find("WallCheck");
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        Attack = FindAnyObjectByType<Attack>();
+        achievementManager = FindAnyObjectByType<AchievementManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
