@@ -1,0 +1,38 @@
+using UnityEngine;
+
+public class MinimapToggle : MonoBehaviour
+{
+    public GameObject bigMinimapPanel;
+
+    private bool isOpen = false;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            OpenMinimap();
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && isOpen)
+        {
+            CloseMinimap();
+        }
+    }
+
+    void OpenMinimap()
+    {
+        bigMinimapPanel.SetActive(true);
+        Time.timeScale = 0f; // Spiel pausieren
+        isOpen = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    void CloseMinimap()
+    {
+        bigMinimapPanel.SetActive(false);
+        Time.timeScale = 1f; // Spiel fortsetzen
+        isOpen = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+}
