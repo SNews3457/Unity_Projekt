@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using static UnityEditor.Progress;
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] private GameObject movingItemCursor;
+
     [SerializeField] private GameObject slotHolder;
     [SerializeField] private ItemClass itemToAdd;
     public GameObject inventory;
@@ -41,7 +43,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         RefreshUI();
-        Add(itemToAdd);
+        Add(itemToAdd,1);
         Remove(itemToRemove);
     }
 
@@ -68,7 +70,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public bool Add(ItemClass item)
+    public bool Add(ItemClass item, int quantity)
     {
         //items.Add(item);
         //ist im Inventar das Item bereits
@@ -83,7 +85,7 @@ public class InventoryManager : MonoBehaviour
             {
                 if (items[i].GetItem() == null)
                 {
-                    items[i].AddIteem(item, 1);
+                    items[i].AddIteem(item, quantity);
                     break;
                 }
             }
@@ -139,6 +141,11 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+        movingItemCursor.SetActive(isMovingItem);
+        movingItemCursor.transform.position = Input.mousePosition;
+        if(isMovingItem)
+            movingItemCursor.GetComponent<Image>().sprite = movingSlot.GetItem().itemIcon;
+
         if(Input.GetMouseButtonDown(0))
         {
             if (isMovingItem)
@@ -178,7 +185,7 @@ public class InventoryManager : MonoBehaviour
     {
         originalSlot = GetClosestSlot();
         
-        if (originalSlot.GetItem() ==null)
+        if (originalSlot == null || originalSlot.GetItem() ==null)
             return false;
         Debug.Log(originalSlot.GetItem());
         movingSlot = new SlotClass(originalSlot);
@@ -202,31 +209,41 @@ public class InventoryManager : MonoBehaviour
     private bool EndItemMove()
     {
         originalSlot = GetClosestSlot();
-        if (originalSlot.GetItem() != null)
+        if (originalSlot == null)
         {
-            if (originalSlot.GetItem().GetItem() == movingSlot.GetItem()) //gleiche Items
-            {
-                if (originalSlot.GetItem().isStackable)
-                {
-                    originalSlot.AddQuantity(movingSlot.GetQuantity());
-                    movingSlot.Clear();
-                }
-                else
-                    return false;
-            }
-            else
-            {
-                tempSlot = new SlotClass(originalSlot);
-                originalSlot.AddIteem(movingSlot.GetItem(), movingSlot.GetQuantity());
-                movingSlot.AddIteem(tempSlot.GetItem(), tempSlot.GetQuantity());
-                RefreshUI();
-                return true;
-            }
+
+            Add(movingSlot.GetItem(), movingSlot.GetQuantity());
+            movingSlot.Clear();
         }
         else
         {
-            originalSlot.AddIteem(movingSlot.GetItem(),movingSlot.GetQuantity());
-            movingSlot.Clear();
+
+            if (originalSlot.GetItem() != null)
+            {
+                if (originalSlot.GetItem().GetItem() == movingSlot.GetItem()) //gleiche Items
+                {
+                    if (originalSlot.GetItem().isStackable)
+                    {
+                        originalSlot.AddQuantity(movingSlot.GetQuantity());
+                        movingSlot.Clear();
+                    }
+                    else
+                        return false;
+                }
+                else
+                {
+                    tempSlot = new SlotClass(originalSlot);
+                    originalSlot.AddIteem(movingSlot.GetItem(), movingSlot.GetQuantity());
+                    movingSlot.AddIteem(tempSlot.GetItem(), tempSlot.GetQuantity());
+                    RefreshUI();
+                    return true;
+                }
+            }
+            else
+            {
+                originalSlot.AddIteem(movingSlot.GetItem(), movingSlot.GetQuantity());
+                movingSlot.Clear();
+            }
         }
         isMovingItem = false;
         RefreshUI();
