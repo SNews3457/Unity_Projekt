@@ -3507,6 +3507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67c189c9fa54f041bb91bd01ca9e5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movingItemCursor: {fileID: 2023115375}
   slotHolder: {fileID: 745235999}
   itemToAdd: {fileID: 0}
   inventory: {fileID: 1883401298}
@@ -12101,10 +12102,10 @@ RectTransform:
   - {fileID: 165802520}
   m_Father: {fileID: 1247968516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &750889797
 GameObject:
@@ -13064,7 +13065,6 @@ GameObject:
   m_Component:
   - component: {fileID: 932903114}
   - component: {fileID: 932903113}
-  - component: {fileID: 932903112}
   - component: {fileID: 932903111}
   m_Layer: 0
   m_Name: MiniMap Camera
@@ -13117,14 +13117,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &932903112
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932903110}
-  m_Enabled: 1
 --- !u!20 &932903113
 Camera:
   m_ObjectHideFlags: 0
@@ -21702,7 +21694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1883401299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22763,7 +22755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
