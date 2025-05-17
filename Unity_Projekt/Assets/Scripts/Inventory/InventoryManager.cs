@@ -216,8 +216,11 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-
-                movingSlot.Clear();
+                tempSlot = new SlotClass(originalSlot);
+                originalSlot.AddIteem(movingSlot.GetItem(), movingSlot.GetQuantity());
+                movingSlot.AddIteem(tempSlot.GetItem(), tempSlot.GetQuantity());
+                RefreshUI();
+                return true;
             }
         }
         else
