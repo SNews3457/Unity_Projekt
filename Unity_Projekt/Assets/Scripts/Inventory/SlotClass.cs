@@ -29,4 +29,16 @@ public class SlotClass
     {
         quantity -= _quantity;
     }
+
+    public void Clear()
+    {
+        this.item = null;
+        this.quantity = 0;
+    }
+
+    public void AddIteem (ItemClass item, int quantity)
+    {
+        this.item = item;
+        this.quantity = quantity;
+    }
 }

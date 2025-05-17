@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using System.ComponentModel;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private GameObject slotHolder;
@@ -11,14 +12,25 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventory;
     public bool InventoryisActiv;
     [SerializeField] private ItemClass itemToRemove;
+    [SerializeField] private SlotClass[] startingItems;
 
-    public List<SlotClass> items = new List<SlotClass>();
+    private SlotClass[] items;
 
     private GameObject[] slots;
 
     private void Start()
     {
         slots = new GameObject[slotHolder.transform.childCount];
+        items = new SlotClass[slots.Length];
+
+        for (int i = 0; i < items.Length; i++)
+        {
+            items[i] = new SlotClass();
+        }
+        for (int i = 0; i < startingItems.Length; i++)
+        {
+            items[i] = startingItems[i];
+        }
         //Dagobert Slots zuweisen
         for (int i = 0; i < slotHolder.transform.childCount; i++)
         {
@@ -27,6 +39,7 @@ public class InventoryManager : MonoBehaviour
 
         RefreshUI();
         Add(itemToAdd);
+        Remove(itemToRemove);
     }
 
     public void RefreshUI()
@@ -62,16 +75,20 @@ public class InventoryManager : MonoBehaviour
             slot.AddQuantity(1);
         else
         {
-            if (items.Count < slots.Length)
-                items.Add(new SlotClass(item, 1));
-            else 
-                return false;
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (items[i].GetItem() == null)
+                {
+                    items[i].AddIteem(item, 1);
+                    break;
+                }
+            }
         }
 
         RefreshUI();
         return true;
     }
-
+    
     public bool Remove(ItemClass item)
     {
         SlotClass temp = Contains(item);
@@ -82,18 +99,18 @@ public class InventoryManager : MonoBehaviour
             else
             {
 
-                SlotClass slotToRemove = new SlotClass();
+                int slotToRemoveIndex = 0;
                 //items.Remove(item);
 
-                foreach (SlotClass slot in items)
+                for(int i = 0; i < items.Length;i++)
                 {
-                    if (slot.GetItem() == item)
+                    if (items[i].GetItem() == item)
                     {
-                        slotToRemove = slot;
+                        slotToRemoveIndex = i;
                         break;
                     }
                 }
-                items.Remove(slotToRemove);
+                items[slotToRemoveIndex].Clear();
             }
         }
         else
@@ -105,15 +122,14 @@ public class InventoryManager : MonoBehaviour
         RefreshUI();
         return true;
     }
-
+    
     public SlotClass Contains(ItemClass item)
     {
-        foreach (SlotClass slot in items)
+        for(int i = 0; i < items.Length;  i++)
         {
-            if(slot.GetItem() == item) 
-                return slot;
+            if (items[i].GetItem() == item)
+                return items[i];
         }
-           
         return null;
     }
 
@@ -142,4 +158,5 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
+    
 }
