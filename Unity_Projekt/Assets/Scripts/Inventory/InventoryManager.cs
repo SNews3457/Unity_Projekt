@@ -192,7 +192,7 @@ public class InventoryManager : MonoBehaviour
         
         for (int i = 0; i < slots.Length; i++)
         {
-            if (Vector2.Distance(slots[i].transform.position, Input.mousePosition) <= 36)
+            if (Vector2.Distance(slots[i].transform.position, Input.mousePosition) <= 50)
                 return items[i];
             
         }
@@ -206,11 +206,18 @@ public class InventoryManager : MonoBehaviour
         {
             if (originalSlot.GetItem().GetItem() == movingSlot.GetItem()) //gleiche Items
             {
-
+                if (originalSlot.GetItem().isStackable)
+                {
+                    originalSlot.AddQuantity(movingSlot.GetQuantity());
+                    movingSlot.Clear();
+                }
+                else
+                    return false;
             }
             else
             {
 
+                movingSlot.Clear();
             }
         }
         else
