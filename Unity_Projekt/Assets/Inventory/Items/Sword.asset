@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcad0ada0cde1f04693b97d306725420, type: 3}
-  m_Name: FireCristall
+  m_Script: {fileID: 11500000, guid: 2ec2fd582e2147f47a96d8b0a16e0790, type: 3}
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  itemName: FireCristall
-  itemIcon: {fileID: 6844922983435654669, guid: 55e53a82b392e7d4d979e41b224ce82b, type: 3}
-  isStackable: 1
-  toolType: 0
+  itemName: Sword
+  itemIcon: {fileID: 2169420019588148566, guid: e1787f74a87967e4fbe3e96c4e41be1d, type: 3}
+  isStackable: 0
+  toolType: 1
