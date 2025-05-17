@@ -42,6 +42,7 @@ public class InventoryManager : MonoBehaviour
         Remove(itemToRemove);
     }
 
+    #region Inventory Utils
     public void RefreshUI()
     {
         for (int i = 0;i < slots.Length;i++) 
@@ -135,7 +136,11 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetMouseButtonDown(0))
+        {
+            //nächsten slot finden
+        }
+        if (Input.GetKeyDown(KeyCode.I))
         {
             inventory.SetActive(true);
             InventoryisActiv = true;
@@ -158,5 +163,19 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
-    
+    #endregion Inventory Utils
+
+    #region Moving
+    private SlotClass GetClosestSlot()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (Vector2.Distance(slots[i].transform.position, Input.mousePosition) <= 32)
+            {
+                return items[i];
+            }
+        }
+        return null;
+    }
+    #endregion
 }
