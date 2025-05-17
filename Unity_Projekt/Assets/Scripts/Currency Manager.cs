@@ -28,11 +28,7 @@ public class CurrencyManager : MonoBehaviour
         Orbs += amountToAdd;
         SaveOrbs();
 
-        // Spielt den Sound ab, wenn Orbs gesammelt werden
-        if (orbCollectSound != null)
-        {
-            orbCollectSound.Play();
-        }
+
     }
 
     public void SaveOrbs()
