@@ -17,7 +17,10 @@ public class InventoryManager : MonoBehaviour
     private SlotClass[] items;
 
     private GameObject[] slots;
-
+    private SlotClass movingSlot;
+    private SlotClass tempSlot;
+    private SlotClass originalSlot;
+    bool isMovingItem;
     private void Start()
     {
         slots = new GameObject[slotHolder.transform.childCount];
@@ -138,7 +141,12 @@ public class InventoryManager : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            //nächsten slot finden
+            if (isMovingItem)
+            {
+                EndItemMove();
+            }
+            else
+                BeginItemMove();
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -146,7 +154,7 @@ public class InventoryManager : MonoBehaviour
             InventoryisActiv = true;
 
 
-            Time.timeScale = 0f;
+            Time.timeScale = 1f;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
 
@@ -158,24 +166,61 @@ public class InventoryManager : MonoBehaviour
 
             
             Time.timeScale = 1f;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+
 
         }
     }
     #endregion Inventory Utils
 
     #region Moving
+
+    private bool BeginItemMove()
+    {
+        originalSlot = GetClosestSlot();
+        
+        if (originalSlot.GetItem() ==null)
+            return false;
+        Debug.Log(originalSlot.GetItem());
+        movingSlot = new SlotClass(originalSlot);
+        originalSlot.Clear();
+        isMovingItem = true;    
+        RefreshUI();
+        return true;
+    }
     private SlotClass GetClosestSlot()
     {
+        
         for (int i = 0; i < slots.Length; i++)
         {
-            if (Vector2.Distance(slots[i].transform.position, Input.mousePosition) <= 32)
-            {
+            if (Vector2.Distance(slots[i].transform.position, Input.mousePosition) <= 36)
                 return items[i];
-            }
+            
         }
         return null;
+    }
+
+    private bool EndItemMove()
+    {
+        originalSlot = GetClosestSlot();
+        if (originalSlot.GetItem() != null)
+        {
+            if (originalSlot.GetItem().GetItem() == movingSlot.GetItem()) //gleiche Items
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+            originalSlot.AddIteem(movingSlot.GetItem(),movingSlot.GetQuantity());
+            movingSlot.Clear();
+        }
+        isMovingItem = false;
+        RefreshUI();
+        return true;
     }
     #endregion
 }

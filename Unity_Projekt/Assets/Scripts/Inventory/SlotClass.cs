@@ -6,6 +6,12 @@ public class SlotClass
     [SerializeField] private ItemClass item;
     [SerializeField] private int quantity;
 
+    public SlotClass(SlotClass slot)
+    {
+        item = slot.item;
+        quantity = slot.quantity;
+    }
+
     public SlotClass()
     {
         item = null;
