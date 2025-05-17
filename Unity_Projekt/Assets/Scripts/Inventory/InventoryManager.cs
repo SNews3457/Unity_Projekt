@@ -37,7 +37,10 @@ public class InventoryManager : MonoBehaviour
             {
                 slots[i].transform.GetChild(0).GetComponent<Image>().enabled = true;
                 slots[i].transform.GetChild(0).GetComponent<Image>().sprite = items[i].GetItem().itemIcon;
-                slots[i].transform.GetChild(1).GetComponent<Text>().text = items[i].GetQuantity() + "";
+                if(items[i].GetItem().isStackable)
+                    slots[i].transform.GetChild(1).GetComponent<Text>().text = items[i].GetQuantity() + "";
+                else
+                    slots[i].transform.GetChild(1).GetComponent<Text>().text = "";
             }
             catch
             {
@@ -48,36 +51,59 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void Add(ItemClass item)
+    public bool Add(ItemClass item)
     {
         //items.Add(item);
         //ist im Inventar das Item bereits
+
+
         SlotClass slot = Contains(item);
-        if (slot != null)
+        if (slot != null && slot.GetItem().isStackable)
             slot.AddQuantity(1);
         else
         {
-            items.Add(new SlotClass(item, 1));
+            if (items.Count < slots.Length)
+                items.Add(new SlotClass(item, 1));
+            else 
+                return false;
         }
 
         RefreshUI();
+        return true;
     }
 
-    public void Remove(ItemClass item)
+    public bool Remove(ItemClass item)
     {
-        SlotClass slotToRemove =  new SlotClass();
-        //items.Remove(item);
-        foreach (SlotClass slot in items)
+        SlotClass temp = Contains(item);
+        if (temp != null)
         {
-            if(slot.GetItem() == item)
+            if(temp.GetQuantity() > 1) 
+                temp.SubQuantity(1);
+            else
             {
-                slotToRemove = slot;
-                break;
+
+                SlotClass slotToRemove = new SlotClass();
+                //items.Remove(item);
+
+                foreach (SlotClass slot in items)
+                {
+                    if (slot.GetItem() == item)
+                    {
+                        slotToRemove = slot;
+                        break;
+                    }
+                }
+                items.Remove(slotToRemove);
             }
         }
-        items.Remove(slotToRemove);
+        else
+        {
+            return false;
+        }    
+
 
         RefreshUI();
+        return true;
     }
 
     public SlotClass Contains(ItemClass item)

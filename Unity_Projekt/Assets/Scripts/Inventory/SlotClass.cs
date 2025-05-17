@@ -24,4 +24,9 @@ public class SlotClass
     {
         quantity += _quantity;
     }
+
+    public void SubQuantity(int _quantity)
+    {
+        quantity -= _quantity;
+    }
 }
