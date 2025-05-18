@@ -13,7 +13,7 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
 
     private Transform lastCheckpoint;
-
+	private SaveGroundSaver savegroundsaver;
     public float lives = 5;
 	public Transform checkpoint; //SNews: Letzter Checkpoint
 	public bool CheckpointActive = false;
@@ -63,6 +63,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Awake()
 	{
+		savegroundsaver = GetComponent<SaveGroundSaver>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 
@@ -396,6 +397,7 @@ public class CharacterController2D : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
         yield return new WaitForSeconds(1.1f);
+		savegroundsaver.WarpPlayerToSaveGround();
         animator.SetBool("IsDead", false);
         canMove = true;
         GetComponent<Attack>().enabled = true;
