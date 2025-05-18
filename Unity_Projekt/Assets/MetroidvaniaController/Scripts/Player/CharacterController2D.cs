@@ -392,7 +392,6 @@ public class CharacterController2D : MonoBehaviour
         lives--;
         animator.SetBool("IsDead", true);
         canMove = false;
-        invincible = true;  //ich habe das invincble_machen nach dem Tod erstmal ausgeschalten //dagobert ich habe es wieder angeschaltet f�r respawnen am gleichen ort
         GetComponent<Attack>().enabled = false;
         yield return new WaitForSeconds(0.4f);
         m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
