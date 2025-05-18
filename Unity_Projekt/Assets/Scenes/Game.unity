@@ -16726,7 +16726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2015e23a54dc60943b76a1e2e8133677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveFrequenzy: 3
+  saveFrequenzy: 1
 --- !u!198 &6303275769694440020
 ParticleSystem:
   m_ObjectHideFlags: 0
