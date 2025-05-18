@@ -50,6 +50,8 @@ public class CharacterController2D : MonoBehaviour
 	private bool limitVelOnWallJump = false; //For limit wall jump distance with low fps
 	[Header("Events")]
 	[Space]
+	public Sprite UnactiveCheckpoint;
+	public Sprite ActivCheckpoint;
 
 	public UnityEvent OnFallEvent;
 	public UnityEvent OnLandEvent;
@@ -301,6 +303,8 @@ public class CharacterController2D : MonoBehaviour
 {
     if (other.CompareTag("Checkpoint"))
     {
+		SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
+		spriteRenderer.sprite = ActivCheckpoint;
 		Debug.Log("CheckPoint Active!");
         checkpoint = other.transform;
         CheckpointActive = true;
