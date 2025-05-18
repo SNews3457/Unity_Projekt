@@ -12,7 +12,9 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
 
-	public float lives = 5;
+    private Transform lastCheckpoint;
+
+    public float lives = 5;
 	public Transform checkpoint; //SNews: Letzter Checkpoint
 	public bool CheckpointActive = false;
 
@@ -301,16 +303,29 @@ public class CharacterController2D : MonoBehaviour
 	}
 	private void OnTriggerEnter2D(Collider2D other)//SNews
 {
-    if (other.CompareTag("Checkpoint"))
-    {
-		SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
-		spriteRenderer.sprite = ActivCheckpoint;
-		Debug.Log("CheckPoint Active!");
-        checkpoint = other.transform;
-        CheckpointActive = true;
-        Debug.Log("Checkpoint aktiviert!");
-    }
-    if (other.CompareTag("Orb"))
+        if (other.CompareTag("Checkpoint"))
+        {
+            SpriteRenderer newCheckpointSprite = other.GetComponent<SpriteRenderer>();
+
+            // Deaktiviere den alten Checkpoint (wenn vorhanden)
+            if (lastCheckpoint != null)
+            {
+                SpriteRenderer lastCheckpointSprite = lastCheckpoint.GetComponent<SpriteRenderer>();
+                if (lastCheckpointSprite != null)
+                {
+                    lastCheckpointSprite.sprite = UnactiveCheckpoint;
+                }
+            }
+
+            // Aktiviere neuen Checkpoint
+            newCheckpointSprite.sprite = ActivCheckpoint;
+            Debug.Log("Checkpoint aktiviert!");
+            checkpoint = other.transform;
+            lastCheckpoint = other.transform; // Setze neuen als letzten aktiven
+            CheckpointActive = true;
+        }
+
+        if (other.CompareTag("Orb"))
     {
     currencyManager.AddOrbs(1); // Orbs sicher hinzufügen und speichern
     Destroy(other.gameObject);
