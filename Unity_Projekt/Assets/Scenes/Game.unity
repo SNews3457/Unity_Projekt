@@ -14090,7 +14090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bigMinimapPanel: {fileID: 126070715}
-  animator: {fileID: 0}
+  animator: {fileID: 126070719}
 --- !u!224 &1867134134
 RectTransform:
   m_ObjectHideFlags: 0

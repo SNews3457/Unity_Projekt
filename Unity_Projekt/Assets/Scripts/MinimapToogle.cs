@@ -22,7 +22,6 @@ public class MinimapToggle : MonoBehaviour
     void OpenMinimap()
     {
         bigMinimapPanel.SetActive(true);
-        Time.timeScale = 0f; // Spiel pausieren
         animator.SetTrigger("Show");
         isOpen = true;
         Cursor.visible = true;
