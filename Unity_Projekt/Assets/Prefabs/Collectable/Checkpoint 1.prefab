@@ -241,6 +241,8 @@ MonoBehaviour:
   - {fileID: 3136786591124700658}
   - {fileID: 3153998500340570596}
   - {fileID: 8631652629420197601}
+  checkpointRenderer: {fileID: 0}
+  activeSprite: {fileID: -8386325880718048529, guid: 55c28cf66b3155c42bbfaae510c7bfc6, type: 3}
 --- !u!1 &2812605630197558010
 GameObject:
   m_ObjectHideFlags: 0
