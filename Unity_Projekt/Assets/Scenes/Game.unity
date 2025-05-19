@@ -3657,7 +3657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1018669167191599703, guid: 7e16188ff36f0c74fb9ccd708c3c7589, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -441.66
+      value: -413.27
       objectReference: {fileID: 0}
     - target: {fileID: 1018669167191599703, guid: 7e16188ff36f0c74fb9ccd708c3c7589, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7088,7 +7088,7 @@ MonoBehaviour:
   spikeYBottom: {fileID: 2146994304}
   ground: {fileID: 1935958346}
   middlePart: {fileID: 1206740227}
-  MovingSpeed: 10
+  MovingSpeed: 4
 --- !u!4 &961753304
 Transform:
   m_ObjectHideFlags: 0
