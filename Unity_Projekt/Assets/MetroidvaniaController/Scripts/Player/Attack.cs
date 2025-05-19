@@ -12,7 +12,7 @@ public class Attack : MonoBehaviour
 	public bool canAttack = true;
     public bool SkillShoot = false; //Dagobert bool zum erlernen des Schießens 
     public bool isTimeToCheck = false;
-
+	public bool fireEffect = false; //Dagobert Feuereffekt 
 	public GameObject cam;
 
 	private void Awake()

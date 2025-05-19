@@ -27,7 +27,7 @@ public class Menu : MonoBehaviour
     private int currentIndex = 0;
     public GameObject Option;
     bool AchivementActiv = false; //dagobert überprüfe ob Achivements Aktiv sind
-
+    public InventoryManager inventoryManager;
     void Start()
     {
         UpdateSelection();
@@ -75,7 +75,7 @@ public class Menu : MonoBehaviour
         //dagobert Menü öffnen bzw schließen
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isActiv && LevelUpManager.canOpenOptionMenu)
+            if (!isActiv && LevelUpManager.canOpenOptionMenu && inventoryManager.InventoryisActiv)
             {
                 Time.timeScale = 0;
                 isActiv = true;

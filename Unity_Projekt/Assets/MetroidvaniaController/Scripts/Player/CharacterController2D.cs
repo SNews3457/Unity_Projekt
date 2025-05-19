@@ -12,7 +12,9 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
 
-	public float lives = 5;
+    private Transform lastCheckpoint;
+	private SaveGroundSaver savegroundsaver;
+    public float lives = 5;
 	public Transform checkpoint; //SNews: Letzter Checkpoint
 	public bool CheckpointActive = false;
 
@@ -50,6 +52,8 @@ public class CharacterController2D : MonoBehaviour
 	private bool limitVelOnWallJump = false; //For limit wall jump distance with low fps
 	[Header("Events")]
 	[Space]
+	public Sprite UnactiveCheckpoint;
+	public Sprite ActivCheckpoint;
 
 	public UnityEvent OnFallEvent;
 	public UnityEvent OnLandEvent;
@@ -59,6 +63,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Awake()
 	{
+		savegroundsaver = GetComponent<SaveGroundSaver>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 
@@ -299,14 +304,29 @@ public class CharacterController2D : MonoBehaviour
 	}
 	private void OnTriggerEnter2D(Collider2D other)//SNews
 {
-    if (other.CompareTag("Checkpoint"))
-    {
-		Debug.Log("CheckPoint Active!");
-        checkpoint = other.transform;
-        CheckpointActive = true;
-        Debug.Log("Checkpoint aktiviert!");
-    }
-    if (other.CompareTag("Orb"))
+        if (other.CompareTag("Checkpoint"))
+        {
+            SpriteRenderer newCheckpointSprite = other.GetComponent<SpriteRenderer>();
+
+            // Deaktiviere den alten Checkpoint (wenn vorhanden)
+            if (lastCheckpoint != null)
+            {
+                SpriteRenderer lastCheckpointSprite = lastCheckpoint.GetComponent<SpriteRenderer>();
+                if (lastCheckpointSprite != null)
+                {
+                    lastCheckpointSprite.sprite = UnactiveCheckpoint;
+                }
+            }
+
+            // Aktiviere neuen Checkpoint
+            newCheckpointSprite.sprite = ActivCheckpoint;
+            Debug.Log("Checkpoint aktiviert!");
+            checkpoint = other.transform;
+            lastCheckpoint = other.transform; // Setze neuen als letzten aktiven
+            CheckpointActive = true;
+        }
+
+        if (other.CompareTag("Orb"))
     {
     currencyManager.AddOrbs(1); // Orbs sicher hinzufügen und speichern
     Destroy(other.gameObject);
@@ -372,11 +392,11 @@ public class CharacterController2D : MonoBehaviour
         lives--;
         animator.SetBool("IsDead", true);
         canMove = false;
-        invincible = true;  //ich habe das invincble_machen nach dem Tod erstmal ausgeschalten //dagobert ich habe es wieder angeschaltet f�r respawnen am gleichen ort
         GetComponent<Attack>().enabled = false;
         yield return new WaitForSeconds(0.4f);
         m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
         yield return new WaitForSeconds(1.1f);
+		savegroundsaver.WarpPlayerToSaveGround();
         animator.SetBool("IsDead", false);
         canMove = true;
         GetComponent<Attack>().enabled = true;

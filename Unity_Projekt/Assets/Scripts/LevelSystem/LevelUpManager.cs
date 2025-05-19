@@ -38,6 +38,18 @@ public class LevelUpManager : MonoBehaviour
             skillPointAvailable = false;
 
         //op Levelaufstieg
+        // Effekt beenden, wenn keine Skillpunkte mehr da sind
+        if (SkillPoints <= 0 && skillPointAvailable)
+        {
+            skillPointAvailable = false;
+            if (skillPointEffectRoutine != null)
+            {
+                StopCoroutine(skillPointEffectRoutine);
+                skillPointEffectRoutine = null;
+            }
+        }
+
+        // Levelaufstieg und Effektstart nur, wenn er noch nicht läuft
         if (LevelPoints >= PointsNeeded)
         {
             SkillPoints++;
@@ -45,13 +57,14 @@ public class LevelUpManager : MonoBehaviour
             PointsNeeded *= 2;
             LevelPoints = 0;
 
-            // Starte Effekt
-            skillPointAvailable = true;
-            if (skillPointEffectRoutine != null)
-                StopCoroutine(skillPointEffectRoutine);
-
-            skillPointEffectRoutine = StartCoroutine(SkillPointEffectLoop());
+            if (!skillPointAvailable)
+            {
+                skillPointAvailable = true;
+                skillPointEffectRoutine = StartCoroutine(SkillPointEffectLoop());
+            }
         }
+
+
 
 
         //op mit escape wird der Skilltree wieder geschlossen

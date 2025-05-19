@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec2fd582e2147f47a96d8b0a16e0790, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: 
+  itemName: WoodBow
+  itemIcon: {fileID: 5925976794433205478, guid: 772da11eb30cd914f9bc48b498d097c8, type: 3}
+  toolType: 0

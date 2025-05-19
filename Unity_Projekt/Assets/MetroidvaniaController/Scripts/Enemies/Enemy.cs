@@ -4,31 +4,41 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	public float life = 10;
-	private bool isPlat;
-	private bool isObstacle;
-	private Transform fallCheck;
-	private Transform wallCheck;
+    protected bool isPlat;
+    protected bool isObstacle;
+    protected Transform fallCheck;
+    protected Transform wallCheck;
 	public LayerMask turnLayerMask;
-	private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
 	public GameObject EXP;
 	public GameObject Orbs;
-	private bool facingRight = true;
+    protected bool facingRight = true;
 	public AchievementManager achievementManager;
 	public float speed = 5f;
+	public Attack Attack;
+    protected bool isBurning = false;
+    public bool isInvincible = false;
+    protected bool isHitted = false;
+    protected bool die = false;
+    protected SpriteRenderer spriteRenderer;
 
-	public bool isInvincible = false;
-	private bool isHitted = false;
-	bool die = false;
 
-	void Awake () {
-		fallCheck = transform.Find("FallCheck");
-		wallCheck = transform.Find("WallCheck");
-		rb = GetComponent<Rigidbody2D>();
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    void Awake()
+    {
+        fallCheck = transform.Find("FallCheck");
+        wallCheck = transform.Find("WallCheck");
+        rb = GetComponent<Rigidbody2D>();
+		Attack = FindAnyObjectByType<Attack>();
+		achievementManager = FindAnyObjectByType<AchievementManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+
+    // Update is called once per frame
+    void FixedUpdate () 
+    {
+        Cursor.visible = true;
 
 		if (life <= 0 && !die)
 		{
@@ -38,7 +48,7 @@ public class Enemy : MonoBehaviour {
 			StartCoroutine(DestroyEnemy());
 		}
 
-		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << LayerMask.NameToLayer("Default"));
+		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << LayerMask.NameToLayer("Ground"));
 		isObstacle = Physics2D.OverlapCircle(wallCheck.position, .2f, turnLayerMask);
 
 		if (!isHitted && life > 0 && Mathf.Abs(rb.linearVelocity.y) < 0.5f)
@@ -61,6 +71,7 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
+
 	void Flip (){
 		// Switch the way the player is labelled as facing.
 		facingRight = !facingRight;
@@ -78,13 +89,49 @@ public class Enemy : MonoBehaviour {
 			damage = Mathf.Abs(damage);
 			transform.GetComponent<Animator>().SetBool("Hit", true);
 			life -= damage;
+
+			if(Attack.fireEffect) //Dagobert Wenn das Schwert einen FlammenEffekt hat, dann Schaden ï¿½ber Zeit
+			{
+				StartCoroutine(Burn());
+			}
+
 			rb.linearVelocity = Vector2.zero;
 			rb.AddForce(new Vector2(direction * 500f, 100f));
 			StartCoroutine(HitTime());
 		}
 	}
 
-	void OnCollisionStay2D(Collision2D collision)
+
+    IEnumerator Burn()
+    {
+        if (isBurning) yield break;
+        isBurning = true;
+
+        int ticks = 7;
+        float burnDamage = 0.3f;
+        float interval = 0.3f;
+
+        Color originalColor = spriteRenderer.color;
+        Color burnColor = new Color(1f, 0.4f, 0.1f); // rÃ¶tlich-orange
+
+        for (int i = 0; i < ticks; i++)
+        {
+            // Visueller Flackereffekt
+            spriteRenderer.color = burnColor;
+            yield return new WaitForSeconds(0.15f);
+            spriteRenderer.color = originalColor;
+
+            // Schaden zufÃ¼gen
+            if (life <= 0) break;
+            life -= burnDamage;
+
+            yield return new WaitForSeconds(interval - 0.15f);
+        }
+
+        spriteRenderer.color = originalColor;
+        isBurning = false;
+    }
+    void OnCollisionStay2D(Collision2D collision)
 	{
 		if (collision.gameObject.tag == "Player" && life > 0)
 		{
@@ -111,8 +158,8 @@ public class Enemy : MonoBehaviour {
         yield return new WaitForSeconds(0.25f);
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
-        // Zufällige Anzahl an EXP (1–5)
-        int expCount = Random.Range(1, 6);  // Zufällige Zahl zwischen 1 und 5
+        // Zufï¿½llige Anzahl an EXP (1ï¿½5)
+        int expCount = Random.Range(1, 6);  // Zufï¿½llige Zahl zwischen 1 und 5
         for (int i = 0; i < expCount; i++)
         {
             GameObject exp = Instantiate(EXP, transform.position, Quaternion.identity);  // EXP Instanz erstellen
@@ -125,8 +172,8 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        // Zufällige Anzahl an Orbs (1–5)
-        int orbCount = Random.Range(1, 6);  // Zufällige Zahl zwischen 1 und 5
+        // Zufï¿½llige Anzahl an Orbs (1ï¿½5)
+        int orbCount = Random.Range(1, 6);  // Zufï¿½llige Zahl zwischen 1 und 5
         for (int i = 0; i < orbCount; i++)
         {
             GameObject orb = Instantiate(Orbs, transform.position, Quaternion.identity);  // Orb Instanz erstellen
@@ -139,9 +186,9 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        yield return new WaitForSeconds(3f);  // Warten bevor der Feind zerstört wird
-        achievementManager.enemiesKilled++;  // Feindeskill-Tracker erhöhen
-        Destroy(gameObject);  // Feind zerstören
+        yield return new WaitForSeconds(3f);  // Warten bevor der Feind zerstï¿½rt wird
+        achievementManager.enemiesKilled++;  // Feindeskill-Tracker erhï¿½hen
+        Destroy(gameObject);  // Feind zerstï¿½ren
     }
 
 
