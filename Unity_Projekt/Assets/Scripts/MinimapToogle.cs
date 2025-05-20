@@ -3,6 +3,7 @@ using UnityEngine;
 public class MinimapToggle : MonoBehaviour
 {
     public GameObject bigMinimapPanel;
+    public Animator animator;
 
     private bool isOpen = false;
 
@@ -21,7 +22,7 @@ public class MinimapToggle : MonoBehaviour
     void OpenMinimap()
     {
         bigMinimapPanel.SetActive(true);
-        Time.timeScale = 0f; // Spiel pausieren
+        animator.SetTrigger("Show");
         isOpen = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
