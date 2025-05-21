@@ -4292,7 +4292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movingItemCursor: {fileID: 2023115375}
   slotHolder: {fileID: 745235999}
-  itemToAdd: {fileID: 0}
+  itemToAdd: {fileID: 11400000, guid: acc778be47cb8f744bf7ab0d156fff80, type: 2}
   inventory: {fileID: 1883401298}
   InventoryisActiv: 0
   itemToRemove: {fileID: 11400000, guid: 9c35dd38f310d994cb2d05f2d7c319dc, type: 2}
@@ -10341,8 +10341,8 @@ Transform:
   m_GameObject: {fileID: 961753302}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -60.18, y: 29.809, z: 0.05500128}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -60.18, y: 29.775, z: 0.040993}
+  m_LocalScale: {x: 0.50502, y: 0.50502, z: 0.50502}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1206740228}
@@ -52800,7 +52800,7 @@ Transform:
   m_GameObject: {fileID: 1935958345}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.454, z: 0}
+  m_LocalPosition: {x: 0, y: -5.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
