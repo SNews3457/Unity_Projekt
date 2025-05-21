@@ -185,7 +185,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Ranken Rosa Klein 2_0: 2398725672860880593
+      Ranken Rosa Klein 2_1: -2563366732258178838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -260,7 +260,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "Ranken Rosa Gro\xDF 2_0": 237236191809267684
+      "Ranken Rosa Gro\xDF 2_1": 5474468432983275478
+      "Ranken Rosa Gro\xDF 2_2": -5614771014264311842
+      "Ranken Rosa Gro\xDF 2_3": 5263976932048599687
+      "Ranken Rosa Gro\xDF 2_4": 5189083437408397757
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
