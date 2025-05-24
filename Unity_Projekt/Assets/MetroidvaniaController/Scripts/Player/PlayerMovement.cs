@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour 
 {
+	private float teleportCooldown = 3f;
+    private float lastTeleportTime = -Mathf.Infinity;
+
+	public bool SkillTeleport = true; // optional: Fähigkeit erlernen
 
 	public CharacterController2D controller;
 	
@@ -16,10 +20,11 @@ public class PlayerMovement : MonoBehaviour
 	bool dash = false;
 	public bool SkillDash = false; //Dagobert bool zum erlernen des Dashs 
 	public Attack playerAttack;
-                            //bool dashAxis = false;
+	//bool dashAxis = false;
 
-    // Update is called once per frame
-    void Update () {
+	// Update is called once per frame
+	void Update()
+	{
 
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
@@ -34,6 +39,14 @@ public class PlayerMovement : MonoBehaviour
 		{
 			dash = true;
 		}
+		
+		if (Input.GetKeyDown(KeyCode.T) && Time.time >= lastTeleportTime + teleportCooldown)
+        {
+            controller.TeleportForward();
+            lastTeleportTime = Time.time;
+        }
+
+
 
 		/*if (Input.GetAxisRaw("Dash") == 1 || Input.GetAxisRaw("Dash") == -1) //RT in Unity 2017 = -1, RT in Unity 2019 = 1
 		{

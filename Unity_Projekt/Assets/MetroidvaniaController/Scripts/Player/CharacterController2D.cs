@@ -5,16 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class CharacterController2D : MonoBehaviour
 {
-	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
-	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
-	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
-	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
-	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
-	[SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
+	[SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
+	[Range(0, .3f)][SerializeField] private float m_MovementSmoothing = .05f;   // How much to smooth out the movement
+	[SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
+	[SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
+	[SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
+	[SerializeField] private Transform m_WallCheck;
 
-    private Transform lastCheckpoint;
+	
+	public float teleportDistance = 3f;
+	public float teleportDuration = 0.2f;
+	public SpriteRenderer spriteRenderer;
+	public Camera mainCamera;
+	private bool isTeleporting = false;
+	//Posicion que controla si el personaje toca una pared
+
+	private Transform lastCheckpoint;
 	private SaveGroundSaver savegroundsaver;
-    public float lives = 5;
+	public float lives = 5;
 	public Transform checkpoint; //SNews: Letzter Checkpoint
 	public bool CheckpointActive = false;
 
@@ -43,8 +51,8 @@ public class CharacterController2D : MonoBehaviour
 	private Animator animator;
 	public ParticleSystem particleJumpUp; //Trail particles
 	public ParticleSystem particleJumpDown; //Explosion particles
-	
-	public ParticleSystem particleJumpWall; 
+
+	public ParticleSystem particleJumpWall;
 
 	public CurrencyManager currencyManager;
 	private float jumpWallStartX = 0;
@@ -93,15 +101,15 @@ public class CharacterController2D : MonoBehaviour
 		{
 			if (colliders[i].gameObject != gameObject)
 				m_Grounded = true;
-				if (!wasGrounded )
-				{
-					OnLandEvent.Invoke();
-					if (!m_IsWall && !isDashing) 
-						particleJumpDown.Play();
-					canDoubleJump = true;
-					if (m_Rigidbody2D.linearVelocity.y < 0f)
-						limitVelOnWallJump = false;
-				}
+			if (!wasGrounded)
+			{
+				OnLandEvent.Invoke();
+				if (!m_IsWall && !isDashing)
+					particleJumpDown.Play();
+				canDoubleJump = true;
+				if (m_Rigidbody2D.linearVelocity.y < 0f)
+					limitVelOnWallJump = false;
+			}
 		}
 
 		m_IsWall = false;
@@ -126,21 +134,21 @@ public class CharacterController2D : MonoBehaviour
 			if (m_Rigidbody2D.linearVelocity.y < -0.5f)
 				limitVelOnWallJump = false;
 			jumpWallDistX = (jumpWallStartX - transform.position.x) * transform.localScale.x;
-			if (jumpWallDistX < -0.5f && jumpWallDistX > -1f) 
+			if (jumpWallDistX < -0.5f && jumpWallDistX > -1f)
 			{
 				canMove = true;
 			}
-			else if (jumpWallDistX < -1f && jumpWallDistX >= -2f) 
+			else if (jumpWallDistX < -1f && jumpWallDistX >= -2f)
 			{
 				canMove = true;
 				m_Rigidbody2D.linearVelocity = new Vector2(10f * transform.localScale.x, m_Rigidbody2D.linearVelocity.y);
 			}
-			else if (jumpWallDistX < -2f) 
+			else if (jumpWallDistX < -2f)
 			{
 				limitVelOnWallJump = false;
 				m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
 			}
-			else if (jumpWallDistX > 0) 
+			else if (jumpWallDistX > 0)
 			{
 				limitVelOnWallJump = false;
 				m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
@@ -151,7 +159,8 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool jump, bool dash)
 	{
-		if (canMove) {
+		if (canMove)
+		{
 			if (dash && canDash && !isWallSliding)
 			{
 				//m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_DashForce, 0f));
@@ -224,7 +233,7 @@ public class CharacterController2D : MonoBehaviour
 					{
 						StartCoroutine(WaitToEndSliding());
 					}
-					else 
+					else
 					{
 						oldWallSlidding = true;
 						m_Rigidbody2D.linearVelocity = new Vector2(-transform.localScale.x * 2, -5);
@@ -234,9 +243,9 @@ public class CharacterController2D : MonoBehaviour
 				if (jump && isWallSliding)
 				{
 					animator.SetBool("IsJumping", true);
-					animator.SetBool("JumpUp", true); 
+					animator.SetBool("JumpUp", true);
 					m_Rigidbody2D.linearVelocity = new Vector2(0f, 0f);
-					m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_JumpForce *1.2f, m_JumpForce));
+					m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_JumpForce * 1.2f, m_JumpForce));
 					jumpWallStartX = transform.position.x;
 					limitVelOnWallJump = true;
 					canDoubleJump = true;
@@ -259,7 +268,7 @@ public class CharacterController2D : MonoBehaviour
 					StartCoroutine(DashCooldown());
 				}
 			}
-			else if (isWallSliding && !m_IsWall && canCheck) 
+			else if (isWallSliding && !m_IsWall && canCheck)
 			{
 				isWallSliding = false;
 				animator.SetBool("IsWallSliding", false);
@@ -282,13 +291,13 @@ public class CharacterController2D : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	public void ApplyDamage(float damage, Vector3 position) 
+	public void ApplyDamage(float damage, Vector3 position)
 	{
 		if (!invincible)
 		{
 			animator.SetBool("Hit", true);
 			life -= damage;
-			Vector2 damageDir = Vector3.Normalize(transform.position - position) * 40f ;
+			Vector2 damageDir = Vector3.Normalize(transform.position - position) * 40f;
 			m_Rigidbody2D.linearVelocity = Vector2.zero;
 			m_Rigidbody2D.AddForce(damageDir * 10);
 			if (life <= 0)
@@ -303,35 +312,35 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 	private void OnTriggerEnter2D(Collider2D other)//SNews
-{
-        if (other.CompareTag("Checkpoint"))
-        {
-            SpriteRenderer newCheckpointSprite = other.GetComponent<SpriteRenderer>();
+	{
+		if (other.CompareTag("Checkpoint"))
+		{
+			SpriteRenderer newCheckpointSprite = other.GetComponent<SpriteRenderer>();
 
-            // Deaktiviere den alten Checkpoint (wenn vorhanden)
-            if (lastCheckpoint != null)
-            {
-                SpriteRenderer lastCheckpointSprite = lastCheckpoint.GetComponent<SpriteRenderer>();
-                if (lastCheckpointSprite != null)
-                {
-                    lastCheckpointSprite.sprite = UnactiveCheckpoint;
-                }
-            }
+			// Deaktiviere den alten Checkpoint (wenn vorhanden)
+			if (lastCheckpoint != null)
+			{
+				SpriteRenderer lastCheckpointSprite = lastCheckpoint.GetComponent<SpriteRenderer>();
+				if (lastCheckpointSprite != null)
+				{
+					lastCheckpointSprite.sprite = UnactiveCheckpoint;
+				}
+			}
 
-            // Aktiviere neuen Checkpoint
-            newCheckpointSprite.sprite = ActivCheckpoint;
-            Debug.Log("Checkpoint aktiviert!");
-            checkpoint = other.transform;
-            lastCheckpoint = other.transform; // Setze neuen als letzten aktiven
-            CheckpointActive = true;
-        }
+			// Aktiviere neuen Checkpoint
+			newCheckpointSprite.sprite = ActivCheckpoint;
+			Debug.Log("Checkpoint aktiviert!");
+			checkpoint = other.transform;
+			lastCheckpoint = other.transform; // Setze neuen als letzten aktiven
+			CheckpointActive = true;
+		}
 
-        if (other.CompareTag("Orb"))
-    {
-    currencyManager.AddOrbs(1); // Orbs sicher hinzufügen und speichern
-    Destroy(other.gameObject);
-    }
-}
+		if (other.CompareTag("Orb"))
+		{
+			currencyManager.AddOrbs(1); // Orbs sicher hinzufügen und speichern
+			Destroy(other.gameObject);
+		}
+	}
 
 
 	IEnumerator DashCooldown()
@@ -345,13 +354,13 @@ public class CharacterController2D : MonoBehaviour
 		canDash = true;
 	}
 
-	IEnumerator Stun(float time) 
+	IEnumerator Stun(float time)
 	{
 		canMove = false;
 		yield return new WaitForSeconds(time);
 		canMove = true;
 	}
-	IEnumerator MakeInvincible(float time) 
+	IEnumerator MakeInvincible(float time)
 	{
 		invincible = true;
 		yield return new WaitForSeconds(time);
@@ -382,52 +391,93 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	IEnumerator WaitToDead()
-    {
+	{
 		invincible = true;
 		Rigidbody2D rb = GetComponent<Rigidbody2D>();
 		CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
-        yield return new WaitUntil(() => m_Grounded);
-        collider.enabled = false;
-        rb.simulated = false;
-        lives--;
-        animator.SetBool("IsDead", true);
-        canMove = false;
-        GetComponent<Attack>().enabled = false;
-        yield return new WaitForSeconds(0.4f);
-        m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
-        yield return new WaitForSeconds(1.1f);
+		yield return new WaitUntil(() => m_Grounded);
+		collider.enabled = false;
+		rb.simulated = false;
+		lives--;
+		animator.SetBool("IsDead", true);
+		canMove = false;
+		GetComponent<Attack>().enabled = false;
+		yield return new WaitForSeconds(0.4f);
+		m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
+		yield return new WaitForSeconds(1.1f);
 		savegroundsaver.WarpPlayerToSaveGround();
-        animator.SetBool("IsDead", false);
-        canMove = true;
-        GetComponent<Attack>().enabled = true;
-        collider.enabled = true;
-        rb.simulated = true;
+		animator.SetBool("IsDead", false);
+		canMove = true;
+		GetComponent<Attack>().enabled = true;
+		collider.enabled = true;
+		rb.simulated = true;
 
-        if (CheckpointActive && checkpoint != null && lives == 0)
-        {
-            rb.simulated = true;
+		if (CheckpointActive && checkpoint != null && lives == 0)
+		{
+			rb.simulated = true;
 
-            collider.enabled = true;
-            Debug.Log("Hat geklappt");
-            transform.position = checkpoint.position;
-            animator.SetBool("IsDead", false);
-            life = 10f; //SNews Reset der Leben
-            canMove = true;
-            lives = 5;
-            invincible = false;
-            GetComponent<Attack>().enabled = true;
-        }
-        else if (lives == 0)
-        {
-            rb.simulated = true;
-            collider.enabled = true;
-            Debug.Log("Checkpoint nicht aktiv oder nicht vorhanden!");
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
-        }
+			collider.enabled = true;
+			Debug.Log("Hat geklappt");
+			transform.position = checkpoint.position;
+			animator.SetBool("IsDead", false);
+			life = 10f; //SNews Reset der Leben
+			canMove = true;
+			lives = 5;
+			invincible = false;
+			GetComponent<Attack>().enabled = true;
+		}
+		else if (lives == 0)
+		{
+			rb.simulated = true;
+			collider.enabled = true;
+			Debug.Log("Checkpoint nicht aktiv oder nicht vorhanden!");
+			SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); //SNews: Fallback falls kein Checkpoint gesetzt
+		}
 
-        yield return new WaitForSeconds(1);
-        invincible = false;
-       
-    }
+		yield return new WaitForSeconds(1);
+		invincible = false;
+
+	}
+	
+	public void TeleportForward()
+{
+	if (isTeleporting || !canMove) return;
+	StartCoroutine(TeleportCoroutine());
+}
+
+private IEnumerator TeleportCoroutine()
+{
+	isTeleporting = true;
+	canMove = false;
+
+	// Unsichtbar machen
+	spriteRenderer.enabled = false;
+
+	// Kamera deaktivieren
+	if (mainCamera != null)
+		mainCamera.GetComponent<CameraFollow>().enabled = false;
+
+	// Richtung abhängig von Blickrichtung
+	float direction = m_FacingRight ? 1f : -1f;
+	Vector3 teleportTarget = transform.position + new Vector3(direction * teleportDistance, 0f, 0f);
+
+	// Kurze Wartezeit für Effekt (optional)
+	yield return new WaitForSeconds(teleportDuration);
+
+	// Position setzen
+	transform.position = teleportTarget;
+
+	// Kamera folgt wieder
+	yield return new WaitForSeconds(0.05f);
+	if (mainCamera != null)
+		mainCamera.GetComponent<CameraFollow>().enabled = true;
+
+	// Sichtbar machen
+	spriteRenderer.enabled = true;
+
+	isTeleporting = false;
+	canMove = true;
+}
+
 
 }

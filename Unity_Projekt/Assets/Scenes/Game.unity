@@ -6763,7 +6763,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowSpeed: 8
   Target: {fileID: 6173285217856389316}
-  shakeDuration: 0
   shakeAmount: 0.1
   decreaseFactor: 1
 --- !u!1001 &522826778
@@ -61972,6 +61971,10 @@ MonoBehaviour:
     m_Bits: 181
   m_GroundCheck: {fileID: 6175661248910395334}
   m_WallCheck: {fileID: 6172978685624751226}
+  teleportDistance: 3
+  teleportDuration: 0.2
+  spriteRenderer: {fileID: 6291463151406707680}
+  mainCamera: {fileID: 519420031}
   lives: 5
   checkpoint: {fileID: 7535270138920786508}
   CheckpointActive: 0
@@ -62028,6 +62031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8644d33345e77614ba3ace9c18398d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SkillTeleport: 1
   controller: {fileID: 6065979891133354860}
   animator: {fileID: 6120282761430440994}
   runSpeed: 40
