@@ -62593,8 +62593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9976dd27bd19f254183b7f7aaa64118a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LigthSpeed: 0
-  ShadowSpeed: 0
+  LigthSpeed: 60
+  ShadowSpeed: 50
 --- !u!198 &6303275769694440020
 ParticleSystem:
   m_ObjectHideFlags: 0
