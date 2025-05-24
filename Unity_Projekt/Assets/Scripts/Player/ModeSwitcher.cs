@@ -10,14 +10,19 @@ public class ModeSwitcher : MonoBehaviour
     private CharacterController2D Player;
     private SpriteRenderer sp;
     private PlayerMovement Movement;
+    private Attack attack;
 
     [Header("LigthParameters")]
     [SerializeField] private float LigthSpeed = 50;
+    [SerializeField] private float ligthDamage = 3;
     bool isLight = true;
+    float AttackCooldownLigth = 0.12f;
 
     [Header("DarkParameters")]
     [SerializeField] private float ShadowSpeed = 40;
+    [SerializeField] private float DarkDamage = 6;
     bool isDark = false;
+    float AttackCooldownDark = 0.365f;
     public enum PlayerMode { Light, Dark }
     private PlayerMode currentMode;
 
@@ -26,6 +31,7 @@ public class ModeSwitcher : MonoBehaviour
         Player = GetComponent<CharacterController2D>();
         sp = GetComponent<SpriteRenderer>();
         Movement = GetComponent<PlayerMovement>();
+        attack = GetComponent<Attack>();
     }
 
     private void Update()
@@ -46,10 +52,14 @@ public class ModeSwitcher : MonoBehaviour
             case PlayerMode.Light:
                 Movement.runSpeed = LigthSpeed;
                 sp.color = Color.white;
+                attack.AttackCooldownM = AttackCooldownLigth;
+                attack.dmgValue = ligthDamage;
                 break;
             case PlayerMode.Dark:
                 Movement.runSpeed = ShadowSpeed;
                 sp.color = Color.black;
+                attack.dmgValue = DarkDamage;
+                attack.AttackCooldownM = AttackCooldownDark;
                 break;
         }
     }
