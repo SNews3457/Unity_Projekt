@@ -12,7 +12,8 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_WallCheck;
 
-	
+	public AudioClip teleportSound;
+    private AudioSource audioSource;
 	public float teleportDistance = 3f;
 	public float teleportDuration = 0.2f;
 	public SpriteRenderer spriteRenderer;
@@ -70,17 +71,19 @@ public class CharacterController2D : MonoBehaviour
 	public class BoolEvent : UnityEvent<bool> { }
 
 	private void Awake()
-	{
-		savegroundsaver = GetComponent<SaveGroundSaver>();
-		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-		animator = GetComponent<Animator>();
+    {
+        savegroundsaver = GetComponent<SaveGroundSaver>();
+        m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();  // AudioSource holen
 
-		if (OnFallEvent == null)
-			OnFallEvent = new UnityEvent();
+    if (OnFallEvent == null)
+        OnFallEvent = new UnityEvent();
 
-		if (OnLandEvent == null)
-			OnLandEvent = new UnityEvent();
-	}
+    if (OnLandEvent == null)
+        OnLandEvent = new UnityEvent();
+    }
+
 
 
 	private void FixedUpdate()
@@ -447,37 +450,44 @@ public class CharacterController2D : MonoBehaviour
 
 private IEnumerator TeleportCoroutine()
 {
-	isTeleporting = true;
-	canMove = false;
+    isTeleporting = true;
+    canMove = false;
 
-	// Unsichtbar machen
-	spriteRenderer.enabled = false;
+    // Sound abspielen
+    if (audioSource != null && teleportSound != null)
+    {
+        audioSource.PlayOneShot(teleportSound);
+    }
 
-	// Kamera deaktivieren
-	if (mainCamera != null)
-		mainCamera.GetComponent<CameraFollow>().enabled = false;
+    // Unsichtbar machen
+    spriteRenderer.enabled = false;
 
-	// Richtung abhängig von Blickrichtung
-	float direction = m_FacingRight ? 1f : -1f;
-	Vector3 teleportTarget = transform.position + new Vector3(direction * teleportDistance, 0f, 0f);
+    // Kamera deaktivieren
+    if (mainCamera != null)
+        mainCamera.GetComponent<CameraFollow>().enabled = false;
 
-	// Kurze Wartezeit für Effekt (optional)
-	yield return new WaitForSeconds(teleportDuration);
+    // Richtung abhängig von Blickrichtung
+    float direction = m_FacingRight ? 1f : -1f;
+    Vector3 teleportTarget = transform.position + new Vector3(direction * teleportDistance, 0f, 0f);
 
-	// Position setzen
-	transform.position = teleportTarget;
+    // Kurze Wartezeit für Effekt (optional)
+    yield return new WaitForSeconds(teleportDuration);
 
-	// Kamera folgt wieder
-	yield return new WaitForSeconds(0.05f);
-	if (mainCamera != null)
-		mainCamera.GetComponent<CameraFollow>().enabled = true;
+    // Position setzen
+    transform.position = teleportTarget;
 
-	// Sichtbar machen
-	spriteRenderer.enabled = true;
+    // Kamera folgt wieder
+    yield return new WaitForSeconds(0.05f);
+    if (mainCamera != null)
+        mainCamera.GetComponent<CameraFollow>().enabled = true;
 
-	isTeleporting = false;
-	canMove = true;
+    // Sichtbar machen
+    spriteRenderer.enabled = true;
+
+    isTeleporting = false;
+    canMove = true;
 }
+
 
 
 }

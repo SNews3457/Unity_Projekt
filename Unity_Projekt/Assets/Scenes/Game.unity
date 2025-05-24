@@ -6763,6 +6763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowSpeed: 8
   Target: {fileID: 6173285217856389316}
+  shakeDuration: 0
   shakeAmount: 0.1
   decreaseFactor: 1
 --- !u!1001 &522826778
@@ -61599,6 +61600,7 @@ MonoBehaviour:
     m_Bits: 181
   m_GroundCheck: {fileID: 6175661248910395334}
   m_WallCheck: {fileID: 6172978685624751226}
+  teleportSound: {fileID: 8300000, guid: aa5afae48f35c5f4183d4837e5be751f, type: 3}
   teleportDistance: 3
   teleportDuration: 0.2
   spriteRenderer: {fileID: 6291463151406707680}
