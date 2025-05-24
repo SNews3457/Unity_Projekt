@@ -14,13 +14,15 @@ public class ModeSwitcher : MonoBehaviour
 
     [Header("LigthParameters")]
     [SerializeField] private float LigthSpeed = 50;
+    [SerializeField] private float ligthDamage = 3;
     bool isLight = true;
-    float AttackSpeedLigth = 0.12f;
+    float AttackCooldownLigth = 0.12f;
 
     [Header("DarkParameters")]
     [SerializeField] private float ShadowSpeed = 40;
+    [SerializeField] private float DarkDamage = 6;
     bool isDark = false;
-    float AttackCooldownDark = 0.3f;
+    float AttackCooldownDark = 0.365f;
     public enum PlayerMode { Light, Dark }
     private PlayerMode currentMode;
 
@@ -50,11 +52,13 @@ public class ModeSwitcher : MonoBehaviour
             case PlayerMode.Light:
                 Movement.runSpeed = LigthSpeed;
                 sp.color = Color.white;
-                attack.AttackCooldownM = AttackSpeedLigth;
+                attack.AttackCooldownM = AttackCooldownLigth;
+                attack.dmgValue = ligthDamage;
                 break;
             case PlayerMode.Dark:
                 Movement.runSpeed = ShadowSpeed;
                 sp.color = Color.black;
+                attack.dmgValue = DarkDamage;
                 attack.AttackCooldownM = AttackCooldownDark;
                 break;
         }

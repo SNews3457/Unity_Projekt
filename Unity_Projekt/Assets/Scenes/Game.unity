@@ -62222,7 +62222,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LigthSpeed: 60
+  ligthDamage: 3
   ShadowSpeed: 50
+  DarkDamage: 6
 --- !u!198 &6303275769694440020
 ParticleSystem:
   m_ObjectHideFlags: 0

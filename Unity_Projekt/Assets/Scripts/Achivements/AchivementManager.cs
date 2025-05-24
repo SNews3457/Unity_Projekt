@@ -123,7 +123,11 @@ public class AchievementManager : MonoBehaviour
 
         RectTransform rect = popup.GetComponent<RectTransform>();
         TMP_Text text = popup.GetComponentInChildren<TMP_Text>();
-        text.text = message;
+        text.enableAutoSizing = true;
+        text.fontSizeMin = 8;   // Minimal lesbare Größe
+        text.fontSizeMax = 15;  // Nicht größer als nötig
+        text.text = message;               // Maximalgröße
+        text.margin = new Vector4(10, 15, 10, 5); // Etwas Innenabstand (optional)
 
         // Größe ermitteln
         float height = rect.rect.height;
