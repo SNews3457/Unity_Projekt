@@ -14,7 +14,7 @@ public class Attack : MonoBehaviour
     public bool isTimeToCheck = false;
 	public bool fireEffect = false; //Dagobert Feuereffekt 
 	public GameObject cam;
-
+	public float AttackCooldownM;
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -47,7 +47,7 @@ public class Attack : MonoBehaviour
 
 	IEnumerator AttackCooldown()
 	{
-		yield return new WaitForSeconds(0.267f);
+		yield return new WaitForSeconds(AttackCooldownM);
 		canAttack = true;
 	}
 
