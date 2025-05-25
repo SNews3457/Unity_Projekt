@@ -26,7 +26,6 @@ public class LevelUpManager : MonoBehaviour
     public bool canOpenOptionMenu = true;
     void Update()
     {
-        Cursor.visible = true;
         //op Aktualisierung der visuellen Anzeige
         LevelAmount.value = LevelPoints;
         LevelAmount.maxValue = PointsNeeded;

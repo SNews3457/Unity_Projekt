@@ -3322,7 +3322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &211316776
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10040,6 +10040,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680059095}
   m_CullTransparentMesh: 1
+--- !u!1 &695566003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 695566005}
+  - component: {fileID: 695566004}
+  m_Layer: 0
+  m_Name: Renderer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &695566004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695566003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01cdd9c31a350104ebf13dab9ad9bfe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dotPrefab: {fileID: 4310400315258965171, guid: 0420f68eb65a98e4b9b7630f2aa4b887, type: 3}
+  dotCount: 20
+  dotSpacing: 0.1
+  launchForce: 10
+--- !u!4 &695566005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695566003}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -36.68085, y: 19.82397, z: -0.030019581}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &706940226
 GameObject:
   m_ObjectHideFlags: 0
@@ -62159,6 +62207,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8644d33345e77614ba3ace9c18398d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teleportProjectilePrefab: {fileID: 2336474279623674318, guid: b347667e0bb5d614f8efa39912a1d923, type: 3}
+  throwPoint: {fileID: 6173285217856389316}
+  trajectoryRenderer: {fileID: 695566004}
+  aimSensitivity: 5
+  maxAimRadius: 5
   SkillTeleport: 1
   controller: {fileID: 6065979891133354860}
   animator: {fileID: 6120282761430440994}
@@ -72598,3 +72651,4 @@ SceneRoots:
   - {fileID: 27260181}
   - {fileID: 628810219}
   - {fileID: 473848199}
+  - {fileID: 695566005}

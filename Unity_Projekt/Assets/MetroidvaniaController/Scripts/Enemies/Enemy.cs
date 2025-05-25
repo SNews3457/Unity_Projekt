@@ -38,7 +38,6 @@ public class Enemy : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate () 
     {
-        Cursor.visible = true;
 
 		if (life <= 0 && !die)
 		{

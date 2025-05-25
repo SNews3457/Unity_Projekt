@@ -88,7 +88,6 @@ public class CharacterController2D : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		Cursor.visible = true;
 		if (!SkillDoubkeJump)
 		{
 			canDoubleJump = false;

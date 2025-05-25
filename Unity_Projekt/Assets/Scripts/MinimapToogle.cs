@@ -24,8 +24,6 @@ public class MinimapToggle : MonoBehaviour
         bigMinimapPanel.SetActive(true);
         animator.SetTrigger("Show");
         isOpen = true;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
     }
 
     void CloseMinimap()
@@ -33,7 +31,5 @@ public class MinimapToggle : MonoBehaviour
         bigMinimapPanel.SetActive(false);
         Time.timeScale = 1f; // Spiel fortsetzen
         isOpen = false;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 }

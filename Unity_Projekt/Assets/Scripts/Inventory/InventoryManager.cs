@@ -141,6 +141,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+
         movingItemCursor.SetActive(isMovingItem);
         movingItemCursor.transform.position = Input.mousePosition;
         if(isMovingItem)
@@ -162,8 +163,6 @@ public class InventoryManager : MonoBehaviour
 
 
             Time.timeScale = 1f;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
 
         }
         if(Input.GetKeyDown(KeyCode.Escape))
