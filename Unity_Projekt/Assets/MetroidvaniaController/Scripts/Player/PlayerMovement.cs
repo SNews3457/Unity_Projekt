@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 	private float teleportCooldown = 3f;
     private float lastTeleportTime = -Mathf.Infinity;
 
-	public bool SkillTeleport = true; // optional: Fähigkeit erlernen
+	public bool SkillTeleport = false;
 
 	public CharacterController2D controller;
 	

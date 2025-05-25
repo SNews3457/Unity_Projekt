@@ -156,6 +156,28 @@ public class LevelUpManager : MonoBehaviour
         }
     }
 
+
+    public void Telport(Button button)
+    {
+        Image image = GameObject.Find("Teleport").GetComponent<Image>();
+        if (SkillPoints > 0 && Character.SkillDoubkeJump)
+        {
+            Color tempColor = image.color;
+            tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f;
+            image.color = tempColor;
+            StartCoroutine(PlayUnlockEffect(image));
+            Destroy(button);
+            SkillPoints--;
+            player.SkillTeleport = true;
+        }
+        else
+        {
+            //op "Nein"-Wackeln
+            StartCoroutine(ShakeUI(image.rectTransform));
+        }
+    }
+
     public void DashSkillUpgrade(Button button)
     {
         Image image = GameObject.Find("DashUpgrade").GetComponent<Image>();
