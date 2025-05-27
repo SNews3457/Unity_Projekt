@@ -3,9 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.InputSystem;
-using UnityEditor.ShaderGraph;
+
 public class LevelUpManager : MonoBehaviour
 {
     public float LevelPoints; //op aktuele LevelPunkte
@@ -71,6 +69,9 @@ public class LevelUpManager : MonoBehaviour
         {
             SkillTree.SetActive(false);
             canOpenOptionMenu = true;
+            Cursor.visible = false; //magi Cursor wird wieder unsichtbar
+            Cursor.lockState = CursorLockMode.Locked;
+            Debug.Log("Maus sichtbar (ne): " + Cursor.visible + ", und in der Mitte zentriert: " + Cursor.lockState);
         }
 
         if (Input.GetKey(KeyCode.R))
@@ -86,6 +87,9 @@ public class LevelUpManager : MonoBehaviour
         canOpenOptionMenu =false;
         Debug.Log("OpenSkillTree");
         SkillTree.SetActive(true);
+        Cursor.visible = true; //magi Cursor wird angezeigt
+        Cursor.lockState = CursorLockMode.None;
+        Debug.Log("Maus sichtbar: " + Cursor.visible + ", und in der Mitte zentriert: " + Cursor.lockState);
     }
 
     public void DashSkillUnlock(Button button)
