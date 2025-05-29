@@ -23,7 +23,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private Transform lastCheckpoint;
 	private SaveGroundSaver savegroundsaver;
-	public float lives = 5;
+	public int lives = 5;
 	public Transform checkpoint; //SNews: Letzter Checkpoint
 	public bool CheckpointActive = false;
 

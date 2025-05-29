@@ -1460,6 +1460,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &125551752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 125551753}
+  - component: {fileID: 125551754}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &125551753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125551752}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 376116553}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &125551754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125551752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5643730fa58814d92f3a8c76823106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 6065979891133354860}
+  level: {fileID: 1664808688}
+  DeleteData: 1
 --- !u!1 &126070715
 GameObject:
   m_ObjectHideFlags: 0
@@ -4400,6 +4447,7 @@ Transform:
   - {fileID: 1810521207}
   - {fileID: 1275192956}
   - {fileID: 414319788}
+  - {fileID: 125551753}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &387253872
@@ -55633,6 +55681,7 @@ GameObject:
   - component: {fileID: 6291463151406707685}
   - component: {fileID: 6291463151406707684}
   - component: {fileID: 6291463151406707686}
+  - component: {fileID: 6291463151406707687}
   m_Layer: 1
   m_Name: Player
   m_TagString: Player
@@ -55825,6 +55874,18 @@ MonoBehaviour:
   ligthDamage: 3
   ShadowSpeed: 50
   DarkDamage: 6
+--- !u!114 &6291463151406707687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6178799007742266190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373ea4abde557434bb0a07b4fa5f06d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &6303275769694440020
 ParticleSystem:
   m_ObjectHideFlags: 0

@@ -6,9 +6,9 @@ using System.Collections;
 
 public class LevelUpManager : MonoBehaviour
 {
-    public float LevelPoints; //op aktuele LevelPunkte
+    public int LevelPoints; //op aktuele LevelPunkte
     public float PointsNeeded = 2; //op Punkte die f�r den Levelaufstieg ben�tigt werden
-    public float Level = 0; //op aktuels Level
+    public int Level = 0; //op aktuels Level
     public Slider LevelAmount; //op Slider
     public TMPro.TMP_Text Points;
     public TMP_Text SkillPonts;
