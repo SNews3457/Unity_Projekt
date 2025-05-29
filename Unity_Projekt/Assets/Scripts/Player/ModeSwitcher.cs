@@ -30,6 +30,10 @@ public class ModeSwitcher : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         Movement = GetComponent<PlayerMovement>();
         attack = GetComponent<Attack>();
+
+        currentMode = PlayerMode.Light;
+        UpdateMode();
+
     }
 
     private void Update()
