@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    public Transform Levelstart;
     [SerializeField] private CharacterController2D player;
     [SerializeField] private LevelUpManager level;
     public bool DeleteData = false;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
         player.lives = 5;
         level.LevelPoints = 0;
         level.Level = 0;
-        player.transform.position = new Vector3(-120, 36, 0);
+        player.transform.position = new Vector3(Levelstart.position.x, Levelstart.position.y, Levelstart.position.z);
     }
 
     private IEnumerator AutoSave()
