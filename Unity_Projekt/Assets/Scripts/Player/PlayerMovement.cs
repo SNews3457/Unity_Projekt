@@ -31,13 +31,18 @@ public class PlayerMovement : MonoBehaviour
 	public Attack playerAttack;
     //bool dashAxis = false;
 
+
+    private bool isDragging = false;
+    private Camera mainCam;
+    public float maxDragDistance = 5f;
+
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
+        mainCam = Camera.main;
         aimPosition = transform.position;
     }
+
+
 
 
     // Update is called once per frame
@@ -57,64 +62,48 @@ public class PlayerMovement : MonoBehaviour
 			dash = true;
 		}
 
-        if (Input.GetKeyDown(KeyCode.T) && SkillTeleport)
+        if (Input.GetMouseButtonDown(1) && SkillTeleport && Time.time >= lastTeleportTime + teleportCooldown)
         {
-            isAiming = true;
+            isDragging = true;
             aimPosition = transform.position;
         }
 
-        if (Input.GetKey(KeyCode.T) && isAiming)
+        if (Input.GetMouseButton(1) && isDragging)
         {
-            Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            aimPosition += mouseDelta * aimSensitivity * Time.deltaTime;
+            Vector3 mouseWorld = mainCam.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorld.z = 0f;
 
-            // Begrenzung des Zielbereichs um den Spieler herum
-            Vector2 center = (Vector2)throwPoint.position;
-            Vector2 dir = aimPosition - center;
-            if (dir.magnitude > maxAimRadius)
-                aimPosition = center + dir.normalized * maxAimRadius;
+            Vector2 center = throwPoint.position;
+            Vector2 dragVector = center - (Vector2)mouseWorld;
 
-            // Zielrichtung berechnen und Trajectory anzeigen
-            Vector2 direction = (aimPosition - (Vector2)throwPoint.position).normalized;
-            trajectoryRenderer.ShowTrajectory(throwPoint.position, direction, force, teleportProjectilePrefab.GetComponent<Rigidbody2D>().gravityScale);
+            if (dragVector.magnitude > maxDragDistance)
+                dragVector = dragVector.normalized * maxDragDistance;
 
+            aimPosition = center - dragVector;
+
+            Vector2 direction = dragVector.normalized;
+            float power = dragVector.magnitude * 2f;
+
+            trajectoryRenderer.ShowTrajectory(throwPoint.position, direction, power, teleportProjectilePrefab.GetComponent<Rigidbody2D>().gravityScale);
         }
 
-        if (Input.GetKeyUp(KeyCode.T) && isAiming && Time.time >= lastTeleportTime + teleportCooldown)
+        if (Input.GetMouseButtonUp(1) && isDragging)
         {
-            isAiming = false;
+            isDragging = false;
             trajectoryRenderer.HideTrajectory();
 
-            Vector2 direction = (aimPosition - (Vector2)throwPoint.position).normalized;
+            Vector2 center = throwPoint.position;
+            Vector2 dragVector = center - (Vector2)aimPosition;
+            Vector2 direction = dragVector.normalized;
+            float power = dragVector.magnitude * 2f;
 
             GameObject proj = Instantiate(teleportProjectilePrefab, throwPoint.position, Quaternion.identity);
             Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
-            rb.AddForce(direction * force, ForceMode2D.Impulse);
-
+            rb.AddForce(direction * power, ForceMode2D.Impulse);
 
             proj.GetComponent<TeleportProjectile>().SetPlayer(gameObject);
-
             lastTeleportTime = Time.time;
         }
-
-
-
-
-
-
-        /*if (Input.GetAxisRaw("Dash") == 1 || Input.GetAxisRaw("Dash") == -1) //RT in Unity 2017 = -1, RT in Unity 2019 = 1
-		{
-			if (dashAxis == false)
-			{
-				dashAxis = true;
-				dash = true;
-			}
-		}
-		else
-		{
-			dashAxis = false;
-		}
-		*/
 
     }
 
