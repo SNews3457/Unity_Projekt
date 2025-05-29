@@ -14949,17 +14949,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5001740735028003603, guid: 30e909a542581f84a988177737d2a324, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9093625181201485740, guid: 30e909a542581f84a988177737d2a324, type: 3}
       propertyPath: m_Name
       value: LevelPoint (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 9093625181201485740, guid: 30e909a542581f84a988177737d2a324, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -55642,11 +55634,10 @@ GameObject:
   - component: {fileID: 6291463151406707685}
   - component: {fileID: 6291463151406707684}
   - component: {fileID: 6291463151406707686}
-  - component: {fileID: 6291463151406707687}
   m_Layer: 1
   m_Name: Player
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -55835,18 +55826,6 @@ MonoBehaviour:
   ligthDamage: 3
   ShadowSpeed: 50
   DarkDamage: 6
---- !u!114 &6291463151406707687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6178799007742266190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373ea4abde557434bb0a07b4fa5f06d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &6303275769694440020
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -65537,18 +65516,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1736794052}
     m_Modifications:
-    - target: {fileID: 140539332217117007, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2309801516613594864, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_ForceSendLayers.m_Bits
-      value: 191
-      objectReference: {fileID: 0}
-    - target: {fileID: 2309801516613594864, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_ForceReceiveLayers.m_Bits
-      value: 191
-      objectReference: {fileID: 0}
     - target: {fileID: 3580834521951518744, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -35.695
@@ -65589,45 +65556,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4640240319392983278, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5215911483220983193, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5215911483220983193, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5215911483220983193, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5217308248190824266, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
       propertyPath: m_Name
-      value: EnemySimpleN(1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5217308248190824266, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7251593729199435442, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: Attack
-      value: 
-      objectReference: {fileID: 6065761739328498938}
-    - target: {fileID: 7251593729199435442, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: achievementManager
-      value: 
-      objectReference: {fileID: 1810521208}
-    - target: {fileID: 7251593729199435442, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: turnLayerMask.m_Bits
-      value: 129
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673484296246648886, guid: e2eb4c30aa7873f4eb4a0adc38db6bd9, type: 3}
-      propertyPath: m_Layer
-      value: 8
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -71,7 +71,6 @@ public class LevelUpManager : MonoBehaviour
             canOpenOptionMenu = true;
             Cursor.visible = false; //magi Cursor wird wieder unsichtbar
             Cursor.lockState = CursorLockMode.Locked;
-            Debug.Log("Maus sichtbar (ne): " + Cursor.visible + ", und in der Mitte zentriert: " + Cursor.lockState);
         }
 
         if (Input.GetKey(KeyCode.R))

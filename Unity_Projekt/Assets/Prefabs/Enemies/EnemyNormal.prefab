@@ -77,9 +77,9 @@ GameObject:
   - component: {fileID: 8549261139339017458}
   - component: {fileID: 433772715799994658}
   m_Layer: 0
-  m_Name: EnemySimpleN(1)
+  m_Name: EnemyNormal
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -91,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5217308248190824266}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.21116972, y: -7.2079306, z: 0.026701014}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   life: 10
   turnLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 129
   EXP: {fileID: 9093625181201485740, guid: 30e909a542581f84a988177737d2a324, type: 3}
   Orbs: {fileID: 5655676853320744283, guid: f2b9b324a380a684aba787d8cd52e312, type: 3}
   achievementManager: {fileID: 0}
@@ -198,10 +198,10 @@ CapsuleCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 191
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 191
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -348,6 +348,6 @@ SpriteRenderer:
   m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

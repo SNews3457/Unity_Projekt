@@ -15,13 +15,11 @@ public class ModeSwitcher : MonoBehaviour
     [Header("LigthParameters")]
     [SerializeField] private float LigthSpeed = 50;
     [SerializeField] private float ligthDamage = 3;
-    bool isLight = true;
     float AttackCooldownLigth = 0.12f;
 
     [Header("DarkParameters")]
     [SerializeField] private float ShadowSpeed = 40;
     [SerializeField] private float DarkDamage = 6;
-    bool isDark = false;
     float AttackCooldownDark = 0.365f;
     public enum PlayerMode { Light, Dark }
     private PlayerMode currentMode;
