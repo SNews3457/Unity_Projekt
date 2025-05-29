@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcad0ada0cde1f04693b97d306725420, type: 3}
   m_Name: FireCristall
   m_EditorClassIdentifier: 
-  itemName: FireCristall
-  itemIcon: {fileID: 6844922983435654669, guid: 55e53a82b392e7d4d979e41b224ce82b, type: 3}
+  itemName: emerald
+  itemIcon: {fileID: -7659345200233507462, guid: a53c9a55c00c01f47897ea60a45852bc, type: 3}
   isStackable: 1
   toolType: 0
