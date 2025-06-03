@@ -2390,7 +2390,7 @@ Transform:
   m_GameObject: {fileID: 188085375}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -108.28, y: 33.11, z: 0}
+  m_LocalPosition: {x: -93.4, y: 33.61, z: 0}
   m_LocalScale: {x: 1.5759, y: 1.488, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2853,7 +2853,7 @@ Transform:
   m_GameObject: {fileID: 209931133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -57.5, y: 33.7, z: -0.0036147432}
+  m_LocalPosition: {x: -122.15, y: 33.7, z: -0.0036147432}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7883,7 +7883,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 68f98d8e4b0ab410795ec1e6edffa9a1, type: 3}
   m_Resource: {fileID: 8300000, guid: 68f98d8e4b0ab410795ec1e6edffa9a1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.705
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -46697,8 +46697,8 @@ Tilemap:
   - first: {x: -130, y: 46, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 8
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -46707,8 +46707,8 @@ Tilemap:
   - first: {x: -129, y: 46, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 8
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -46717,8 +46717,8 @@ Tilemap:
   - first: {x: -128, y: 46, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 8
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -46727,8 +46727,8 @@ Tilemap:
   - first: {x: -127, y: 46, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 8
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -47920,9 +47920,9 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 3d2255636d0639040beb3ff7c3df9a9a, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 492bfb98c071531479ce7a4cfc2aea28, type: 2}
-  - m_RefCount: 232
+  - m_RefCount: 236
     m_Data: {fileID: 11400000, guid: c15813852e1ea874aa5faa9b2a045c67, type: 2}
-  - m_RefCount: 2578
+  - m_RefCount: 2574
     m_Data: {fileID: 11400000, guid: 5c13d2a3b19f17c4980e9690ab73c978, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: ccfe905c2f024ce499025d7613f4305e, type: 2}
@@ -47941,9 +47941,9 @@ Tilemap:
     m_Data: {fileID: -1519482003, guid: 8c8799c5a1474dc45806e1936692b348, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -1963784469, guid: 8c8799c5a1474dc45806e1936692b348, type: 3}
-  - m_RefCount: 232
+  - m_RefCount: 236
     m_Data: {fileID: -2122501319, guid: 8c8799c5a1474dc45806e1936692b348, type: 3}
-  - m_RefCount: 2578
+  - m_RefCount: 2574
     m_Data: {fileID: -1665854212, guid: 8c8799c5a1474dc45806e1936692b348, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -158077727, guid: 8c8799c5a1474dc45806e1936692b348, type: 3}
@@ -48143,14 +48143,6 @@ CompositeCollider2D:
       - X: -899985344
         Y: 470034176
       - X: -899985344
-        Y: 469829088
-      - X: -1259975552
-        Y: 469829088
-      - X: -1259975552
-        Y: 470034176
-      - X: -1299985408
-        Y: 470034176
-      - X: -1299985408
         Y: 469829088
       - X: -1429965824
         Y: 469829088
@@ -48356,10 +48348,6 @@ CompositeCollider2D:
       - {x: -87.9976, y: 47.003418}
       - {x: -89.998535, y: 47.003387}
       - {x: -89.998566, y: 46.98291}
-      - {x: -125.99756, y: 46.982937}
-      - {x: -125.99758, y: 47.003418}
-      - {x: -129.99854, y: 47.003387}
-      - {x: -129.99857, y: 46.98291}
       - {x: -142.99658, y: 46.98291}
       - {x: -143.104, y: 46.987793}
       - {x: -143.89503, y: 46.98778}
