@@ -29,7 +29,7 @@ public class InventoryManager : MonoBehaviour
         items = new SlotClass[slots.Length];
 
         for (int i = 0; i < items.Length; i++)
-        {
+        { 
             items[i] = new SlotClass();
         }
         for (int i = 0; i < startingItems.Length; i++)
