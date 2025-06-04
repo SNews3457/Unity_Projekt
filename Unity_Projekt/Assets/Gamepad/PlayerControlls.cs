@@ -80,6 +80,24 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""26537f97-d675-4186-acf8-8afc0cf24197"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""7096feb8-28df-499e-8bef-515f69150082"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -148,6 +166,28 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""action"": ""Options"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e23cc297-0e57-422d-a674-1d8718ee605c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc966d65-7e89-413f-bbde-ff2b7bcc6638"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -162,6 +202,8 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         m_Gameplay_Switch = m_Gameplay.FindAction("Switch", throwIfNotFound: true);
         m_Gameplay_Map = m_Gameplay.FindAction("Map", throwIfNotFound: true);
         m_Gameplay_Options = m_Gameplay.FindAction("Options", throwIfNotFound: true);
+        m_Gameplay_SwitchRight = m_Gameplay.FindAction("SwitchRight", throwIfNotFound: true);
+        m_Gameplay_SwitchLeft = m_Gameplay.FindAction("SwitchLeft", throwIfNotFound: true);
     }
 
     ~@PlayerControlls()
@@ -234,6 +276,8 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Switch;
     private readonly InputAction m_Gameplay_Map;
     private readonly InputAction m_Gameplay_Options;
+    private readonly InputAction m_Gameplay_SwitchRight;
+    private readonly InputAction m_Gameplay_SwitchLeft;
     public struct GameplayActions
     {
         private @PlayerControlls m_Wrapper;
@@ -244,6 +288,8 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         public InputAction @Switch => m_Wrapper.m_Gameplay_Switch;
         public InputAction @Map => m_Wrapper.m_Gameplay_Map;
         public InputAction @Options => m_Wrapper.m_Gameplay_Options;
+        public InputAction @SwitchRight => m_Wrapper.m_Gameplay_SwitchRight;
+        public InputAction @SwitchLeft => m_Wrapper.m_Gameplay_SwitchLeft;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -271,6 +317,12 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @Options.started += instance.OnOptions;
             @Options.performed += instance.OnOptions;
             @Options.canceled += instance.OnOptions;
+            @SwitchRight.started += instance.OnSwitchRight;
+            @SwitchRight.performed += instance.OnSwitchRight;
+            @SwitchRight.canceled += instance.OnSwitchRight;
+            @SwitchLeft.started += instance.OnSwitchLeft;
+            @SwitchLeft.performed += instance.OnSwitchLeft;
+            @SwitchLeft.canceled += instance.OnSwitchLeft;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -293,6 +345,12 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @Options.started -= instance.OnOptions;
             @Options.performed -= instance.OnOptions;
             @Options.canceled -= instance.OnOptions;
+            @SwitchRight.started -= instance.OnSwitchRight;
+            @SwitchRight.performed -= instance.OnSwitchRight;
+            @SwitchRight.canceled -= instance.OnSwitchRight;
+            @SwitchLeft.started -= instance.OnSwitchLeft;
+            @SwitchLeft.performed -= instance.OnSwitchLeft;
+            @SwitchLeft.canceled -= instance.OnSwitchLeft;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -318,5 +376,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         void OnSwitch(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
         void OnOptions(InputAction.CallbackContext context);
+        void OnSwitchRight(InputAction.CallbackContext context);
+        void OnSwitchLeft(InputAction.CallbackContext context);
     }
 }

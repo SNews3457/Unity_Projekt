@@ -19,14 +19,13 @@ public class MinimapToggle : MonoBehaviour
         }
     }
 
-    void OpenMinimap()
+    public void OpenMinimap()
     {
         bigMinimapPanel.SetActive(true);
-        animator.SetTrigger("Show");
         isOpen = true;
     }
 
-    void CloseMinimap()
+    public void CloseMinimap()
     {
         bigMinimapPanel.SetActive(false);
         Time.timeScale = 1f; // Spiel fortsetzen

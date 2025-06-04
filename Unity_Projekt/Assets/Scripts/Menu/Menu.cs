@@ -75,26 +75,8 @@ public class Menu : MonoBehaviour
         //dagobert Menü öffnen bzw schließen
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isActiv && LevelUpManager.canOpenOptionMenu && inventoryManager.InventoryisActiv)
-            {
-                Time.timeScale = 0;
-                isActiv = true;
-                Option.SetActive(true);
-            }
-            else if (isActiv && !AchivementActiv)
-            {
-                Time.timeScale = 1;
-                isActiv = false;
-                Option.SetActive(false);
-            }
-            else if (AchivementActiv) //Dagobert Achivement schließen
-            {
-                Option.SetActive(true);
-                AchivementActiv = false;
-                isActiv = true;
-                AchivementPanel.SetActive(false);
-            }
 
+            OpenClose();
         }
         string sceneName = SceneManager.GetActiveScene().name;
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -116,6 +98,29 @@ public class Menu : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Space) && sceneName == "Menu")
         {
             StartGame();
+        }
+    }
+
+    public void OpenClose()
+    {
+        if (!isActiv && LevelUpManager.canOpenOptionMenu && !inventoryManager.InventoryisActiv)
+        {
+            Time.timeScale = 0;
+            isActiv = true;
+            Option.SetActive(true);
+        }
+        else if (isActiv && !AchivementActiv)
+        {
+            Time.timeScale = 1;
+            isActiv = false;
+            Option.SetActive(false);
+        }
+        else if (AchivementActiv) //Dagobert Achivement schließen
+        {
+            Option.SetActive(true);
+            AchivementActiv = false;
+            isActiv = true;
+            AchivementPanel.SetActive(false);
         }
     }
 

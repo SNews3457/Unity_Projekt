@@ -36,11 +36,11 @@ public class PlayerMovement : MonoBehaviour
 	public Attack playerAttack;
     //bool dashAxis = false;
 
-    Options options;
+    public Menu menu;
     private bool isDragging = false;
     private Camera mainCam;
     public float maxDragDistance = 5f;
-
+    public UIManager uiManager;
     void Start()
     {
         mainCam = Camera.main;
@@ -52,13 +52,15 @@ public class PlayerMovement : MonoBehaviour
         switcher = GetComponent<ModeSwitcher>();
         attack = GetComponent<Attack>();
         controlls = new PlayerControlls();
-        options = GetComponent<Options>();
 
+        controlls.Gameplay.Map.performed += ctx => uiManager.OpenorClose();
+        controlls.Gameplay.SwitchRight.performed += ctx => uiManager.SwitchMenu(1);
+        controlls.Gameplay.SwitchLeft.performed += ctx => uiManager.SwitchMenu(-1);
         controlls.Gameplay.Jump.performed += ctx => Jump(); //Dagobert Gamepad Steuerung ctx = lehre Funktion da die Werte nicht benötigt werden
         controlls.Gameplay.Dash.performed += ctx => Dash();
         controlls.Gameplay.Attack.performed += ctx => attack.attack();
         controlls.Gameplay.Switch.performed += ctx => switcher.Switch();
-        controlls.Gameplay.Options.performed += ctx => options.OpenClose();
+        controlls.Gameplay.Options.performed += ctx => menu.OpenClose();
     }
 
     void Jump()

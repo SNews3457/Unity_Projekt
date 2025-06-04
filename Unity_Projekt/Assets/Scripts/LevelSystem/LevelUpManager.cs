@@ -61,23 +61,14 @@ public class LevelUpManager : MonoBehaviour
             }
         }
 
+    }
 
-
-
-        //op mit escape wird der Skilltree wieder geschlossen
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            SkillTree.SetActive(false);
-            canOpenOptionMenu = true;
-            Cursor.visible = false; //magi Cursor wird wieder unsichtbar
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        if (Input.GetKey(KeyCode.R))
-        {
-            GoToSkillTree();
-        }
-
+    public void CloseSkillTree()
+    {
+        SkillTree.SetActive(false);
+        canOpenOptionMenu = true;
+        Cursor.visible = false; //magi Cursor wird wieder unsichtbar
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     //op Skilltree wird ge�ffnet wenn die Anzeige angeklickt wird
@@ -88,7 +79,6 @@ public class LevelUpManager : MonoBehaviour
         SkillTree.SetActive(true);
         Cursor.visible = true; //magi Cursor wird angezeigt
         Cursor.lockState = CursorLockMode.None;
-        Debug.Log("Maus sichtbar: " + Cursor.visible + ", und in der Mitte zentriert: " + Cursor.lockState);
     }
 
     public void DashSkillUnlock(Button button)
