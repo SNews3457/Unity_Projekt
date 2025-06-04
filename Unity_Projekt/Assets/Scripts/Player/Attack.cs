@@ -20,20 +20,20 @@ public class Attack : MonoBehaviour
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+	public void attack()
+	{
+		if(canAttack)
+		{
+            canAttack = false;
+            animator.SetBool("IsAttacking", true);
+            StartCoroutine(AttackCooldown());
+        }
+	}
     void Update()
     {
-		if (Input.GetMouseButtonDown(0) && canAttack)
+		if (Input.GetMouseButtonDown(0))
 		{
-			canAttack = false;
-			animator.SetBool("IsAttacking", true);
-			StartCoroutine(AttackCooldown());
+			attack();
 		}
 
 		if (Input.GetMouseButtonDown(1) && SkillShoot)

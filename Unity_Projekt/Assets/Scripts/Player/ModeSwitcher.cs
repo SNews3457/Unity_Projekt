@@ -40,11 +40,16 @@ public class ModeSwitcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            currentMode = currentMode == PlayerMode.Light ? PlayerMode.Dark : PlayerMode.Light;
-            Debug.ClearDeveloperConsole();
-            Debug.Log("Switched to " + currentMode + " mode");
-            UpdateMode();
+            Switch();
         }
+    }
+
+    public void Switch()
+    {
+        currentMode = currentMode == PlayerMode.Light ? PlayerMode.Dark : PlayerMode.Light;
+        Debug.ClearDeveloperConsole();
+        Debug.Log("Switched to " + currentMode + " mode");
+        UpdateMode();
     }
 
     public void UpdateMode()

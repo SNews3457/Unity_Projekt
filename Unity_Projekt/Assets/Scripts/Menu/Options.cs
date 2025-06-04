@@ -22,19 +22,24 @@ public class Options : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isActiv && LevelUpManager.canOpenOptionMenu)
-            {
-                Time.timeScale = 0;
-                isActiv = true;
-                OptionsObject.SetActive(true);
-            }
-            else if(isActiv )
-            {
-                Time.timeScale = 1;
-                isActiv = false;
-                OptionsObject.SetActive(false);
-            }
+            
+            OpenClose();
+        }
+    }
 
+    public void OpenClose()
+    {
+        if (!isActiv && LevelUpManager.canOpenOptionMenu)
+        {
+            Time.timeScale = 0;
+            isActiv = true;
+            OptionsObject.SetActive(true);
+        }
+        else if (isActiv)
+        {
+            Time.timeScale = 1;
+            isActiv = false;
+            OptionsObject.SetActive(false);
         }
     }
 
