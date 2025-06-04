@@ -61,6 +61,10 @@ public class PlayerMovement : MonoBehaviour
         controlls.Gameplay.Attack.performed += ctx => attack.attack();
         controlls.Gameplay.Switch.performed += ctx => switcher.Switch();
         controlls.Gameplay.Options.performed += ctx => menu.OpenClose();
+        controlls.Gameplay.Up.performed += ctx => menu.Up();
+        controlls.Gameplay.Down.performed += ctx => menu.Down();
+        controlls.Gameplay.Select.performed += ctx => menu.Select();
+        controlls.Gameplay.Back.performed += ctx => menu.back();
     }
 
     void Jump()
@@ -90,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+        
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{

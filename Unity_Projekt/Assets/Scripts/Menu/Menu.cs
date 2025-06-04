@@ -81,26 +81,50 @@ public class Menu : MonoBehaviour
         string sceneName = SceneManager.GetActiveScene().name;
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            Up();
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Down();
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Select();
+        }
+    }
+
+
+    public void Select()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (isActiv)
+        {
+            StartGame();
+        }
+        else if (sceneName == "Menu")
+        {
+            StartGame();
+        }
+    }
+    public void Up()
+    {
+        if (!AchivementActiv && isActiv)
+        {
             currentIndex = (currentIndex - 1 + menuButtons.Length) % menuButtons.Length;
             UpdateSelection();
             PlaySound(navigateSound);
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+
+    }
+    public void Down()
+    {
+        if (!AchivementActiv && isActiv)
         {
             currentIndex = (currentIndex + 1) % menuButtons.Length;
             UpdateSelection();
             PlaySound(navigateSound);
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && isActiv)
-        {
-            StartGame();
-        }
-        else if (Input.GetKeyDown(KeyCode.Space) && sceneName == "Menu")
-        {
-            StartGame();
-        }
     }
-
     public void OpenClose()
     {
         if (!isActiv && LevelUpManager.canOpenOptionMenu && !inventoryManager.InventoryisActiv)
@@ -115,7 +139,12 @@ public class Menu : MonoBehaviour
             isActiv = false;
             Option.SetActive(false);
         }
-        else if (AchivementActiv) //Dagobert Achivement schließen
+        back();
+    }
+
+    public void back()
+    {
+        if (AchivementActiv) //Dagobert Achivement schließen
         {
             Option.SetActive(true);
             AchivementActiv = false;
