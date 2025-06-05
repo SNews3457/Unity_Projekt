@@ -30,17 +30,26 @@ public class ModeSwitcher : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         Movement = GetComponent<PlayerMovement>();
         attack = GetComponent<Attack>();
+
+        currentMode = PlayerMode.Light;
+        UpdateMode();
+
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            currentMode = currentMode == PlayerMode.Light ? PlayerMode.Dark : PlayerMode.Light;
-            Debug.ClearDeveloperConsole();
-            Debug.Log("Switched to " + currentMode + " mode");
-            UpdateMode();
+            Switch();
         }
+    }
+
+    public void Switch()
+    {
+        currentMode = currentMode == PlayerMode.Light ? PlayerMode.Dark : PlayerMode.Light;
+        Debug.ClearDeveloperConsole();
+        Debug.Log("Switched to " + currentMode + " mode");
+        UpdateMode();
     }
 
     public void UpdateMode()

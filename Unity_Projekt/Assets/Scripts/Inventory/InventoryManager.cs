@@ -156,27 +156,22 @@ public class InventoryManager : MonoBehaviour
             else
                 BeginItemMove();
         }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            inventory.SetActive(true);
-            InventoryisActiv = true;
 
 
-            Time.timeScale = 1f;
-
-        }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            inventory.SetActive(false);
-            InventoryisActiv = false;
-
-            
-            Time.timeScale = 1f;
-
-
-        }
     }
     #endregion Inventory Utils
+
+    public void CloseInventory()
+    {
+        inventory.SetActive(false);
+        InventoryisActiv = false;
+    }
+
+    public void OpenInventory()
+    {
+        inventory.SetActive(true);
+        InventoryisActiv = true;
+    }
 
     #region Moving
 

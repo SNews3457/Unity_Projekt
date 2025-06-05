@@ -1,59 +1,88 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using System.Collections;
 
-[RequireComponent(typeof(Collider2D))]
-public class DisappearOnTouch : MonoBehaviour
+[RequireComponent(typeof(Tilemap), typeof(TilemapCollider2D))]
+public class DisappearTilemapWave : MonoBehaviour
 {
-    [Header("Einstellungen")]
-    [Tooltip("Tag des Spielers")]
+    public float delayBeforeDisappear = 0.2f;    
+    public float delayBetweenTiles = 0.05f;      
+    public float respawnDelay = 3f;               
+    public int range = 2;                         
     public string playerTag = "Player";
 
-    [Tooltip("Zeit nach Berührung, bevor Plattform verschwindet (Sekunden)")]
-    public float delayBeforeDisappear = 0.5f;
-
-    [Tooltip("Zeit, bis Plattform wieder erscheint (Sekunden)")]
-    public float respawnDelay = 3f;
-
-    private Collider2D platformCollider;
-    private SpriteRenderer spriteRenderer;
-    private bool isDisappearing = false;
+    private Tilemap tilemap;
 
     private void Awake()
     {
-        platformCollider = GetComponent<Collider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        tilemap = GetComponent<Tilemap>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isDisappearing && collision.collider.CompareTag(playerTag))
+        if (collision.collider.CompareTag(playerTag))
         {
-            StartCoroutine(DisappearAndRespawn());
+            Vector3 worldPos = collision.GetContact(0).point;
+            Vector3Int center = tilemap.WorldToCell(worldPos);
+            StartCoroutine(WaveDisappear(center));
         }
     }
 
-    private IEnumerator DisappearAndRespawn()
+    private IEnumerator WaveDisappear(Vector3Int center)
     {
-        isDisappearing = true;
-
-        // Warten vor dem Verschwinden
         yield return new WaitForSeconds(delayBeforeDisappear);
 
-        // Plattform "verschwinden" lassen
-        if (spriteRenderer != null)
-            spriteRenderer.enabled = false;
-        if (platformCollider != null)
-            platformCollider.enabled = false;
 
-        // Warten bis Wiedererscheinen
+        TileBase[,] savedTiles = new TileBase[range * 2 + 1, range * 2 + 1];
+
+        for (int x = -range; x <= range; x++)
+        {
+            for (int y = -range; y <= range; y++)
+            {
+                Vector3Int pos = new Vector3Int(center.x + x, center.y + y, center.z);
+                savedTiles[x + range, y + range] = tilemap.GetTile(pos);
+            }
+        }
+
+        for (int dist = 0; dist <= range; dist++)
+        {
+            for (int x = -range; x <= range; x++)
+            {
+                for (int y = -range; y <= range; y++)
+                {
+                    if (Mathf.Abs(x) + Mathf.Abs(y) == dist)
+                    {
+                        Vector3Int pos = new Vector3Int(center.x + x, center.y + y, center.z);
+                        if (tilemap.GetTile(pos) != null)
+                        {
+                            tilemap.SetTile(pos, null);
+                        }
+                    }
+                }
+            }
+            yield return new WaitForSeconds(delayBetweenTiles);
+        }
+
         yield return new WaitForSeconds(respawnDelay);
 
-        // Plattform wiederherstellen
-        if (spriteRenderer != null)
-            spriteRenderer.enabled = true;
-        if (platformCollider != null)
-            platformCollider.enabled = true;
-
-        isDisappearing = false;
+        for (int dist = 0; dist <= range; dist++)
+        {
+            for (int x = -range; x <= range; x++)
+            {
+                for (int y = -range; y <= range; y++)
+                {
+                    if (Mathf.Abs(x) + Mathf.Abs(y) == dist)
+                    {
+                        Vector3Int pos = new Vector3Int(center.x + x, center.y + y, center.z);
+                        TileBase tile = savedTiles[x + range, y + range];
+                        if (tile != null)
+                        {
+                            tilemap.SetTile(pos, tile);
+                        }
+                    }
+                }
+            }
+            yield return new WaitForSeconds(delayBetweenTiles);
+        }
     }
 }

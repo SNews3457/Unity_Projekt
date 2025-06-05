@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering.UI;
 
 public class PlayerMovement : MonoBehaviour 
 {
+    PlayerControlls controlls;
+
     public GameObject teleportProjectilePrefab;
     public Transform throwPoint;
     public TrajectoryRenderer trajectoryRenderer;
@@ -19,11 +24,11 @@ public class PlayerMovement : MonoBehaviour
 	public bool SkillTeleport = false;
 
 	public CharacterController2D controller;
-	
+    Attack attack;
 	public Animator animator;
 
 	public float runSpeed = 40f;
-
+    ModeSwitcher switcher;
 	float horizontalMove = 0f;
 	bool jump = false;
 	bool dash = false;
@@ -31,35 +36,74 @@ public class PlayerMovement : MonoBehaviour
 	public Attack playerAttack;
     //bool dashAxis = false;
 
-
+    public Menu menu;
     private bool isDragging = false;
     private Camera mainCam;
     public float maxDragDistance = 5f;
-
+    public UIManager uiManager;
     void Start()
     {
         mainCam = Camera.main;
         aimPosition = transform.position;
     }
 
+    private void Awake()
+    {
+        switcher = GetComponent<ModeSwitcher>();
+        attack = GetComponent<Attack>();
+        controlls = new PlayerControlls();
 
+        controlls.Gameplay.Map.performed += ctx => uiManager.OpenorClose();
+        controlls.Gameplay.SwitchRight.performed += ctx => uiManager.SwitchMenu(1);
+        controlls.Gameplay.SwitchLeft.performed += ctx => uiManager.SwitchMenu(-1);
+        controlls.Gameplay.Jump.performed += ctx => Jump(); //Dagobert Gamepad Steuerung ctx = lehre Funktion da die Werte nicht benötigt werden
+        controlls.Gameplay.Dash.performed += ctx => Dash();
+        controlls.Gameplay.Attack.performed += ctx => attack.attack();
+        controlls.Gameplay.Switch.performed += ctx => switcher.Switch();
+        controlls.Gameplay.Options.performed += ctx => menu.OpenClose();
+        controlls.Gameplay.Up.performed += ctx => menu.Up();
+        controlls.Gameplay.Down.performed += ctx => menu.Down();
+        controlls.Gameplay.Select.performed += ctx => menu.Select();
+        controlls.Gameplay.Back.performed += ctx => menu.back();
+    }
 
+    void Jump()
+    {
+        jump = true; //Dagobert die Inputs müssen aufgrund der Gamepad Steuerung über Funktionen laufen
+    }
 
-    // Update is called once per frame
+    void Dash()
+    {
+        if(SkillDash)
+            dash = true;
+    }
+
+    //Dagobert Enable und Dissable aus Unity, damit die Gamepadeingaben korrekt erkannt werden
+    void OnEnable()
+    {
+        controlls.Gameplay.Enable();
+    }
+
+    void OnDissable()
+    {
+        controlls.Gameplay.Disable();
+    }
+
     void Update()
 	{
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+        
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			jump = true;
+            Jump();
 		}
 
 		if (Input.GetKeyDown(KeyCode.LeftShift) && SkillDash)
 		{
-			dash = true;
+			Dash();
 		}
 
         if (Input.GetMouseButtonDown(1) && SkillTeleport && Time.time >= lastTeleportTime + teleportCooldown)
