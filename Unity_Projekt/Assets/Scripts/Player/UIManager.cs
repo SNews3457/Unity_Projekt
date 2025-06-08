@@ -98,9 +98,17 @@ public class UIManager : MonoBehaviour
 
     public void SwitchMenu(int direction)
     {
+        if (!isMenuOpen) return; 
+
         int currentIndex = menuOrder.IndexOf(currentMenu);
         currentIndex = (currentIndex + direction + menuOrder.Count) % menuOrder.Count;
-        currentMenu = menuOrder[currentIndex];
-        OpenMenu(currentMenu);
+        MenuType newMenu = menuOrder[currentIndex];
+
+        if (newMenu != currentMenu)
+        {
+            currentMenu = newMenu;
+            OpenMenu(currentMenu);
+        }
     }
+
 }
