@@ -16,6 +16,7 @@ public class Attack : MonoBehaviour
 	public GameObject cam;
 	public float AttackCooldownM;
 	ModeSwitcher switcher;
+	public float darkcooldown;
 	
 	private void Awake()
 	{
@@ -58,7 +59,17 @@ public class Attack : MonoBehaviour
 
 	IEnumerator AttackCooldown()
 	{
-		yield return new WaitForSeconds(AttackCooldownM);
+        switch (switcher.currentMode)
+        {
+            case ModeSwitcher.PlayerMode.Light:
+                yield return new WaitForSeconds(AttackCooldownM);
+				break;
+            case ModeSwitcher.PlayerMode.Dark:
+                yield return new WaitForSeconds(darkcooldown);
+                break;
+
+        }
+
 		canAttack = true;
 	}
 

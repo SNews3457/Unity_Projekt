@@ -68,6 +68,7 @@ public class LevelUpManager : MonoBehaviour
 
     public void CloseSkillTree()
     {
+        Time.timeScale = 1;
         SkillTree.SetActive(false);
         canOpenOptionMenu = true;
         Cursor.visible = false; //magi Cursor wird wieder unsichtbar
@@ -77,6 +78,7 @@ public class LevelUpManager : MonoBehaviour
     //op Skilltree wird ge�ffnet wenn die Anzeige angeklickt wird
     public void GoToSkillTree()
     {
+        Time.timeScale = 0;
         switch (switcher.currentMode)
         {
             case ModeSwitcher.PlayerMode.Light:
@@ -134,6 +136,27 @@ public class LevelUpManager : MonoBehaviour
             Destroy (button);
             SkillPoints--;
             attack.SkillShoot = true;
+        }
+        else
+        {
+            //op "Nein"-Wackeln
+            StartCoroutine(ShakeUI(image.rectTransform));
+        }
+    }
+
+    public void MoreAttackSpeed(Button button)
+    {
+        Image image = GameObject.Find("Cooldown").GetComponent<Image>();
+        if (SkillPoints > 0)
+        {
+            Color tempColor = image.color;
+            tempColor *= 0.7f; //op macht das Bild ca. 30% dunkler
+            tempColor.a = 0.7f;
+            image.color = tempColor;
+            StartCoroutine(PlayUnlockEffect(image));
+            Destroy(button);
+            SkillPoints--;
+            attack.AttackCooldownM -= 0.2f;
         }
         else
         {
