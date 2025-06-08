@@ -20,6 +20,9 @@ public class LevelUpManager : MonoBehaviour
     public CharacterController2D Character;
     Coroutine skillPointEffectRoutine;
     bool skillPointAvailable = false;
+    public GameObject Dark;
+    public GameObject bright;
+    public ModeSwitcher switcher;
     AchievementManager AchievementManager;
     public bool canOpenOptionMenu = true;
     void Update()
@@ -74,6 +77,18 @@ public class LevelUpManager : MonoBehaviour
     //op Skilltree wird ge�ffnet wenn die Anzeige angeklickt wird
     public void GoToSkillTree()
     {
+        switch (switcher.currentMode)
+        {
+            case ModeSwitcher.PlayerMode.Light:
+                Dark.SetActive(false);
+                bright.SetActive(true);
+                break;
+            case ModeSwitcher.PlayerMode.Dark:
+                Dark.SetActive(true);
+                bright.SetActive(false);
+                break;
+
+        }
         canOpenOptionMenu =false;
         Debug.Log("OpenSkillTree");
         SkillTree.SetActive(true);

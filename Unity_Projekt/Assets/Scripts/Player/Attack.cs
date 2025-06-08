@@ -15,8 +15,11 @@ public class Attack : MonoBehaviour
 	public bool fireEffect = false; //Dagobert Feuereffekt 
 	public GameObject cam;
 	public float AttackCooldownM;
+	ModeSwitcher switcher;
+	
 	private void Awake()
 	{
+		switcher = GetComponent<ModeSwitcher>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 	}
 
@@ -38,10 +41,18 @@ public class Attack : MonoBehaviour
 
 		if (Input.GetMouseButtonDown(1) && SkillShoot)
 		{
-			GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f), Quaternion.identity) as GameObject; 
-			Vector2 direction = new Vector2(transform.localScale.x, 0);
-			throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction; 
-			throwableWeapon.name = "ThrowableWeapon";
+            switch (switcher.currentMode)
+            {
+                case ModeSwitcher.PlayerMode.Light:
+					return;
+                case ModeSwitcher.PlayerMode.Dark:
+                    GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f, -0.2f), Quaternion.identity) as GameObject;
+                    Vector2 direction = new Vector2(transform.localScale.x, 0);
+                    throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
+                    throwableWeapon.name = "ThrowableWeapon";
+                    break;
+
+            }
 		}
 	}
 

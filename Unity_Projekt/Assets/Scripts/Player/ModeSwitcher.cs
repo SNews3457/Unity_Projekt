@@ -22,7 +22,7 @@ public class ModeSwitcher : MonoBehaviour
     [SerializeField] private float DarkDamage = 6;
     float AttackCooldownDark = 0.365f;
     public enum PlayerMode { Light, Dark }
-    private PlayerMode currentMode;
+    public PlayerMode currentMode;
 
     private void Start()
     {
