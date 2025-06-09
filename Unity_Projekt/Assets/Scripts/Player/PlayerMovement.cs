@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.UI;
 
-public class PlayerMovement : MonoBehaviour 
+public class PlayerMovement : MonoBehaviour
 {
     PlayerControlls controlls;
 
@@ -13,38 +13,41 @@ public class PlayerMovement : MonoBehaviour
     public Transform throwPoint;
     public TrajectoryRenderer trajectoryRenderer;
 
-    private bool isAiming = false;
-    private Vector2 aimPosition;
+    private bool isDragging = false;
+    private Vector2 aimInput;
     public float aimSensitivity = 5f;
     public float maxAimRadius = 5f;
-    float force = 10f; 
+    float force = 10f;
     private float teleportCooldown = 3f;
     private float lastTeleportTime = -Mathf.Infinity;
 
-	public bool SkillTeleport = false;
+    public bool SkillTeleport = false;
 
-	public CharacterController2D controller;
+    public CharacterController2D controller;
     Attack attack;
-	public Animator animator;
+    public Animator animator;
 
-	public float runSpeed = 40f;
+    public float runSpeed = 40f;
     ModeSwitcher switcher;
-	float horizontalMove = 0f;
-	bool jump = false;
-	bool dash = false;
-	public bool SkillDash = false; //Dagobert bool zum erlernen des Dashs 
-	public Attack playerAttack;
-    //bool dashAxis = false;
+    float horizontalMove = 0f;
+    bool jump = false;
+    bool dash = false;
+    public bool SkillDash = false;
+
+    public Attack playerAttack;
 
     public Menu menu;
-    private bool isDragging = false;
     private Camera mainCam;
     public float maxDragDistance = 5f;
     public UIManager uiManager;
+
     void Start()
     {
         mainCam = Camera.main;
-        aimPosition = transform.position;
+        aimInput = Vector2.zero;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Awake()
@@ -56,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         controlls.Gameplay.Map.performed += ctx => uiManager.OpenorClose();
         controlls.Gameplay.SwitchRight.performed += ctx => uiManager.SwitchMenu(1);
         controlls.Gameplay.SwitchLeft.performed += ctx => uiManager.SwitchMenu(-1);
-        controlls.Gameplay.Jump.performed += ctx => Jump(); //Dagobert Gamepad Steuerung ctx = lehre Funktion da die Werte nicht benötigt werden
+        controlls.Gameplay.Jump.performed += ctx => Jump();
         controlls.Gameplay.Dash.performed += ctx => Dash();
         controlls.Gameplay.Attack.performed += ctx => attack.attack();
         controlls.Gameplay.Switch.performed += ctx => switcher.Switch();
@@ -69,64 +72,59 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        jump = true; //Dagobert die Inputs müssen aufgrund der Gamepad Steuerung über Funktionen laufen
+        jump = true;
     }
 
     void Dash()
     {
-        if(SkillDash)
+        if (SkillDash)
             dash = true;
     }
 
-    //Dagobert Enable und Dissable aus Unity, damit die Gamepadeingaben korrekt erkannt werden
     void OnEnable()
     {
         controlls.Gameplay.Enable();
     }
 
-    void OnDissable()
+    void OnDisable()
     {
         controlls.Gameplay.Disable();
     }
 
     void Update()
-	{
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+    {
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-        
-
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             Jump();
-		}
+        }
 
-		if (Input.GetKeyDown(KeyCode.LeftShift) && SkillDash)
-		{
-			Dash();
-		}
+        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillDash)
+        {
+            Dash();
+        }
 
         if (Input.GetMouseButtonDown(1) && SkillTeleport && Time.time >= lastTeleportTime + teleportCooldown)
         {
             isDragging = true;
-            aimPosition = transform.position;
+            aimInput = Vector2.zero;
         }
 
         if (Input.GetMouseButton(1) && isDragging)
         {
-            Vector3 mouseWorld = mainCam.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorld.z = 0f;
+            // Relativer Mausinput (funktioniert auch bei gelocktem Cursor)
+            float mouseX = Input.GetAxis("Mouse X") * aimSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * aimSensitivity;
 
-            Vector2 center = throwPoint.position;
-            Vector2 dragVector = center - (Vector2)mouseWorld;
+            aimInput += new Vector2(mouseX, mouseY);
 
-            if (dragVector.magnitude > maxDragDistance)
-                dragVector = dragVector.normalized * maxDragDistance;
+            if (aimInput.magnitude > maxAimRadius)
+                aimInput = aimInput.normalized * maxAimRadius;
 
-            aimPosition = center - dragVector;
-
-            Vector2 direction = dragVector.normalized;
-            float power = dragVector.magnitude * 2f;
+            Vector2 direction = aimInput.normalized;
+            float power = aimInput.magnitude * 2f;
 
             trajectoryRenderer.ShowTrajectory(throwPoint.position, direction, power, teleportProjectilePrefab.GetComponent<Rigidbody2D>().gravityScale);
         }
@@ -136,10 +134,8 @@ public class PlayerMovement : MonoBehaviour
             isDragging = false;
             trajectoryRenderer.HideTrajectory();
 
-            Vector2 center = throwPoint.position;
-            Vector2 dragVector = center - (Vector2)aimPosition;
-            Vector2 direction = dragVector.normalized;
-            float power = dragVector.magnitude * 2f;
+            Vector2 direction = aimInput.normalized;
+            float power = aimInput.magnitude * 2f;
 
             GameObject proj = Instantiate(teleportProjectilePrefab, throwPoint.position, Quaternion.identity);
             Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
@@ -147,36 +143,34 @@ public class PlayerMovement : MonoBehaviour
 
             proj.GetComponent<TeleportProjectile>().SetPlayer(gameObject);
             lastTeleportTime = Time.time;
-        }
 
+            aimInput = Vector2.zero;
+        }
     }
 
     public void OnFall()
-	{
-		animator.SetBool("IsJumping", true);
-	}
+    {
+        animator.SetBool("IsJumping", true);
+    }
 
-	public void OnLanding()
-	{
-		animator.SetBool("IsJumping", false);
-	}
+    public void OnLanding()
+    {
+        animator.SetBool("IsJumping", false);
+    }
 
-	void FixedUpdate ()
-	{
-		// Move our character
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash);
-		jump = false;
-		dash = false;
-	}
+    void FixedUpdate()
+    {
+        controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash);
+        jump = false;
+        dash = false;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("LearnDash")) //Dagobert dashen erlernen wenn ber�hrt
-		{
-			SkillDash = true;
-			
-			Destroy(collision.gameObject);
-		}
-
+        if (collision.CompareTag("LearnDash"))
+        {
+            SkillDash = true;
+            Destroy(collision.gameObject);
+        }
     }
 }

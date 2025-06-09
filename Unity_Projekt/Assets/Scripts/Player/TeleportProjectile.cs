@@ -3,8 +3,7 @@ using UnityEngine;
 public class TeleportProjectile : MonoBehaviour
 {
     private GameObject player;
-
-    public LayerMask obstacleLayers; 
+    public LayerMask obstacleLayers;
 
     public void SetPlayer(GameObject p)
     {
@@ -30,22 +29,34 @@ public class TeleportProjectile : MonoBehaviour
 
     private Vector2 FindSafePosition(Vector2 origin)
     {
-        float checkRadius = 0.25f;
-        float heightStep = 0.2f;
-        int maxSteps = 20; 
+        float verticalOffset = 0.5f; 
 
-        for (int i = 0; i < maxSteps; i++)
+        if (player == null) return origin;
+
+        float playerY = player.transform.position.y;
+
+        if (origin.y > playerY)
         {
-            Vector2 checkPos = origin + Vector2.up * (i * heightStep);
-            Collider2D hit = Physics2D.OverlapCircle(checkPos, checkRadius, obstacleLayers);
-
-            if (hit == null)
-            {
-                return checkPos;
-            }
+            origin.y -= verticalOffset;
         }
 
-        Debug.LogWarning("Kein sicherer Ort gefunden");
-        return Vector2.zero;
+
+        if (origin.y < playerY)
+        {
+            origin.y += verticalOffset;
+        }
+        return origin;
     }
+
+
+
+
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, 0.2f);
+    }
+#endif
 }
