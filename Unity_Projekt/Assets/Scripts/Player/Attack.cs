@@ -73,7 +73,15 @@ public class Attack : MonoBehaviour
 		canAttack = true;
 	}
 
-	public void DoDashDamage()
+    IEnumerator HitStop()
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(0.14f);
+        Time.timeScale = 1;
+    }
+
+
+    public void DoDashDamage()
 	{
 		dmgValue = Mathf.Abs(dmgValue);
 		Collider2D[] collidersEnemies = Physics2D.OverlapCircleAll(attackCheck.position, 1.25f);
@@ -85,6 +93,7 @@ public class Attack : MonoBehaviour
 				{
 					dmgValue = -dmgValue;
 				}
+				StartCoroutine(HitStop());
 				collidersEnemies[i].gameObject.SendMessage("ApplyDamage", dmgValue);
 				cam.GetComponent<CameraFollow>().ShakeCamera();
 			}
